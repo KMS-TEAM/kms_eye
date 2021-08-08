@@ -1,7 +1,10 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-#include "hdr/QConfig.h"
 #include <string>
+
+#include "QConfig.h"
+#include "DirHelper.h"
+
 
 int main(int argc, char *argv[])
 {
@@ -11,8 +14,11 @@ int main(int argc, char *argv[])
 
     QGuiApplication app(argc, argv);
 
+    qmlRegisterType<DirHelper>("kms.team.dirhelper",1,0,"DirHelper");
+    qmlRegisterType<QConfig>("kms.team.qconfig",1,0,"QConfig");
+
     QQmlApplicationEngine engine;
-    const QUrl url(QStringLiteral("qrc:/main.qml"));
+    const QUrl url(QStringLiteral("qrc:/qml/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {
         if (!obj && url == objUrl)
@@ -20,10 +26,8 @@ int main(int argc, char *argv[])
     }, Qt::QueuedConnection);
     engine.load(url);
 
-    QConfig fsSetting;
-    fsSetting.setParameterFile("/home/lacie/Github/kms_eye/data/EurocStereoVIO.yaml");
-    std::string camera_fx("Camera.fx");
-    bool check = fsSetting.ParseCamParam();
+    //    QConfig fsSetting;
+    //    fsSetting.setParameterFile("/home/lacie/Github/kms_eye/data/EurocStereoVIO.yaml");
 
     return app.exec();
 }

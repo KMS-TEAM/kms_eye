@@ -3,7 +3,11 @@
 
 #include <QObject>
 #include <QDebug>
+#include <QCoreApplication>
+#include <QFile>
+
 #include <opencv2/core/core.hpp>
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -13,12 +17,20 @@
 class QConfig : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(QString imagePath READ ImagePath WRITE setImagePath NOTIFY imagePathChanged)
+    Q_PROPERTY(QString dataPath READ DataPath WRITE setDataPath NOTIFY dataPathChanged)
 public:
     explicit QConfig(QObject *parent = nullptr);
 
 public:
+    QString ImagePath();
+    void setImagePath(QString value);
+
+    QString DataPath();
+    void setDataPath(QString value);
+
     // Set a new config file
-    static void setParameterFile(const std::string &filename);
+    void setParameterFile(const std::string &filename);
 
     // Get a content by key
     template<typename T>
@@ -46,10 +58,12 @@ public:
 private:
     static std::shared_ptr<QConfig> config_;
     cv::FileStorage file_;
+    QString image_path;
+    QString data_path;
 
     /** @brief: Get content by key
-             * If key doesn't exist, throw runtime error;
-             */
+     * If key doesn't exist, throw runtime error;
+     */
     static cv::FileNode get_(const std::string &key);
 
 protected:
@@ -87,6 +101,8 @@ protected:
     std::vector<float> vCamCalib2;
 
 signals:
+    void imagePathChanged();
+    void dataPathChanged();
 
 };
 

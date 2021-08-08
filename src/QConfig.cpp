@@ -1,10 +1,34 @@
-#include "hdr/QConfig.h"
+#include "QConfig.h"
 
 std::shared_ptr<QConfig> QConfig::config_ = nullptr;
 
 QConfig::QConfig(QObject *parent) : QObject(parent)
 {
+     image_path = QCoreApplication::applicationDirPath();
+}
 
+QString QConfig::ImagePath()
+{
+    return  image_path;
+}
+
+void QConfig::setImagePath(QString value)
+{
+    image_path = value;
+    qDebug() << image_path;
+    emit imagePathChanged();
+}
+
+QString QConfig::DataPath()
+{
+    return data_path;
+}
+
+void QConfig::setDataPath(QString value)
+{
+    std::string str = value.toStdString();
+    setParameterFile(str);
+    emit dataPathChanged();
 }
 
 // Get a content of cv::FileNode. Convert to type T
@@ -35,6 +59,11 @@ void QConfig::setParameterFile(const std::string &filename) {
     }
 
     config_->file_ = *fs;
+
+
+    std::string sImagePath = config_->file_["LeftFolder"];
+    QString qstr = QString::fromStdString(sImagePath);
+    setImagePath(qstr);
 }
 
 QConfig::~QConfig() {
