@@ -1,11 +1,27 @@
 #include "hdr/QConfig.h"
 
+std::shared_ptr<QConfig> QConfig::config_ = nullptr;
+
 QConfig::QConfig(QObject *parent) : QObject(parent)
 {
 
 }
 
-std::shared_ptr<QConfig> QConfig::config_ = nullptr;
+// Get a content of cv::FileNode. Convert to type T
+template<typename T>
+T QConfig::get(const std::string &key) {
+    cv::FileNode content = QConfig::get_(key);
+    return static_cast<T>(content);
+}
+
+// Get a content of cv::FileNode. Convert to type vector<T>
+template<typename T>
+std::vector<T> QConfig::getVector(const std::string &key) {
+    cv::FileNode content = QConfig::get_(key);
+    std::vector<T> res;
+    content >> res;
+    return res;
+}
 
 void QConfig::setParameterFile(const std::string &filename) {
     if(config_ == nullptr){
@@ -702,7 +718,7 @@ bool QConfig::ParseIMUParam()
     }
 
     using namespace std;
-    const float sf = sqrt(freq);
+//    const float sf = sqrt(freq);
     cout << endl;
     cout << "IMU frequency: " << freq << " Hz" << endl;
     cout << "IMU gyro noise: " << Ng << " rad/s/sqrt(Hz)" << endl;

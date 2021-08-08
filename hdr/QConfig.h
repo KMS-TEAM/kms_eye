@@ -17,10 +17,10 @@ public:
     explicit QConfig(QObject *parent = nullptr);
 
 public:
-    /// Set a new config file
+    // Set a new config file
     static void setParameterFile(const std::string &filename);
 
-    /// Get a content by key
+    // Get a content by key
     template<typename T>
     static T get(const std::string &key);
 
@@ -29,9 +29,9 @@ public:
     static std::vector<T> getVector(const std::string &key);
 
     /** Get a content by key
-             * The content is of type string ("true", "false").
-             * It's then convertd to bool and returned.
-             */
+     * The content is of type string ("true", "false").
+     * It's then convertd to bool and returned.
+     */
     static bool getBool(const std::string &key);
 
     ~QConfig();
@@ -90,20 +90,5 @@ signals:
 
 };
 
-/// Get a content of cv::FileNode. Convert to type T
-template<typename T>
-T QConfig::get(const std::string &key) {
-    cv::FileNode content = QConfig::get_(key);
-    return static_cast<T>(content);
-}
-
-/// Get a content of cv::FileNode. Convert to type vector<T>
-template<typename T>
-std::vector<T> QConfig::getVector(const std::string &key) {
-    cv::FileNode content = QConfig::get_(key);
-    std::vector<T> res;
-    content >> res;
-    return res;
-}
 
 #endif // QCONFIG_H

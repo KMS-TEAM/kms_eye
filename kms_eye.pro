@@ -1,4 +1,4 @@
-QT += quick
+QT += quick core
 
 CONFIG += c++11
 
@@ -6,17 +6,18 @@ CONFIG += c++11
 # In order to do so, uncomment the following line.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
+CONFIG -= qt5
+
 SOURCES += \
         src/main.cpp \
         src/QConfig.cpp
 
-HEADERS += \
-    hdr/QConfig.h
+HEADERS += hdr/QConfig.h
 
-INCLUDEPATH += ${OpenCV_INCLUDE_DIRS} \
-                /usr/include
+#INCLUDEPATH +=  -I/usr/include \
+#                ${OpenCV_INCLUDE_DIRS}
 
-LIBS += -${OpenCV_LIBS}
+LIBS += -lopencv_highgui -lopencv_core -lopencv_imgproc -lopencv_videoio
 
 RESOURCES += share/qml.qrc
 
@@ -31,4 +32,5 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
+DISTFILES += data/EurocStereoVIO.yaml
 

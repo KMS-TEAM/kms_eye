@@ -25,8 +25,5 @@ int main(int argc, char *argv[])
     std::string camera_fx("Camera.fx");
     bool check = fsSetting.ParseCamParam();
 
-
     return app.exec();
-
-
 }
