@@ -1,6 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-
+#include "hdr/QConfig.h"
+#include <string>
 
 int main(int argc, char *argv[])
 {
@@ -19,5 +20,13 @@ int main(int argc, char *argv[])
     }, Qt::QueuedConnection);
     engine.load(url);
 
+    QConfig fsSetting;
+    fsSetting.setParameterFile("/home/lacie/Github/kms_eye/data/EurocStereoVIO.yaml");
+    std::string camera_fx("Camera.fx");
+    bool check = fsSetting.ParseCamParam();
+
+
     return app.exec();
+
+
 }

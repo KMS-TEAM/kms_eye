@@ -7,9 +7,18 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-        main.cpp
+        src/main.cpp \
+        src/QConfig.cpp
 
-RESOURCES += qml.qrc
+HEADERS += \
+    hdr/QConfig.h
+
+INCLUDEPATH += ${OpenCV_INCLUDE_DIRS} \
+                /usr/include
+
+LIBS += -${OpenCV_LIBS}
+
+RESOURCES += share/qml.qrc
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
@@ -21,3 +30,5 @@ QML_DESIGNER_IMPORT_PATH =
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+
