@@ -1,5 +1,6 @@
 %YAML:1.0
 
+Camera.type: PinHole
 # Dataset dirs
 LeftFolder: /home/lacie/Github/data/MH_01_easy/mav0/cam0/data
 RightFolder: /home/lacie/Github/data/MH_01_easy/mav0/cam1/data
