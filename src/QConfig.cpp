@@ -15,7 +15,7 @@ QString QConfig::ImagePath()
 void QConfig::setImagePath(QString value)
 {
     image_path = value;
-    qDebug() << image_path;
+    // qDebug() << image_path;
     emit imagePathChanged();
 }
 
@@ -26,6 +26,7 @@ QString QConfig::DataPath()
 
 void QConfig::setDataPath(QString value)
 {
+    value.remove("file://");
     std::string str = value.toStdString();
     setParameterFile(str);
     emit dataPathChanged();

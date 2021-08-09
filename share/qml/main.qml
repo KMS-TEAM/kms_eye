@@ -1,6 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Window 2.15
 import QtQuick.Controls 2.5
+import QtQuick.Dialogs 1.2
 
 import kms.team.dirhelper 1.0
 import kms.team.qconfig 1.0
@@ -16,7 +17,7 @@ Window {
     property int currentImage: 0
     property var files
     property var imageNumber
-    property string currentImagePath: ""
+    property string currentImagePath: "qrc:/images/images/logo.png"
 
     function imageLoad(){
         files = dirhelper.files
@@ -26,13 +27,14 @@ Window {
     }
 
     function imagePlay(){
-        if (state === "resume" || state === "running"){
-            while(currentImage < imageNumber){
-                console.log("Loading: ", files[i])
-                root.currentImagePath = "file://" + files[i]
-                currentImage++;
-            }
-        }
+        imageViewer.source = "file://" + files[currentImage]
+//        if (state === "resume" || state === "running"){
+//            while(currentImage < imageNumber){
+//                console.log("Loading: ", files[currentImage])
+//                imageViewer.source = "file://" + files[currentImage]
+//                currentImage++;
+//            }
+//        }
     }
 
     DirHelper {
@@ -44,7 +46,7 @@ Window {
         id: setpath
         x: 12
         y: 24
-        text: qsTr("Set path")
+        text: qsTr("Setting path")
     }
 
     TextField {
@@ -55,6 +57,20 @@ Window {
         anchors.left: setpath.right
         anchors.leftMargin: 10
         placeholderText: qsTr("Text Field")
+    }
+
+    FileDialog {
+        id: openDialog
+        title: "Please choose setting file"
+        folder: shortcuts.home
+        selectMultiple: false
+        selectExisting: true
+
+        onAccepted: {
+            qconfig.dataPath = openDialog.fileUrl
+            console.log(qconfig.dataPath)
+            // textField.displayText = qconfig.dataPath
+        }
     }
 
     Button {
@@ -68,17 +84,17 @@ Window {
     Button {
         id: pauseviewer
         y: 74
-        text: qsTr("Pause")
+        text: qsTr("Next")
         anchors.left: runviewer.right
-        anchors.leftMargin: 40
+        anchors.leftMargin: 49
     }
 
     Button {
         id: resumeviewer
         y: 74
-        text: qsTr("Resume")
+        text: qsTr("Previous")
         anchors.left: pauseviewer.right
-        anchors.leftMargin: 40
+        anchors.leftMargin: 49
     }
 
     Image {
@@ -97,37 +113,42 @@ Window {
         id: qconfig
         onImagePathChanged:{
             dirhelper.path = imagePath
+            console.log("Check")
             console.log(dirhelper.path)
         }
     }
 
     Connections {
         target: setpath
-        onClicked: qconfig.dataPath = textField.text
+        onClicked: openDialog.open()
     }
 
     Connections {
         target: runviewer
         onClicked:{
+            console.log("Start Viewer")
             root.currentImage = 0
             root.state = "running"
             imageLoad()
+            imagePlay()
         }
     }
 
     Connections{
         target: pauseviewer
         onClicked: {
-            root.state = "pause"
-            imageLoad()
+            root.state = "next"
+            root.currentImage++
+            imagePlay()
         }
     }
 
     Connections{
         target: resumeviewer
         onClicked: {
-            root.state = "resume"
-            imageLoad()
+            root.state = "previous"
+            root.currentImage--
+            imagePlay()
         }
     }
 
@@ -140,6 +161,6 @@ Window {
         anchors.topMargin: 120
 
         fillMode: Image.PreserveAspectFit
-        source: root.currentImagePath
+        source: "qrc:/images/images/logo.png"
     }
 }

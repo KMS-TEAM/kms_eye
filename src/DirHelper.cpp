@@ -22,7 +22,7 @@ QStringList DirHelper::files()
 
     foreach(QFileInfo info, list){
         filelist.append(info.filePath());
-        qDebug() << info.filePath();
+        // qDebug() << info.filePath();
     }
 
     return filelist;
