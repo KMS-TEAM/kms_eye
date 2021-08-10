@@ -14,6 +14,9 @@ int main(int argc, char *argv[])
 
     QGuiApplication app(argc, argv);
 
+    app.setOrganizationName("kms_team");
+    app.setOrganizationDomain("kms_team");
+
     qmlRegisterType<DirHelper>("kms.team.dirhelper",1,0,"DirHelper");
     qmlRegisterType<QConfig>("kms.team.qconfig",1,0,"QConfig");
 

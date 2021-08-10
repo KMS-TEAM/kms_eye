@@ -543,13 +543,13 @@ bool QConfig::ParseCamParam(bool is_stereo, bool is_imu_stereo)
 
     if(is_stereo || is_imu_stereo)
     {
-        float fx;
+        float _fx;
 
         // Camera calibration parameters
         cv::FileNode node = config_->file_["Camera.fx"];
         if(!node.empty() && node.isReal())
         {
-            fx = node.real();
+            _fx = node.real();
         }
         else
         {
@@ -561,7 +561,7 @@ bool QConfig::ParseCamParam(bool is_stereo, bool is_imu_stereo)
         if(!node.empty()  && node.isReal())
         {
             mThDepth = node.real();
-            mThDepth = mbf*mThDepth/fx;
+            mThDepth = mbf*mThDepth/_fx;
             cout << endl << "Depth Threshold (Close/Far Points): " << mThDepth << endl;
         }
         else
@@ -585,8 +585,8 @@ bool QConfig::ParseCamParam(bool is_stereo, bool is_imu_stereo)
 bool QConfig::ParseFeatureParam()
 {
     bool b_miss_params = false;
-    int nFeatures, nLevels, fIniThFAST, fMinThFAST;
-    float fScaleFactor;
+//    int nFeatures, nLevels, fIniThFAST, fMinThFAST;
+//    float fScaleFactor;
 
     cv::FileNode node = file_["ORBextractor.nFeatures"];
     if(!node.empty() && node.isInt())
