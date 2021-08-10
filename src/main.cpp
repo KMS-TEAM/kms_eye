@@ -1,10 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <string>
-
-#include "QConfig.h"
-#include "DirHelper.h"
-
+#include "AppEngine.h"
 
 int main(int argc, char *argv[])
 {
@@ -17,20 +14,9 @@ int main(int argc, char *argv[])
     app.setOrganizationName("kms_team");
     app.setOrganizationDomain("kms_team");
 
-    qmlRegisterType<DirHelper>("kms.team.dirhelper",1,0,"DirHelper");
-    qmlRegisterType<QConfig>("kms.team.qconfig",1,0,"QConfig");
-
-    QQmlApplicationEngine engine;
-    const QUrl url(QStringLiteral("qrc:/qml/main.qml"));
-    QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
-                     &app, [url](QObject *obj, const QUrl &objUrl) {
-        if (!obj && url == objUrl)
-            QCoreApplication::exit(-1);
-    }, Qt::QueuedConnection);
-    engine.load(url);
-
-    //    QConfig fsSetting;
-    //    fsSetting.setParameterFile("/home/lacie/Github/kms_eye/data/EurocStereoVIO.yaml");
+    AppEngine appEngine;
+    appEngine.prepareApplication();
+    appEngine.runApplication();
 
     return app.exec();
 }
