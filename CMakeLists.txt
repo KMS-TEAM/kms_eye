@@ -46,7 +46,7 @@ file(GLOB HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/hdr/Model/*.h
 file(GLOB SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/Model/*.cpp
                       ${CMAKE_CURRENT_SOURCE_DIR}/src/Model/sgm/*.cu
                       ${CMAKE_CURRENT_SOURCE_DIR}/src/Plugin/*.cpp
-                      ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp)
+                      ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
 
 source_group("Header Files" FILES ${HEADERS})
 source_group("Source Files" FILES ${SOURCES}) 
