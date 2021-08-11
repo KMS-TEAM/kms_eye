@@ -23,10 +23,15 @@ AppModel *AppModel::getInstance(){
 void AppModel::qmlEventHandler(int event){
     switch (event) {
     case static_cast<int>(AppEnums::UserSettingPath):
+
     case static_cast<int>(AppEnums::UserClickDisparityMap):
+
     case static_cast<int>(AppEnums::UserClickNextImage):
+
     case static_cast<int>(AppEnums::UserClickPreviousImage):
+
     case static_cast<int>(AppEnums::UserClickReset):
+
     default:
         break;
     }

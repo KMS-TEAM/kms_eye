@@ -4,6 +4,8 @@
 #include <QObject>
 #include <QString>
 #include <QMutex>
+
+#include "Common.h"
 #include "AppEnums.h"
 
 #define MODEL AppModel::getInstance()
@@ -11,11 +13,16 @@
 class AppModel : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(QString settingPath READ settingPath WRITE setSettingPath NOTIFY settingPathChanged)
+    Q_PROPERTY(cv::Mat disparityMap READ disparityMap WRITE setdisparityMap NOTIFY disparityMapChanged)
+    Q_PROPERTY(int imagePath READ imagePath WRITE setimagePath NOTIFY imagePathChanged)
+    Q_PROPERTY(int reset READ reset WRITE setResetState NOTIFY resetStateChanged)
 
 public:
     static AppModel *getInstance();
 
     Q_INVOKABLE void qmlEventHandler(int event);
+
 public slots:
 
 signals:
