@@ -1,38 +1,78 @@
 #include "AppEngine.h"
-#include "Constants_Def.h"
+#include "AppConstant.h"
 #include "Screen_Def.h"
 #include "AppEnums.h"
 #include "QConfig.h"
 #include "DirHelper.h"
 #include "AppModel.h"
+#include "QMLHandler.h"
 
 ScreenDef* ScreenDef::m_instance = nullptr;
 QMutex ScreenDef::m_lock;
-Constants_Def* Constants_Def::m_instance = nullptr;
-QMutex Constants_Def::m_lock;
+AppConstant* AppConstant::m_instance = nullptr;
+QMutex AppConstant::m_lock;
 
-AppEngine::AppEngine(QObject *parent) : QObject{ parent }
+AppEngine::AppEngine()
 {
-    m_context = m_engine.rootContext();
+    m_rootContext = this->rootContext();
 }
 
 AppEngine::~AppEngine(){
 
 }
 
-void AppEngine::prepareApplication(){
+void AppEngine::initEngine(){
 
     // register class
     qmlRegisterType<DirHelper>("kms.team.dirhelper",1,0,"DirHelper");
     qmlRegisterType<QConfig>("kms.team.qconfig",1,0,"QConfig");
     qmlRegisterUncreatableType<AppEnums>("QmlCustomItem", 1, 0, "ENUMS", "Uncreatable");
+    qmlRegisterUncreatableType<AppEnums>("AppEnums", 1, 0, "Enums", "Cannot create object from enums!");
+
+    // connect signal slots
+    connect(QML_HANDLER, &QMLHandler::notifyQMLEvent, this, &AppEngine::slotReceiveEvent);
 
     // set context properties
-    m_context->setContextProperty("CONST", DEFS);
-    m_context->setContextProperty("SCREEN", SCR_DEF);
-    m_context->setContextProperty("AppModel", MODEL);
+    m_rootContext->setContextProperty("CONST", DEFS);
+    m_rootContext->setContextProperty("SCREEN", SCR_DEF);
+    m_rootContext->setContextProperty("AppModel", MODEL);
 }
 
-void AppEngine::runApplication(){
-    m_engine.load(SCR_DEF->QML_APP());
+void AppEngine::startEngine(){
+    this->load(SCR_DEF->QML_APP());
+}
+
+void AppEngine::slotReceiveEvent(int event)
+{
+    CONSOLE << "Received event " << event;
+    switch (event) {
+    case static_cast<int>(AppEnums::EVT_NONE):
+        CONSOLE << "Invalid event";
+        // do sth here, maybe call a function to process images
+        // then use MODEL->setCurrentPath to re-set path
+        break;
+    case static_cast<int>(AppEnums::EVT_CLICK_SETTING_PATH):
+//        MODEL->setCurrentImagePath("AAA/AAA/AAA");
+        // do sth here, maybe call a function to process images
+        // then use MODEL->setCurrentPath to re-set path
+        break;
+    case static_cast<int>(AppEnums::EVT_CLICK_DISPARITY_MAP):
+//        MODEL->setCurrentImagePath("BBB/BBB/BBB");
+        // do sth here, maybe call a function to process images
+        // then use MODEL->setCurrentPath to re-set path
+        break;
+    case static_cast<int>(AppEnums::EVT_CLICK_NEXT_IMAGE):
+//        MODEL->setCurrentImagePath("CCC/CCC/CCC");
+        // do sth here, maybe call a function to process images
+        // then use MODEL->setCurrentPath to re-set path
+        break;
+    case static_cast<int>(AppEnums::EVT_CLICK_PREVIOUS_IMAGE):
+//        MODEL->setState(AppEnums::STATE_RESET);
+        break;
+    case static_cast<int>(AppEnums::EVT_CLICK_RESET):
+        break;
+    default:
+        break;
+    }
+    // bla bla bla
 }

@@ -7,18 +7,19 @@
 #include "AppEnums.h"
 #include "AppModel.h"
 
-class AppEngine : public QObject
+class AppEngine : public QQmlApplicationEngine
 {
     Q_OBJECT
-    QQmlContext* m_context;
-    QQmlApplicationEngine m_engine;
+    QQmlContext* m_rootContext;
+
 public:
-    explicit AppEngine(QObject *parent = nullptr);
+    explicit AppEngine();
     ~AppEngine();
 
-    void prepareApplication();
-    void runApplication();
-
+    void initEngine();
+    void startEngine();
+public slots:
+    void slotReceiveEvent(int event);
 signals:
 
 };

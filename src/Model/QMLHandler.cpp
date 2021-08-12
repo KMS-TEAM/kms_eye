@@ -1,7 +1,9 @@
 #include "QMLHandler.h"
 #include "AppConstant.h"
+#include <QDebug>
 
 QMLHandler *QMLHandler::self = nullptr;
+
 QMLHandler *QMLHandler::instance()
 {
     if (nullptr == self)
@@ -26,4 +28,3 @@ QMLHandler::QMLHandler()
 {
     CONSOLE << "Init instance";
 }
-

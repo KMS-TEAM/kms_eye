@@ -15,8 +15,8 @@ int main(int argc, char *argv[])
     app.setOrganizationDomain("kms_team");
 
     AppEngine appEngine;
-    appEngine.prepareApplication();
-    appEngine.runApplication();
+    appEngine.initEngine();
+    appEngine.startEngine();
 
     return app.exec();
 }

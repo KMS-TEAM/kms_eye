@@ -1,17 +1,17 @@
 #include "AppModel.h"
-#include "Screen_Def.h"
+#include "AppConstant.h"
 #include <QDebug>
 
 AppModel* AppModel::m_instance = nullptr;
 QMutex AppModel::m_lock;
 
 AppModel::AppModel(QObject *parent) :
-    QObject(parent)
+    QObject(parent), m_currentImagePath("qrc:/images/images/logo.png")
 {
-
+    CONSOLE << "Init instance";
 }
 
-AppModel *AppModel::getInstance(){
+AppModel *AppModel::instance(){
     m_lock.lock();
     if (nullptr == m_instance){
         m_instance = new AppModel();
@@ -20,19 +20,27 @@ AppModel *AppModel::getInstance(){
     return m_instance;
 }
 
-void AppModel::qmlEventHandler(int event){
-    switch (event) {
-    case static_cast<int>(AppEnums::UserSettingPath):
+//QString AppModel::currentPath() const
+//{
+//    return m_currentPath;
+//}
 
-    case static_cast<int>(AppEnums::UserClickDisparityMap):
+//void AppModel::setListImages()
+//{
+//    // do somthing here to set list images
+//}
 
-    case static_cast<int>(AppEnums::UserClickNextImage):
+//QStringList AppModel::getListImages() const
+//{
+//    // do something here
+//    return m_listImages;
+//}
 
-    case static_cast<int>(AppEnums::UserClickPreviousImage):
-
-    case static_cast<int>(AppEnums::UserClickReset):
-
-    default:
-        break;
-    }
-}
+//void AppModel::setCurrentPath(QString currentPath)
+//{
+//    CONSOLE << currentPath;
+//    if (m_currentPath == currentPath)
+//        return;
+//    m_currentPath = currentPath;
+//    emit currentPathChanged();
+//}
