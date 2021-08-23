@@ -3,7 +3,6 @@
 #include "Screen_Def.h"
 #include "AppEnums.h"
 #include "QConfig.h"
-#include "DirHelper.h"
 #include "AppModel.h"
 #include "QMLHandler.h"
 
@@ -24,7 +23,6 @@ AppEngine::~AppEngine(){
 void AppEngine::initEngine(){
 
     // register class
-    qmlRegisterType<DirHelper>("kms.team.dirhelper",1,0,"DirHelper");
     qmlRegisterType<QConfig>("kms.team.qconfig",1,0,"QConfig");
     qmlRegisterUncreatableType<AppEnums>("QmlCustomItem", 1, 0, "ENUMS", "Uncreatable");
     qmlRegisterUncreatableType<AppEnums>("AppEnums", 1, 0, "Enums", "Cannot create object from enums!");

@@ -3,7 +3,6 @@ import QtQuick.Window 2.15
 import QtQuick.Controls 2.5
 import QtQuick.Dialogs 1.2
 
-import kms.team.dirhelper 1.0
 import kms.team.qconfig 1.0
 
 import AppEnums 1.0
