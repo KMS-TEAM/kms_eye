@@ -4,15 +4,15 @@ std::shared_ptr<QConfig> QConfig::config_ = nullptr;
 
 QConfig::QConfig(QObject *parent) : QObject(parent)
 {
-     image_path = QCoreApplication::applicationDirPath();
+
 }
 
-QString QConfig::ImagePath()
+QVector<QString> QConfig::ImagePath()
 {
     return  image_path;
 }
 
-void QConfig::setImagePath(QString value)
+void QConfig::setImagePath(QVector<QString> value)
 {
     image_path = value;
     // qDebug() << image_path;
@@ -62,8 +62,11 @@ void QConfig::setParameterFile(const std::string &filename) {
     config_->file_ = *fs;
 
 
-    std::string sImagePath = config_->file_["LeftFolder"];
-    QString qstr = QString::fromStdString(sImagePath);
+    std::string sLeftImagePath = config_->file_["LeftFolder"];
+    std::string sRightImagePath = config_->file_["RightFolder"];
+    QVector<QString> qstr;
+    qstr.append(QString::fromStdString(sLeftImagePath));
+    qstr.append(QString::fromStdString(sRightImagePath));
     setImagePath(qstr);
 }
 

@@ -6,6 +6,7 @@
 #include <QCoreApplication>
 #include <QFile>
 #include <QDir>
+#include <QVector>
 
 #include <opencv2/core/core.hpp>
 
@@ -18,14 +19,14 @@
 class QConfig : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QString imagePath READ ImagePath WRITE setImagePath NOTIFY imagePathChanged)
+    Q_PROPERTY(QVector<QString> imagePath READ ImagePath WRITE setImagePath NOTIFY imagePathChanged)
     Q_PROPERTY(QString dataPath READ DataPath WRITE setDataPath NOTIFY dataPathChanged)
 public:
     explicit QConfig(QObject *parent = nullptr);
 
 public:
-    QString ImagePath();
-    void setImagePath(QString value);
+    QVector<QString> ImagePath();
+    void setImagePath(QVector<QString> value);
 
     QString DataPath();
     void setDataPath(QString value);
@@ -59,7 +60,7 @@ public:
 private:
     static std::shared_ptr<QConfig> config_;
     cv::FileStorage file_;
-    QString image_path;
+    QVector<QString> image_path;
     QString data_path;
     QDir dir;
 

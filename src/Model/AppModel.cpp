@@ -39,6 +39,35 @@ AppEnums::APP_STATE AppModel::state() const
 
 void AppModel::setListImage()
 {
+    QVector<QString> imagePath = m_config->ImagePath();
+
+    qDebug() << imagePath[0];
+    qDebug() << imagePath[1];
+
+    QDir dir;
+
+    // Left path
+    dir.setPath(imagePath[0]);
+    QFileInfoList listLeft = dir.entryInfoList(QDir::AllEntries | QDir::NoDotAndDotDot | QDir::Files);
+    QStringList filelistLeft;
+
+    foreach(QFileInfo info, listLeft){
+        filelistLeft.append(info.filePath());
+        // qDebug() << info.filePath();
+    }
+
+    // Right path
+    dir.setPath(imagePath[1]);
+    QFileInfoList listRight = dir.entryInfoList(QDir::AllEntries | QDir::NoDotAndDotDot | QDir::Files);
+    QStringList filelistRight;
+
+    foreach(QFileInfo info, listRight){
+        filelistRight.append(info.filePath());
+        // qDebug() << info.filePath();
+    }
+
+    m_listImage.append(filelistLeft);
+    m_listImage.append(filelistRight);
 
 }
 
@@ -55,7 +84,8 @@ void AppModel::setCurrentImagePath(QStringList currentImagePath)
 void AppModel::setSettingPath(QString settingPath)
 {
     m_settingPath = settingPath;
-    m_config->setParameterFile(m_settingPath.toStdString());
+    m_config->setDataPath(m_settingPath);
+    setListImage();
 }
 
 void AppModel::setState(AppEnums::APP_STATE state)
