@@ -1,9 +1,11 @@
 #include "AppModel.h"
 #include "AppConstant.h"
 #include <QDebug>
+#include <QString>
 
 AppModel* AppModel::m_instance = nullptr;
 QMutex AppModel::m_lock;
+QConfig* AppModel::m_config = new QConfig(nullptr);
 
 AppModel::AppModel(QObject *parent) :
     QObject(parent), m_currentImagePath("qrc:/images/images/logo.png")
@@ -27,7 +29,7 @@ QStringList AppModel::currentImagePath() const
 
 QString AppModel::settingPath() const
 {
-
+    return m_settingPath;
 }
 
 AppEnums::APP_STATE AppModel::state() const
@@ -52,7 +54,8 @@ void AppModel::setCurrentImagePath(QStringList currentImagePath)
 
 void AppModel::setSettingPath(QString settingPath)
 {
-
+    m_settingPath = settingPath;
+    m_config->setParameterFile(m_settingPath.toStdString());
 }
 
 void AppModel::setState(AppEnums::APP_STATE state)

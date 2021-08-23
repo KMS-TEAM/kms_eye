@@ -5,6 +5,7 @@
 #include <QDebug>
 #include <QCoreApplication>
 #include <QFile>
+#include <QDir>
 
 #include <opencv2/core/core.hpp>
 
@@ -60,6 +61,7 @@ private:
     cv::FileStorage file_;
     QString image_path;
     QString data_path;
+    QDir dir;
 
     /** @brief: Get content by key
      * If key doesn't exist, throw runtime error;

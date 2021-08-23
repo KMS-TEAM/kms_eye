@@ -37,9 +37,10 @@ Item {
         selectExisting: true
 
         onAccepted: {
-            // qconfig.dataPath = openDialog.fileUrl
+            QmlHandler.qmlMessage("Loading Setting File")
             console.log(openDialog.fileUrl)
-            // textField.displayText = qconfig.dataPath
+            QmlModel.setSettingPath(openDialog.fileUrl)
+            QmlHandler.qmlSendEvent(Enums.EVT_CLICK_SETTING_PATH)
         }
      }
 
