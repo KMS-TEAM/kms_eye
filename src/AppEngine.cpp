@@ -33,9 +33,10 @@ void AppEngine::initEngine(){
     connect(QML_HANDLER, &QMLHandler::notifyQMLEvent, this, &AppEngine::slotReceiveEvent);
 
     // set context properties
-    m_rootContext->setContextProperty("CONST", DEFS);
-    m_rootContext->setContextProperty("SCREEN", SCR_DEF);
-    m_rootContext->setContextProperty("AppModel", MODEL);
+    m_rootContext->setContextProperty("QmlConst", DEFS);
+    m_rootContext->setContextProperty("QmlHandler", QML_HANDLER);
+    m_rootContext->setContextProperty("QmlScreen", SCR_DEF);
+    m_rootContext->setContextProperty("QmlModel", MODEL);
 }
 
 void AppEngine::startEngine(){

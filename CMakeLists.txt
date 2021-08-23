@@ -1,8 +1,6 @@
 # KMS TEAM
 cmake_minimum_required(VERSION 3.14)
 
-project(kms_eye)
-
 include(CheckLanguage)
 check_language(CUDA)
 if (CMAKE_CUDA_COMPILER)
@@ -45,6 +43,7 @@ file(GLOB HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/hdr/Model/*.h
 
 file(GLOB SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/Model/*.cpp
                       ${CMAKE_CURRENT_SOURCE_DIR}/src/Model/sgm/*.cu
+                      ${CMAKE_CURRENT_SOURCE_DIR}/src/Model/sgm/*.cpp
                       ${CMAKE_CURRENT_SOURCE_DIR}/src/Plugin/*.cpp
                       ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
 

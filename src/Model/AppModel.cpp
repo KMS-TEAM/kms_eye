@@ -20,6 +20,48 @@ AppModel *AppModel::instance(){
     return m_instance;
 }
 
+QStringList AppModel::currentImagePath() const
+{
+
+}
+
+QString AppModel::settingPath() const
+{
+
+}
+
+AppEnums::APP_STATE AppModel::state() const
+{
+
+}
+
+void AppModel::setListImage()
+{
+
+}
+
+QVector<QStringList> AppModel::getListImages() const
+{
+
+}
+
+void AppModel::setCurrentImagePath(QStringList currentImagePath)
+{
+
+}
+
+void AppModel::setSettingPath(QString settingPath)
+{
+
+}
+
+void AppModel::setState(AppEnums::APP_STATE state)
+{
+
+}
+
+
+
 //QString AppModel::currentPath() const
 //{
 //    return m_currentPath;

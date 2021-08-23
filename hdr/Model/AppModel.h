@@ -18,13 +18,13 @@ class AppModel : public QObject
     Q_PROPERTY(QString settingPath READ settingPath WRITE setSettingPath NOTIFY settingPathChanged)
 //    Q_PROPERTY(cv::Mat disparityMap READ disparityMap WRITE setdisparityMap NOTIFY disparityMapChanged)
     Q_PROPERTY(QStringList currentImagePath READ currentImagePath WRITE setCurrentImagePath NOTIFY currentImagePathChanged)
-    Q_PROPERTY(int state READ state WRITE setState NOTIFY stateChanged)
+    Q_PROPERTY(AppEnums::APP_STATE state READ state WRITE setState NOTIFY stateChanged)
 
 public:
     static AppModel *instance();
     QStringList currentImagePath() const;
     QString settingPath() const;
-    int state() const;
+    AppEnums::APP_STATE state() const;
 
     void setListImage();
     QVector<QStringList> getListImages() const;
