@@ -5,11 +5,21 @@ import QtQuick.Controls 2.5
 Item{
     id: imageViewer
 
+    property string leftImage: "qrc:/images/images/logo.png"
+    property string rightImage: "qrc:/images/images/logo.png"
+    property string leftDepth: "qrc:/images/images/logo.png"
+    property string rightDepth: "qrc:/images/images/logo.png"
+
+    function pathpreprocess(path){
+        console.log(path)
+        return qsTr("file:///" + path)
+    }
+
     Rectangle{
         id: bg
         anchors.fill: parent
         color: "grey"
-        opacity: 0.5
+        // opacity: 0.5
 
         Rectangle{
             id: imageRaw
@@ -32,7 +42,7 @@ Item{
                     height: imageRaw.height /2
                     anchors.left: parent.left
                     anchors.top: parent.top
-                    source: "qrc:/images/images/logo.png"
+                    source: pathpreprocess(imageViewer.leftImage)
                     anchors.topMargin: 0
                     anchors.leftMargin: 0
                     fillMode: Image.PreserveAspectFit
@@ -44,7 +54,7 @@ Item{
                     height: imageRaw.height /2
                     anchors.right: parent.right
                     anchors.top: parent.top
-                    source: "qrc:/images/images/logo.png"
+                    source: imageViewer.leftDepth
                     anchors.topMargin: 0
                     anchors.rightMargin: 0
                     fillMode: Image.PreserveAspectFit
@@ -56,7 +66,7 @@ Item{
                     height: imageRaw.height /2
                     anchors.left: parent.left
                     anchors.bottom: parent.bottom
-                    source: "qrc:/images/images/logo.png"
+                    source: pathpreprocess(imageViewer.rightImage)
                     anchors.leftMargin: 0
                     anchors.bottomMargin: 0
                     fillMode: Image.PreserveAspectFit
@@ -68,7 +78,7 @@ Item{
                     height: imageRaw.height /2
                     anchors.right: parent.right
                     anchors.bottom: parent.bottom
-                    source: "qrc:/images/images/logo.png"
+                    source: imageViewer.rightDepth
                     anchors.bottomMargin: 0
                     anchors.rightMargin: 0
                     fillMode: Image.PreserveAspectFit

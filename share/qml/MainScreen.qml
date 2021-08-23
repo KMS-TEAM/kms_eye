@@ -17,6 +17,9 @@ Item {
         // height: 340
         anchors.fill: parent
         anchors.bottomMargin: 140
+        leftImage: QmlModel.currentImagePath[0]
+        rightImage: QmlModel.currentImagePath[1]
+
     }
 
     Button {
@@ -52,6 +55,11 @@ Item {
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 30
         anchors.topMargin: 10
+
+        onClicked: {
+            QmlHandler.qmlMessage("Run")
+            // QmlHandler.qmlSendEvent(Enums.EVT)
+        }
      }
 
 //     Button {
@@ -72,6 +80,11 @@ Item {
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 30
         anchors.leftMargin: 30
+
+        onClicked: {
+            QmlHandler.qmlMessage("Next")
+            QmlHandler.qmlSendEvent(Enums.EVT_CLICK_NEXT_IMAGE)
+        }
      }
 
      Button {
@@ -82,6 +95,11 @@ Item {
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 30
         anchors.leftMargin: 30
+
+        onClicked: {
+            QmlHandler.qmlMessage("Back")
+            QmlHandler.qmlSendEvent(Enums.EVT_CLICK_PREVIOUS_IMAGE)
+        }
      }
 
      Connections{

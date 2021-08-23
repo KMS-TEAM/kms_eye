@@ -22,9 +22,14 @@ AppModel *AppModel::instance(){
     return m_instance;
 }
 
+int AppModel::currentImageNumber() const
+{
+    return m_currentImageNumber;
+}
+
 QStringList AppModel::currentImagePath() const
 {
-
+    return m_currentImagePath;
 }
 
 QString AppModel::settingPath() const
@@ -34,7 +39,7 @@ QString AppModel::settingPath() const
 
 AppEnums::APP_STATE AppModel::state() const
 {
-
+    return m_state;
 }
 
 void AppModel::setListImage()
@@ -69,16 +74,31 @@ void AppModel::setListImage()
     m_listImage.append(filelistLeft);
     m_listImage.append(filelistRight);
 
+    m_currentImageNumber = 0;
+
+    setCurrentImageNumber(m_currentImageNumber);
+
 }
 
 QVector<QStringList> AppModel::getListImages() const
 {
-
+    return m_listImage;
 }
 
 void AppModel::setCurrentImagePath(QStringList currentImagePath)
 {
+    m_currentImagePath = currentImagePath;
+    emit currentImagePathChanged();
+}
 
+void AppModel::setCurrentImageNumber(int currentImageNumber)
+{
+    QStringList currentImagePath;
+    currentImagePath << m_listImage.at(0)[currentImageNumber] << m_listImage.at(1)[currentImageNumber] ;
+    CONSOLE << currentImagePath;
+    setCurrentImagePath(currentImagePath);
+
+    // emit currentImageNumberChanged();
 }
 
 void AppModel::setSettingPath(QString settingPath)
@@ -90,32 +110,9 @@ void AppModel::setSettingPath(QString settingPath)
 
 void AppModel::setState(AppEnums::APP_STATE state)
 {
+    m_state = state;
 
+    emit stateChanged();
 }
 
 
-
-//QString AppModel::currentPath() const
-//{
-//    return m_currentPath;
-//}
-
-//void AppModel::setListImages()
-//{
-//    // do somthing here to set list images
-//}
-
-//QStringList AppModel::getListImages() const
-//{
-//    // do something here
-//    return m_listImages;
-//}
-
-//void AppModel::setCurrentPath(QString currentPath)
-//{
-//    CONSOLE << currentPath;
-//    if (m_currentPath == currentPath)
-//        return;
-//    m_currentPath = currentPath;
-//    emit currentPathChanged();
-//}

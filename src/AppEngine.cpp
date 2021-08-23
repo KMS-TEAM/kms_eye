@@ -54,22 +54,21 @@ void AppEngine::slotReceiveEvent(int event)
         break;
     case static_cast<int>(AppEnums::EVT_CLICK_SETTING_PATH):
         CONSOLE << MODEL->settingPath();
-
         break;
     case static_cast<int>(AppEnums::EVT_CLICK_DISPARITY_MAP):
-//        MODEL->setCurrentImagePath("BBB/BBB/BBB");
-        // do sth here, maybe call a function to process images
-        // then use MODEL->setCurrentPath to re-set path
         break;
     case static_cast<int>(AppEnums::EVT_CLICK_NEXT_IMAGE):
-//        MODEL->setCurrentImagePath("CCC/CCC/CCC");
-        // do sth here, maybe call a function to process images
-        // then use MODEL->setCurrentPath to re-set path
+        MODEL->m_currentImageNumber = MODEL->m_currentImageNumber + 1;
+        MODEL->setCurrentImageNumber(MODEL->m_currentImageNumber);
         break;
     case static_cast<int>(AppEnums::EVT_CLICK_PREVIOUS_IMAGE):
-//        MODEL->setState(AppEnums::STATE_RESET);
+        MODEL->m_currentImageNumber = MODEL->m_currentImageNumber - 1;
+        if(MODEL->m_currentImageNumber <= 0) MODEL->m_currentImageNumber = 0;
+        MODEL->setCurrentImageNumber(MODEL->m_currentImageNumber);
         break;
     case static_cast<int>(AppEnums::EVT_CLICK_RESET):
+        MODEL->m_currentImageNumber = 0;
+        MODEL->setCurrentImageNumber(MODEL->m_currentImageNumber);
         break;
     default:
         break;
