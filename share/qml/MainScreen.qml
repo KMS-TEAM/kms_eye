@@ -19,6 +19,7 @@ Item {
         anchors.bottomMargin: 140
         leftImage: QmlModel.currentImagePath[0]
         rightImage: QmlModel.currentImagePath[1]
+        leftDepth: QmlModel.disparityMap
 
     }
 

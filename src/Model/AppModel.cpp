@@ -42,6 +42,11 @@ AppEnums::APP_STATE AppModel::state() const
     return m_state;
 }
 
+QString AppModel::disparityMap() const
+{
+    return m_disparityMap;
+}
+
 void AppModel::setListImage()
 {
     QVector<QString> imagePath = m_config->ImagePath();
@@ -113,6 +118,13 @@ void AppModel::setState(AppEnums::APP_STATE state)
     m_state = state;
 
     emit stateChanged();
+}
+
+void AppModel::setdisparityMap(QString disparityMap)
+{
+    m_disparityMap = disparityMap;
+
+    emit disparityMapChanged();
 }
 
 

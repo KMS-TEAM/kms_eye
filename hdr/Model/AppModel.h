@@ -17,7 +17,7 @@ class AppModel : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString settingPath READ settingPath WRITE setSettingPath NOTIFY settingPathChanged)
-//    Q_PROPERTY(cv::Mat disparityMap READ disparityMap WRITE setdisparityMap NOTIFY disparityMapChanged)
+    Q_PROPERTY(QString disparityMap READ disparityMap WRITE setdisparityMap NOTIFY disparityMapChanged)
     Q_PROPERTY(int currentImageNumber READ currentImageNumber WRITE setCurrentImageNumber NOTIFY currentImageNumberChanged)
     Q_PROPERTY(QStringList currentImagePath READ currentImagePath WRITE setCurrentImagePath NOTIFY currentImagePathChanged)
     Q_PROPERTY(AppEnums::APP_STATE state READ state WRITE setState NOTIFY stateChanged)
@@ -31,6 +31,7 @@ public:
     QStringList currentImagePath() const;
     QString settingPath() const;
     AppEnums::APP_STATE state() const;
+    QString disparityMap() const;
 
     void setListImage();
     QVector<QStringList> getListImages() const;
@@ -40,12 +41,14 @@ public slots:
     void setCurrentImageNumber(int currentImageNumber);
     void setSettingPath(QString settingPath);
     void setState(AppEnums::APP_STATE state);
+    void setdisparityMap(QString disparityMap);
 
 signals:
     void currentImagePathChanged();
     void currentImageNumberChanged();
     void settingPathChanged();
     void stateChanged();
+    void disparityMapChanged();
 
 private:
     AppModel(QObject* parent = nullptr);
@@ -60,6 +63,7 @@ private:
 
     QVector<QStringList> m_listImage;
     QStringList m_currentImagePath;
+    QString m_disparityMap;
     AppEnums::APP_STATE m_state;
     QString m_settingPath;
 };

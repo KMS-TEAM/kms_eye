@@ -54,6 +54,7 @@ void AppEngine::slotReceiveEvent(int event)
         CONSOLE << MODEL->settingPath();
         break;
     case static_cast<int>(AppEnums::EVT_CLICK_DISPARITY_MAP):
+
         break;
     case static_cast<int>(AppEnums::EVT_CLICK_NEXT_IMAGE):
         MODEL->m_currentImageNumber = MODEL->m_currentImageNumber + 1;

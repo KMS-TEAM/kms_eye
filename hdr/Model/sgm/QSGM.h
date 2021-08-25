@@ -30,7 +30,7 @@ class QSGM : public QObject
 public:
     explicit QSGM(QObject *parent = nullptr);
 
-    std::vector<cv::Mat> sgm(QStringList imagePath, QConfig* config) const;
+    QString sgm(QStringList imagePath, QConfig* config, int imageNumber) const;
 
 signals:
 

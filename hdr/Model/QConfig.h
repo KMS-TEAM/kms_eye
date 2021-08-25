@@ -103,6 +103,9 @@ protected:
     cv::Mat mTlr;
     std::vector<float> vCamCalib2;
 
+    // SGM Setting
+
+
 signals:
     void imagePathChanged();
     void dataPathChanged();

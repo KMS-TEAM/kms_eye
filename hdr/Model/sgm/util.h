@@ -24,6 +24,8 @@
 #include <iostream>
 #include <dirent.h>
 #include <stdio.h>
+#include <cuda_runtime_api.h>
+#include <cuda.h>
 
 #define FERMI false
 
