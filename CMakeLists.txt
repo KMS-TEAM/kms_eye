@@ -24,7 +24,10 @@ find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Quick REQUIRED)
 
 find_package(CUDA REQUIRED)
 set(CUDA_LINK_LIBRARIES_KEYWORD PUBLIC)
-cuda_select_nvcc_arch_flags(ARCH_FLAGS)
+# cuda_select_nvcc_arch_flags(ARCH_FLAGS)
+# COMPILER FLAGS AND DEFINITIONS
+set(CUDA_NVCC_FLAGS ${CUDA_NVCC_FLAGS};-gencode=arch=compute_50,code=sm_50)
+set(CUDA_NVCC_FLAGS ${CUDA_NVCC_FLAGS};-std=c++11 -O3 -lineinfo)
 message(STATUS "Found CUDA ${CUDA_VERSION_STRING} at ${CUDA_TOOLKIT_ROOT_DIR}")
 include_directories(${CMAKE_CUDA_TOOLKIT_INCLUDE_DIRECTORIES} ${CUDA_INCLUDE_DIRS})
 
@@ -36,14 +39,11 @@ include_directories(${Qt5Widgets_INCLUDE_DIRS} ${QtQml_INCLUDE_DIRS})
 add_definitions(${Qt5Widgets_DEFINITIONS} ${QtQml_DEFINITIONS} ${${Qt5Quick_DEFINITIONS}})
 
 file(GLOB HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/hdr/Model/*.h
-                      ${CMAKE_CURRENT_SOURCE_DIR}/hdr/Model/sgm/*.h
                       ${CMAKE_CURRENT_SOURCE_DIR}/hdr/Plugin/*.h
                       ${CMAKE_CURRENT_SOURCE_DIR}/hdr/View/*.h
                       ${CMAKE_CURRENT_SOURCE_DIR}/hdr/*.h)
 
 file(GLOB SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/Model/*.cpp
-                      ${CMAKE_CURRENT_SOURCE_DIR}/src/Model/sgm/*.cu
-                      ${CMAKE_CURRENT_SOURCE_DIR}/src/Model/sgm/*.cpp
                       ${CMAKE_CURRENT_SOURCE_DIR}/src/Plugin/*.cpp
                       ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
 

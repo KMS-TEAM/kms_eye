@@ -22,7 +22,6 @@
 #include <dirent.h>
 #include <iostream>
 #include <fstream>
-#include "disparity_method.h"
 
 class QSGM : public QObject
 {

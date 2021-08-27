@@ -38,6 +38,10 @@ public:
     template<typename T>
     static T get(const std::string &key);
 
+    std::string getDir(const std::string &key);
+
+    int getInt(const std::string &key);
+
     /// Get a vector of content by key
     template<typename T>
     static std::vector<T> getVector(const std::string &key);

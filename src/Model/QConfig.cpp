@@ -39,6 +39,22 @@ T QConfig::get(const std::string &key) {
     return static_cast<T>(content);
 }
 
+std::string QConfig::getDir(const std::string &key){
+    cv::FileNode content = QConfig::get_(key);
+    if (content.isString()){
+        return content.string();
+    }
+
+}
+
+int QConfig::getInt(const std::string &key)
+{
+    cv::FileNode content = QConfig::get_(key);
+    if (content.isInt()){
+        return content.operator int();
+    }
+}
+
 // Get a content of cv::FileNode. Convert to type vector<T>
 template<typename T>
 std::vector<T> QConfig::getVector(const std::string &key) {
