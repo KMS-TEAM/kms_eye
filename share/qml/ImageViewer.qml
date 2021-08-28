@@ -11,8 +11,13 @@ Item{
     property string rightDepth: "qrc:/images/images/logo.png"
 
     function pathpreprocess(path){
-        console.log(path)
-        return qsTr("file:///" + path)
+        if (path[0] === "q"){
+            return path
+        }
+        else{
+            console.log(path)
+            return qsTr("file:///" + path)
+        }
     }
 
     Rectangle{
@@ -54,7 +59,7 @@ Item{
                     height: imageRaw.height /2
                     anchors.right: parent.right
                     anchors.top: parent.top
-                    source: imageViewer.leftDepth
+                    source: pathpreprocess(imageViewer.leftDepth)
                     anchors.topMargin: 0
                     anchors.rightMargin: 0
                     fillMode: Image.PreserveAspectFit

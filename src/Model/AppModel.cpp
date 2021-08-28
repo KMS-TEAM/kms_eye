@@ -6,11 +6,18 @@
 AppModel* AppModel::m_instance = nullptr;
 QMutex AppModel::m_lock;
 QConfig* AppModel::m_config = new QConfig(nullptr);
+QImageProcessing* AppModel::m_imageprocessing = new QImageProcessing(nullptr);
+AppEnums::APP_STATE AppModel::m_state = AppEnums::APP_STATE::STATE_NONE;
 
 AppModel::AppModel(QObject *parent) :
-    QObject(parent), m_currentImagePath("qrc:/images/images/logo.png")
+    QObject(parent)
 {
     CONSOLE << "Init instance";
+    QStringList image_def;
+    image_def.append(IMAGE_DEF);
+    image_def.append(IMAGE_DEF);
+    setCurrentImagePath(image_def);
+    setdisparityMap(IMAGE_DEF);
 }
 
 AppModel *AppModel::instance(){
@@ -90,6 +97,23 @@ QVector<QStringList> AppModel::getListImages() const
     return m_listImage;
 }
 
+void AppModel::imageProcessing(AppEnums::ALGORITHM algo)
+{
+    CONSOLE << "Algorithm : " << algo;
+    switch (algo) {
+    case static_cast<int>(AppEnums::ALGORITHM::SGBM):{
+        CONSOLE << m_currentImagePath[0];
+        CONSOLE << m_currentImagePath[1];
+        QString results = m_imageprocessing->SGMAgl(m_currentImagePath, m_currentImageNumber);
+        setdisparityMap(results);
+        break;
+    }
+    default:
+        break;
+    }
+
+}
+
 void AppModel::setCurrentImagePath(QStringList currentImagePath)
 {
     m_currentImagePath = currentImagePath;
@@ -110,6 +134,7 @@ void AppModel::setSettingPath(QString settingPath)
 {
     m_settingPath = settingPath;
     m_config->setDataPath(m_settingPath);
+    m_imageprocessing->setConfig(m_config);
     setListImage();
 }
 

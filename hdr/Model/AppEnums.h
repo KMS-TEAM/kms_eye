@@ -7,6 +7,7 @@ class AppEnums : public QObject
 {
     Q_OBJECT
     Q_ENUMS(APP_STATE)
+    Q_ENUMS(ALGORITHM);
 public:
     enum EVENT_t{
         EVT_NONE = 0,   // do not add enum above this
@@ -22,8 +23,13 @@ public:
     Q_ENUMS(EVENT_t)
 
     enum APP_STATE{
-        STATE_RUNNING = 0,
-        STATE_RESET = 1,
+        STATE_NONE = 0,
+        STATE_RUNNING = 1,
+        STATE_RESET = 2,
+    };
+
+    enum ALGORITHM{
+        SGBM = 0,
     };
 
 private:

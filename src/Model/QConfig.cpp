@@ -44,7 +44,6 @@ std::string QConfig::getDir(const std::string &key){
     if (content.isString()){
         return content.string();
     }
-
 }
 
 int QConfig::getInt(const std::string &key)
@@ -52,6 +51,22 @@ int QConfig::getInt(const std::string &key)
     cv::FileNode content = QConfig::get_(key);
     if (content.isInt()){
         return content.operator int();
+    }
+}
+
+float QConfig::getFloat(const std::string &key)
+{
+    cv::FileNode content = QConfig::get_(key);
+    if (content.isReal()){
+        return content.operator float();
+    }
+}
+
+cv::Mat QConfig::getMat(const std::string &key)
+{
+    cv::FileNode content = QConfig::get_(key);
+    if (!content.empty()){
+        return content.mat();
     }
 }
 

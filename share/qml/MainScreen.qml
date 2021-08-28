@@ -51,15 +51,15 @@ Item {
      Button {
         id: runButton
         x: 12
-        text: qsTr("Run")
+        text: qsTr("Disparity")
         anchors.top: setpath.bottom
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 30
         anchors.topMargin: 10
 
         onClicked: {
-            QmlHandler.qmlMessage("Run")
-            // QmlHandler.qmlSendEvent(Enums.EVT)
+            QmlHandler.qmlMessage("Get Disparity")
+            QmlHandler.qmlSendEvent(Enums.EVT_CLICK_DISPARITY_MAP)
         }
      }
 
@@ -111,6 +111,6 @@ Item {
 
 /*##^##
 Designer {
-    D{i:0;autoSize:true;height:480;width:640}D{i:3}
+    D{i:0;autoSize:true;height:480;width:640}
 }
 ##^##*/

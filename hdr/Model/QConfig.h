@@ -42,6 +42,10 @@ public:
 
     int getInt(const std::string &key);
 
+    float getFloat(const std::string &key);
+
+    cv::Mat getMat(const std::string &key);
+
     /// Get a vector of content by key
     template<typename T>
     static std::vector<T> getVector(const std::string &key);

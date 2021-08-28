@@ -10,6 +10,7 @@
 #include "Common.h"
 #include "QConfig.h"
 #include "AppEnums.h"
+#include "QImageProcessing.h"
 
 #define MODEL AppModel::instance()
 
@@ -36,6 +37,8 @@ public:
     void setListImage();
     QVector<QStringList> getListImages() const;
 
+    void imageProcessing(AppEnums::ALGORITHM algo);
+
 public slots:
     void setCurrentImagePath(QStringList currentImagePath);
     void setCurrentImageNumber(int currentImageNumber);
@@ -60,11 +63,12 @@ private:
     static QMutex m_lock;
 
     static QConfig* m_config;
+    static QImageProcessing* m_imageprocessing;
+    static AppEnums::APP_STATE m_state;
 
     QVector<QStringList> m_listImage;
     QStringList m_currentImagePath;
     QString m_disparityMap;
-    AppEnums::APP_STATE m_state;
     QString m_settingPath;
 };
 

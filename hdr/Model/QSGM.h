@@ -4,6 +4,7 @@
 #include <QObject>
 #include "Common.h"
 #include "QConfig.h"
+#include "AppConstant.h"
 
 #include <iostream>
 #include <numeric>
@@ -30,6 +31,8 @@ public:
     explicit QSGM(QObject *parent = nullptr);
 
     QString sgm(QStringList imagePath, QConfig* config, int imageNumber) const;
+
+    static void saveXYZ(const char* filename, const cv::Mat& mat);
 
 signals:
 

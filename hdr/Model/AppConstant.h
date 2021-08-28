@@ -27,6 +27,10 @@
 #define BUILD_DIR QCoreApplication::applicationDirPath()
 #endif
 
+#ifndef IMAGE_DEF
+#define IMAGE_DEF "qrc:/images/images/logo.png"
+#endif
+
 class AppConstant : public QObject
 {
     Q_OBJECT
