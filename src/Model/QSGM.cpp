@@ -75,7 +75,7 @@ QString QSGM::sgm(QStringList imagePath, QConfig *config, int imageNumber) const
 
     // Undistort Rectify Map
     cv::Mat map11, map12, map21, map22;
-    cv::initUndistortRectifyMap(leftK, leftD, leftR, leftR, img_size, CV_16SC2, map11, map12);
+    cv::initUndistortRectifyMap(leftK, leftD, leftR, leftP, img_size, CV_16SC2, map11, map12);
     cv::initUndistortRectifyMap(rightK, rightD, rightR, rightP, img_size, CV_16SC2, map21, map22);
 
     cv::Mat img1r, img2r;
