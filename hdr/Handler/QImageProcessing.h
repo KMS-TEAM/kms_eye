@@ -5,6 +5,7 @@
 #include <QStringList>
 #include "QConfig.h"
 #include "QSGM.h"
+#include "AppEnums.h"
 
 class QImageProcessing : public QObject
 {
@@ -12,11 +13,13 @@ class QImageProcessing : public QObject
 public:
     explicit QImageProcessing(QObject *parent = nullptr);
 
-    QString SGMAgl(QStringList imagePath, int imageNumber);
     void setConfig(QConfig* config);
 
-signals:
+public slots:
+    void SGMAgl(QStringList imagePath, int imageNumber);
 
+signals:
+    void finish(QString &result);
 private:
     QSGM* m_sgm;
     QConfig* m_config;

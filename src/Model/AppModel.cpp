@@ -2,6 +2,8 @@
 #include "AppConstant.h"
 #include <QDebug>
 #include <QString>
+#include <QThread>
+
 
 AppModel* AppModel::m_instance = nullptr;
 QMutex AppModel::m_lock;
@@ -18,6 +20,12 @@ AppModel::AppModel(QObject *parent) :
     image_def.append(IMAGE_DEF);
     setCurrentImagePath(image_def);
     setdisparityMap(IMAGE_DEF);
+
+    m_timer.setInterval(500);
+
+    connect(&m_timer, &QTimer::timeout, this, &AppModel::increaseIndex);
+    connect(this, &AppModel::runImageProcessing, m_imageprocessing, &QImageProcessing::SGMAgl);
+    connect(m_imageprocessing, &QImageProcessing::finish, this, &AppModel::setdisparityMap);
 }
 
 AppModel *AppModel::instance(){
@@ -99,24 +107,20 @@ QVector<QStringList> AppModel::getListImages() const
 
 void AppModel::imageProcessing(AppEnums::ALGORITHM algo)
 {
-    CONSOLE << "Algorithm : " << algo;
-    switch (algo) {
-    case static_cast<int>(AppEnums::ALGORITHM::SGBM):{
-        CONSOLE << m_currentImagePath[0];
-        CONSOLE << m_currentImagePath[1];
-        QString results = m_imageprocessing->SGMAgl(m_currentImagePath, m_currentImageNumber);
-        setdisparityMap(results);
-        break;
-    }
-    default:
-        break;
+    if (m_state == AppEnums::APP_STATE::STATE_RUNNING){
+        m_timer.start();
     }
 
+    if (m_state == AppEnums::APP_STATE::STATE_STOP){
+        m_timer.stop();
+    }
 }
 
 void AppModel::setCurrentImagePath(QStringList currentImagePath)
 {
     m_currentImagePath = currentImagePath;
+//    imageProcessing(AppEnums::ALGORITHM::SGBM);
+    emit runImageProcessing(m_currentImagePath, m_currentImageNumber);
     emit currentImagePathChanged();
 }
 
@@ -135,6 +139,8 @@ void AppModel::setSettingPath(QString settingPath)
     m_settingPath = settingPath;
     m_config->setDataPath(m_settingPath);
     m_imageprocessing->setConfig(m_config);
+    m_currentImageNumber = 0;
+    m_state = AppEnums::APP_STATE::STATE_STOP;
     setListImage();
 }
 
@@ -150,6 +156,14 @@ void AppModel::setdisparityMap(QString disparityMap)
     m_disparityMap = disparityMap;
 
     emit disparityMapChanged();
+}
+
+void AppModel::increaseIndex()
+{
+    m_currentImageNumber++;
+    setCurrentImageNumber(m_currentImageNumber);
+
+    emit runImageProcessing(m_currentImagePath, m_currentImageNumber);
 }
 
 

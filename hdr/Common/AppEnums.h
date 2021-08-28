@@ -13,7 +13,8 @@ public:
         EVT_NONE = 0,   // do not add enum above this
 
         EVT_CLICK_SETTING_PATH,
-        EVT_CLICK_DISPARITY_MAP,
+        EVT_CLICK_RUN,
+        EVT_CLICK_STOP,
         EVT_CLICK_NEXT_IMAGE,
         EVT_CLICK_PREVIOUS_IMAGE,
         EVT_CLICK_RESET,
@@ -24,8 +25,10 @@ public:
 
     enum APP_STATE{
         STATE_NONE = 0,
-        STATE_RUNNING = 1,
-        STATE_RESET = 2,
+
+        STATE_RUNNING ,
+        STATE_STOP,
+        STATE_RESET,
     };
 
     enum ALGORITHM{

@@ -6,6 +6,7 @@
 #include <QMutex>
 #include <QStringList>
 #include <QVector>
+#include <QTimer>
 
 #include "Common.h"
 #include "QConfig.h"
@@ -45,6 +46,7 @@ public slots:
     void setSettingPath(QString settingPath);
     void setState(AppEnums::APP_STATE state);
     void setdisparityMap(QString disparityMap);
+    void increaseIndex();
 
 signals:
     void currentImagePathChanged();
@@ -52,6 +54,7 @@ signals:
     void settingPathChanged();
     void stateChanged();
     void disparityMapChanged();
+    void runImageProcessing(QStringList &currentImagePath, int &currentImageNumber);
 
 private:
     AppModel(QObject* parent = nullptr);
@@ -70,6 +73,8 @@ private:
     QStringList m_currentImagePath;
     QString m_disparityMap;
     QString m_settingPath;
+
+    QTimer m_timer;
 };
 
 #endif // APPMODEL_H

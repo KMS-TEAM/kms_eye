@@ -51,10 +51,14 @@ void AppEngine::slotReceiveEvent(int event)
         // then use MODEL->setCurrentPath to re-set path
         break;
     case static_cast<int>(AppEnums::EVT_CLICK_SETTING_PATH):
-        MODEL->setState(AppEnums::APP_STATE::STATE_RUNNING);
         CONSOLE << MODEL->settingPath();
         break;
-    case static_cast<int>(AppEnums::EVT_CLICK_DISPARITY_MAP):
+    case static_cast<int>(AppEnums::EVT_CLICK_RUN):
+        MODEL->setState(AppEnums::APP_STATE::STATE_RUNNING);
+        MODEL->imageProcessing(AppEnums::ALGORITHM::SGBM);
+        break;
+    case static_cast<int>(AppEnums::EVT_CLICK_STOP):
+        MODEL->setState(AppEnums::APP_STATE::STATE_STOP);
         MODEL->imageProcessing(AppEnums::ALGORITHM::SGBM);
         break;
     case static_cast<int>(AppEnums::EVT_CLICK_NEXT_IMAGE):

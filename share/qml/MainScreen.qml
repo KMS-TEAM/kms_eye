@@ -51,15 +51,15 @@ Item {
      Button {
         id: runButton
         x: 12
-        text: qsTr("Disparity")
+        text: qsTr("Run")
         anchors.top: setpath.bottom
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 30
         anchors.topMargin: 10
 
         onClicked: {
-            QmlHandler.qmlMessage("Get Disparity")
-            QmlHandler.qmlSendEvent(Enums.EVT_CLICK_DISPARITY_MAP)
+            QmlHandler.qmlMessage("App Started")
+            QmlHandler.qmlSendEvent(Enums.EVT_CLICK_RUN)
         }
      }
 
@@ -89,6 +89,21 @@ Item {
      }
 
      Button {
+         id: stopButton
+         y: 410
+         text: qsTr("Stop")
+         anchors.left: backButton.right
+         anchors.bottom: parent.bottom
+         anchors.bottomMargin: 30
+         anchors.leftMargin: 30
+
+         onClicked: {
+             QmlHandler.qmlMessage("Stop")
+             QmlHandler.qmlSendEvent(Enums.EVT_CLICK_STOP)
+         }
+     }
+
+     Button {
         id: backButton
         y: 410
         text: qsTr("Previous")
@@ -107,6 +122,7 @@ Item {
          target: setpath
          onClicked: openDialog.open()
      }
+
 }
 
 /*##^##
