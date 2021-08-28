@@ -41,9 +41,12 @@ add_definitions(${Qt5Widgets_DEFINITIONS} ${QtQml_DEFINITIONS} ${${Qt5Quick_DEFI
 file(GLOB HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/hdr/Model/*.h
                       ${CMAKE_CURRENT_SOURCE_DIR}/hdr/Plugin/*.h
                       ${CMAKE_CURRENT_SOURCE_DIR}/hdr/View/*.h
+                      ${CMAKE_CURRENT_SOURCE_DIR}/hdr/Handler/*.h
+                      ${CMAKE_CURRENT_SOURCE_DIR}/hdr/Common/*.h
                       ${CMAKE_CURRENT_SOURCE_DIR}/hdr/*.h)
 
 file(GLOB SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/Model/*.cpp
+                      ${CMAKE_CURRENT_SOURCE_DIR}/src/Handler/*.cpp
                       ${CMAKE_CURRENT_SOURCE_DIR}/src/Plugin/*.cpp
                       ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
 
@@ -55,6 +58,8 @@ qt5_add_resources(QT_RESOURCES ${CMAKE_CURRENT_SOURCE_DIR}/share/qml.qrc)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/hdr/Model
                     ${CMAKE_CURRENT_SOURCE_DIR}/hdr/Plugin
                     ${CMAKE_CURRENT_SOURCE_DIR}/hdr/View
+                    ${CMAKE_CURRENT_SOURCE_DIR}/hdr/Handler
+                    ${CMAKE_CURRENT_SOURCE_DIR}/hdr/Common
                     ${CMAKE_CURRENT_SOURCE_DIR}/hdr)
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
