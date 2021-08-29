@@ -4,7 +4,6 @@
 #include <QString>
 #include <QThread>
 
-
 AppModel* AppModel::m_instance = nullptr;
 QMutex AppModel::m_lock;
 QConfig* AppModel::m_config = new QConfig(nullptr);
@@ -25,7 +24,7 @@ AppModel::AppModel(QObject *parent) :
 
     connect(&m_timer, &QTimer::timeout, this, &AppModel::increaseIndex);
     connect(this, &AppModel::runImageProcessing, m_imageprocessing, &QImageProcessing::SGMAgl);
-    connect(m_imageprocessing, &QImageProcessing::finish, this, &AppModel::setdisparityMap);
+    connect(m_imageprocessing, &QImageProcessing::finishDisparity, this, &AppModel::setdisparityMap);
 }
 
 AppModel *AppModel::instance(){

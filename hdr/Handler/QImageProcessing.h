@@ -19,7 +19,7 @@ public slots:
     void SGMAgl(QStringList imagePath, int imageNumber);
 
 signals:
-    void finish(QString &result);
+    void finishDisparity(QString &result);
 private:
     QSGM* m_sgm;
     QConfig* m_config;

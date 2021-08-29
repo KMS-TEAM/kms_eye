@@ -19,8 +19,23 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(JSON_BuildTests OFF CACHE INTERNAL "")
 
+#set(Qt5Core_DIR "/opt/Qt/5.15.2/gcc_64/include/QtCore")
+#set(Qt5_DIR "/opt/Qt/5.15.2")
+
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Core Quick REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Quick REQUIRED)
+
+#find_package(Qt5Core REQUIRED)
+#find_package(Qt5Quick REQUIRED)
+
+#find_package(Qt5Qml REQUIRED)
+#find_package(Qt5Widgets REQUIRED)
+#find_package(Qt5Gui REQUIRED)
+
+#find_package(Qt53DCore REQUIRED)
+#find_package(Qt53DQuick REQUIRED)
+#find_package(Qt53DRender REQUIRED)
+#find_package(Qt53DQuickRender REQUIRED)
 
 find_package(CUDA REQUIRED)
 set(CUDA_LINK_LIBRARIES_KEYWORD PUBLIC)
@@ -35,6 +50,16 @@ include_directories(${CMAKE_CUDA_TOOLKIT_INCLUDE_DIRECTORIES} ${CUDA_INCLUDE_DIR
 find_package(OpenCV 4.2 REQUIRED)
 include_directories(${OpenCV_INCLUDE_DIRS})
 
+# Ceres Solver
+find_package(Ceres REQUIRED)
+include_directories(${CERES_INCLUDE_DIRS})
+
+# PCL
+find_package(VTK REQUIRED)
+find_package(PCL REQUIRED COMPONENTS common io)
+link_directories(${PCL_LIBRARY_DIRS})
+add_definitions(${PCL_DEFINITIONS})
+
 include_directories(${Qt5Widgets_INCLUDE_DIRS} ${QtQml_INCLUDE_DIRS})
 add_definitions(${Qt5Widgets_DEFINITIONS} ${QtQml_DEFINITIONS} ${${Qt5Quick_DEFINITIONS}})
 
@@ -42,12 +67,14 @@ file(GLOB HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/hdr/Model/*.h
                       ${CMAKE_CURRENT_SOURCE_DIR}/hdr/Plugin/*.h
                       ${CMAKE_CURRENT_SOURCE_DIR}/hdr/View/*.h
                       ${CMAKE_CURRENT_SOURCE_DIR}/hdr/Handler/*.h
+                      #${CMAKE_CURRENT_SOURCE_DIR}/hdr/Plugin/Q3DPointCloudRender/*.h
                       ${CMAKE_CURRENT_SOURCE_DIR}/hdr/Common/*.h
                       ${CMAKE_CURRENT_SOURCE_DIR}/hdr/*.h)
 
 file(GLOB SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/Model/*.cpp
                       ${CMAKE_CURRENT_SOURCE_DIR}/src/Handler/*.cpp
                       ${CMAKE_CURRENT_SOURCE_DIR}/src/Plugin/*.cpp
+                      #${CMAKE_CURRENT_SOURCE_DIR}/src/Plugin/Q3DPointCloudRender/*.cpp
                       ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
 
 source_group("Header Files" FILES ${HEADERS})
@@ -60,7 +87,8 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/hdr/Model
                     ${CMAKE_CURRENT_SOURCE_DIR}/hdr/View
                     ${CMAKE_CURRENT_SOURCE_DIR}/hdr/Handler
                     ${CMAKE_CURRENT_SOURCE_DIR}/hdr/Common
-                    ${CMAKE_CURRENT_SOURCE_DIR}/hdr)
+                    ${CMAKE_CURRENT_SOURCE_DIR}/hdr
+                     /usr/include/pcl-1.8/)
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(kms_eye
@@ -85,9 +113,21 @@ else()
 endif()
 
 target_compile_definitions(kms_eye
-  PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
+  PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG> WITH_PCL=1)
 target_link_libraries(kms_eye
-  PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Quick ${OpenCV_LIBS} ${CUDA_LIBRARIES})
+  PRIVATE Qt${QT_VERSION_MAJOR}::Core
+          Qt${QT_VERSION_MAJOR}::Quick
+#          Qt${QT_VERSION_MAJOR}::Qml
+#          Qt${QT_VERSION_MAJOR}::Widgets
+#          Qt${QT_VERSION_MAJOR}::3DCore
+#          Qt${QT_VERSION_MAJOR}::3DQuick
+#          Qt${QT_VERSION_MAJOR}::3DRender
+#          Qt${QT_VERSION_MAJOR}::3DQuickRender
+          ${OpenCV_LIBS}
+          ${CUDA_LIBRARIES}
+          ${CERES_LIBRARIES}
+          ${PCL_LIBRARIES}
+          stdc++)
 
 # Set different compiler options for cxx and nvcc
 

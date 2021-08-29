@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QString>
 #include <QUrl>
-#include <QColor>
+//#include <QColor>
 #include <QMutex>
 #include <QCoreApplication>
 
