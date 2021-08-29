@@ -18,24 +18,30 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(JSON_BuildTests OFF CACHE INTERNAL "")
+list(APPEND QML_IMPORT_PATH "/home/lacie/Qt/5.15.2/gcc_64/qml")
 
-#set(Qt5Core_DIR "/opt/Qt/5.15.2/gcc_64/include/QtCore")
-#set(Qt5_DIR "/opt/Qt/5.15.2")
+set(QML_IMPORT_PATH ${QML_IMPORT_PATH}
+    CACHE STRING "Qt Creator 4.1 extra qml import paths"
+    FORCE
+)
 
-find_package(QT NAMES Qt6 Qt5 COMPONENTS Core Quick REQUIRED)
-find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Quick REQUIRED)
+#set(Qt5_DIR "/opt/Qt/5.15.0")
 
-#find_package(Qt5Core REQUIRED)
-#find_package(Qt5Quick REQUIRED)
+find_package(Qt5Core REQUIRED)
+find_package(Qt5Quick REQUIRED)
 
-#find_package(Qt5Qml REQUIRED)
-#find_package(Qt5Widgets REQUIRED)
-#find_package(Qt5Gui REQUIRED)
+find_package(Qt5Qml REQUIRED)
+find_package(Qt5Widgets REQUIRED)
+find_package(Qt5Gui REQUIRED)
 
-#find_package(Qt53DCore REQUIRED)
-#find_package(Qt53DQuick REQUIRED)
-#find_package(Qt53DRender REQUIRED)
-#find_package(Qt53DQuickRender REQUIRED)
+find_package(Qt53DCore REQUIRED)
+find_package(Qt53DQuick REQUIRED)
+find_package(Qt53DRender REQUIRED)
+find_package(Qt53DQuickRender REQUIRED)
+find_package(Qt53DInput REQUIRED)
+find_package(Qt53DLogic REQUIRED)
+find_package(Qt53DQuickInput REQUIRED)
+
 
 find_package(CUDA REQUIRED)
 set(CUDA_LINK_LIBRARIES_KEYWORD PUBLIC)
@@ -67,14 +73,14 @@ file(GLOB HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/hdr/Model/*.h
                       ${CMAKE_CURRENT_SOURCE_DIR}/hdr/Plugin/*.h
                       ${CMAKE_CURRENT_SOURCE_DIR}/hdr/View/*.h
                       ${CMAKE_CURRENT_SOURCE_DIR}/hdr/Handler/*.h
-                      #${CMAKE_CURRENT_SOURCE_DIR}/hdr/Plugin/Q3DPointCloudRender/*.h
+                      ${CMAKE_CURRENT_SOURCE_DIR}/hdr/Plugin/Q3DPointCloudRender/*.h
                       ${CMAKE_CURRENT_SOURCE_DIR}/hdr/Common/*.h
                       ${CMAKE_CURRENT_SOURCE_DIR}/hdr/*.h)
 
 file(GLOB SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/Model/*.cpp
                       ${CMAKE_CURRENT_SOURCE_DIR}/src/Handler/*.cpp
                       ${CMAKE_CURRENT_SOURCE_DIR}/src/Plugin/*.cpp
-                      #${CMAKE_CURRENT_SOURCE_DIR}/src/Plugin/Q3DPointCloudRender/*.cpp
+                      ${CMAKE_CURRENT_SOURCE_DIR}/src/Plugin/Q3DPointCloudRender/*.cpp
                       ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
 
 source_group("Header Files" FILES ${HEADERS})
@@ -90,44 +96,33 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/hdr/Model
                     ${CMAKE_CURRENT_SOURCE_DIR}/hdr
                      /usr/include/pcl-1.8/)
 
-if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
-    qt_add_executable(kms_eye
-            ${HEADERS}
-            ${SOURCES}
-            ${QT_RESOURCES}
-    )
-else()
-    if(ANDROID)
-        add_library(kms_eye SHARED
+add_executable(kms_eye
                 ${HEADERS}
                 ${SOURCES}
-                ${QT_RESOURCES}
-        )
-    else()
-        add_executable(kms_eye
-                ${HEADERS}
-                ${SOURCES}
-                ${QT_RESOURCES}
-        )
-    endif()
-endif()
+                ${QT_RESOURCES})
 
 target_compile_definitions(kms_eye
-  PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG> WITH_PCL=1)
+  PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG> )
+target_compile_definitions(kms_eye PUBLIC WITH_PCL=1)
 target_link_libraries(kms_eye
-  PRIVATE Qt${QT_VERSION_MAJOR}::Core
-          Qt${QT_VERSION_MAJOR}::Quick
-#          Qt${QT_VERSION_MAJOR}::Qml
-#          Qt${QT_VERSION_MAJOR}::Widgets
-#          Qt${QT_VERSION_MAJOR}::3DCore
-#          Qt${QT_VERSION_MAJOR}::3DQuick
-#          Qt${QT_VERSION_MAJOR}::3DRender
-#          Qt${QT_VERSION_MAJOR}::3DQuickRender
+  PRIVATE Qt5::Core
+          Qt5::Quick
+          Qt5::Qml
+          Qt5::Widgets
+          Qt5::3DCore
+          Qt5::3DQuick
+          Qt5::3DRender
+          Qt5::3DInput
+          Qt5::3DQuickRender
+          Qt5::3DLogic
+          Qt5::3DQuickInput
           ${OpenCV_LIBS}
           ${CUDA_LIBRARIES}
           ${CERES_LIBRARIES}
           ${PCL_LIBRARIES}
           stdc++)
+
+#qt5_use_modules(kms_eye Core Qml Widgets Quick 3DCore 3DQuick 3DRender 3DQuickRender 3DInput 3DLogic 3DQuickInput)
 
 # Set different compiler options for cxx and nvcc
 

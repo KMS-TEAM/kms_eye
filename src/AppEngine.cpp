@@ -6,10 +6,10 @@
 #include "AppModel.h"
 #include "QMLHandler.h"
 #include <QVariant>
-//#include "Q3DPointCloudRender/QPointCloud.h"
-//#include "Q3DPointCloudRender/QPointCloudGeometry.h"
-//#include "Q3DPointCloudRender/QPointField.h"
-//#include "Q3DPointCloudRender/QPointCloudReader.h"
+#include "Q3DPointCloudRender/QPointCloud.h"
+#include "Q3DPointCloudRender/QPointCloudGeometry.h"
+#include "Q3DPointCloudRender/QPointField.h"
+#include "Q3DPointCloudRender/QPointCloudReader.h"
 
 
 ScreenDef* ScreenDef::m_instance = nullptr;
@@ -33,11 +33,11 @@ void AppEngine::initEngine(){
     qmlRegisterUncreatableType<AppEnums>("QmlCustomItem", 1, 0, "ENUMS", "Uncreatable");
     qmlRegisterUncreatableType<AppEnums>("AppEnums", 1, 0, "Enums", "Cannot create object from enums!");
 
-//    // QPCL class
-//    qmlRegisterType<QPointCloudReader>("pcl", 1, 0, "PointcloudReader");
-//    qmlRegisterType<QPointcloud>("pcl", 1, 0, "Pointcloud");
-//    qmlRegisterType<QPointcloudGeometry>("pcl", 1, 0, "PointcloudGeometry");
-//    qmlRegisterUncreatableType<QPointfield>("pcl", 1, 0, "Pointfield", "Can not yet be created in qml, use PointcloudReader.");
+    // QPCL class
+    qmlRegisterType<QPointCloudReader>("pcl", 1, 0, "PointcloudReader");
+    qmlRegisterType<QPointcloud>("pcl", 1, 0, "Pointcloud");
+    qmlRegisterType<QPointcloudGeometry>("pcl", 1, 0, "PointcloudGeometry");
+    qmlRegisterUncreatableType<QPointfield>("pcl", 1, 0, "Pointfield", "Can not yet be created in qml, use PointcloudReader.");
 
     // connect signal slots
     connect(QML_HANDLER, &QMLHandler::notifyQMLEvent, this, &AppEngine::slotReceiveEvent);

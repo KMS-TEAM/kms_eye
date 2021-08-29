@@ -3,6 +3,7 @@
         <file>qml/ImageViewer.qml</file>
         <file>qml/main.qml</file>
         <file>qml/MainScreen.qml</file>
+        <file>qml/PCLViewer.qml</file>
     </qresource>
     <qresource prefix="/images">
         <file>images/logo.png</file>
