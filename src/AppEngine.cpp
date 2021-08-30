@@ -46,7 +46,7 @@ void AppEngine::initEngine(){
     m_rootContext->setContextProperty("QmlConst", DEFS);
     m_rootContext->setContextProperty("QmlHandler", QML_HANDLER);
     m_rootContext->setContextProperty("QmlScreen", SCR_DEF);
-    m_rootContext->setContextProperty("QmlModel", QVariant::fromValue(MODEL));
+    m_rootContext->setContextProperty("QmlModel", MODEL);
 }
 
 void AppEngine::startEngine(){

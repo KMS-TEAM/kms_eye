@@ -19,11 +19,11 @@ ApplicationWindow {
 
     PointcloudReader {
         id: readerBunny
-        filename: "/home/lacie/Github/kms_eye/data/bunny.pcd"
+        filename: "/home/lacie-life/Github/kms_eye/data/bunny.pcd"
     }
     PointcloudReader {
         id: readerBunnyNormal
-        filename: "/home/lacie/Github/kms_eye/data/bunny_normal.pcd"
+        filename: "/home/lacie-life/Github/kms_eye/data/bunny_normal.pcd"
     }
 
     GridLayout {

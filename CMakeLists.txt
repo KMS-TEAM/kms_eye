@@ -17,8 +17,8 @@ set(CMAKE_AUTORCC ON)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(JSON_BuildTests OFF CACHE INTERNAL "")
-list(APPEND QML_IMPORT_PATH "/home/lacie/Qt/5.15.2/gcc_64/qml")
+#set(JSON_BuildTests OFF CACHE INTERNAL "")
+list(APPEND QML_IMPORT_PATH "/home/lacie-life/Qt/5.15.2/gcc_64/qml")
 
 set(QML_IMPORT_PATH ${QML_IMPORT_PATH}
     CACHE STRING "Qt Creator 4.1 extra qml import paths"
@@ -43,22 +43,22 @@ find_package(Qt53DLogic REQUIRED)
 find_package(Qt53DQuickInput REQUIRED)
 
 
-find_package(CUDA REQUIRED)
-set(CUDA_LINK_LIBRARIES_KEYWORD PUBLIC)
-# cuda_select_nvcc_arch_flags(ARCH_FLAGS)
-# COMPILER FLAGS AND DEFINITIONS
-set(CUDA_NVCC_FLAGS ${CUDA_NVCC_FLAGS};-gencode=arch=compute_50,code=sm_50)
-set(CUDA_NVCC_FLAGS ${CUDA_NVCC_FLAGS};-std=c++11 -O3)
-message(STATUS "Found CUDA ${CUDA_VERSION_STRING} at ${CUDA_TOOLKIT_ROOT_DIR}")
-include_directories(${CMAKE_CUDA_TOOLKIT_INCLUDE_DIRECTORIES} ${CUDA_INCLUDE_DIRS})
+#find_package(CUDA REQUIRED)
+#set(CUDA_LINK_LIBRARIES_KEYWORD PUBLIC)
+## cuda_select_nvcc_arch_flags(ARCH_FLAGS)
+## COMPILER FLAGS AND DEFINITIONS
+#set(CUDA_NVCC_FLAGS ${CUDA_NVCC_FLAGS};-gencode=arch=compute_50,code=sm_50)
+#set(CUDA_NVCC_FLAGS ${CUDA_NVCC_FLAGS};-std=c++11 -O3)
+#message(STATUS "Found CUDA ${CUDA_VERSION_STRING} at ${CUDA_TOOLKIT_ROOT_DIR}")
+#include_directories(${CMAKE_CUDA_TOOLKIT_INCLUDE_DIRECTORIES} ${CUDA_INCLUDE_DIRS})
 
 # OpenCV
 find_package(OpenCV 4.2 REQUIRED)
 include_directories(${OpenCV_INCLUDE_DIRS})
 
-# Ceres Solver
-find_package(Ceres REQUIRED)
-include_directories(${CERES_INCLUDE_DIRS})
+## Ceres Solver
+#find_package(Ceres REQUIRED)
+#include_directories(${CERES_INCLUDE_DIRS})
 
 # PCL
 find_package(VTK REQUIRED)
@@ -117,23 +117,23 @@ target_link_libraries(kms_eye
           Qt5::3DLogic
           Qt5::3DQuickInput
           ${OpenCV_LIBS}
-          ${CUDA_LIBRARIES}
-          ${CERES_LIBRARIES}
+#          ${CUDA_LIBRARIES}
+#          ${CERES_LIBRARIES}
           ${PCL_LIBRARIES}
           stdc++)
 
 #qt5_use_modules(kms_eye Core Qml Widgets Quick 3DCore 3DQuick 3DRender 3DQuickRender 3DInput 3DLogic 3DQuickInput)
 
-# Set different compiler options for cxx and nvcc
+## Set different compiler options for cxx and nvcc
 
-set(cxx_options -Wall -Wextra -Wfatal-errors -ffast-math -fsee -fno-signed-zeros -fno-math-errno -funroll-loops -fno-finite-math-only -march=native -O3 -DNDEBUG)
-set(nvcc_options --device-w --ftz=true --prec-div=false --prec-sqrt=false --fmad=true --default-stream per-thread -O3 -DNDEBUG)
+#set(cxx_options -Wall -Wextra -Wfatal-errors -ffast-math -fsee -fno-signed-zeros -fno-math-errno -funroll-loops -fno-finite-math-only -march=native -O3 -DNDEBUG)
+#set(nvcc_options --device-w --ftz=true --prec-div=false --prec-sqrt=false --fmad=true --default-stream per-thread -O3 -DNDEBUG)
 
-# the generator is only expanded if <COMPILE_LANGUAGE:FOO> evaluates to true
+## the generator is only expanded if <COMPILE_LANGUAGE:FOO> evaluates to true
 
-if (CMAKE_CUDA_COMPILER)
-   target_compile_options(kms_eye PRIVATE $<$<COMPILE_LANGUAGE:CXX>:${cxx_options}> $<$<COMPILE_LANGUAGE:CUDA>:${nvcc_options}>)
-else()
-   target_compile_options(kms_eye PRIVATE $<$<COMPILE_LANGUAGE:CXX>:${cxx_options}> $<$<NOT:$<COMPILE_LANGUAGE:CXX>>:${nvcc_options}>)
-endif()
+#if (CMAKE_CUDA_COMPILER)
+#   target_compile_options(kms_eye PRIVATE $<$<COMPILE_LANGUAGE:CXX>:${cxx_options}> $<$<COMPILE_LANGUAGE:CUDA>:${nvcc_options}>)
+#else()
+#   target_compile_options(kms_eye PRIVATE $<$<COMPILE_LANGUAGE:CXX>:${cxx_options}> $<$<NOT:$<COMPILE_LANGUAGE:CXX>>:${nvcc_options}>)
+#endif()
 
