@@ -1,6 +1,8 @@
 import QtQuick 2.0
 import QtQuick.Window 2.12
 import QtQuick.Controls 2.5
+import MyImage 1.0
+import AppEnums 1.0
 
 Item{
     id: imageViewer
@@ -77,20 +79,35 @@ Item{
                     fillMode: Image.PreserveAspectFit
                 }
 
-                Image {
-                    id: rightdepth
-                    width: imageRaw.width / 2
+//                Image {
+//                    id: rightdepth
+//                    width: imageRaw.width / 2
+//                    height: imageRaw.height /2
+//                    anchors.right: parent.right
+//                    anchors.bottom: parent.bottom
+//                    source: imageViewer.rightDepth
+//                    anchors.bottomMargin: 0
+//                    anchors.rightMargin: 0
+//                    fillMode: Image.PreserveAspectFit
+//                }
+
+                QImageItem{
+                    id: imageItem
+                    width: imageRaw.width / 2 - 20
                     height: imageRaw.height /2
                     anchors.right: parent.right
                     anchors.bottom: parent.bottom
-                    source: imageViewer.rightDepth
                     anchors.bottomMargin: 0
                     anchors.rightMargin: 0
-                    fillMode: Image.PreserveAspectFit
                 }
 
             }
         }
+    }
+
+    Connections{
+        target: QmlModel
+        onDisparityImageChanged: imageItem.setImage(QmlModel.disparityImage)
     }
 }
 

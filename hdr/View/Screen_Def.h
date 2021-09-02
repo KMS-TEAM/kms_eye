@@ -56,7 +56,7 @@ private:
     void operator =(const ScreenDef&) = delete;
 
     // DEF_SCREEN(QML_FOLDER       , "file:" + BUILD_DIR + "/share/qml/")
-    DEF_SCREEN(QML_FOLDER       , "file:/home/lacie-life/Github/kms_eye/share/qml/")
+    DEF_SCREEN(QML_FOLDER       , "file:/home/lacie/Github/kms_eye/share/qml/")
     DEF_SCREEN(QML_APP     , QML_FOLDER() + "main.qml")
 
 signals:

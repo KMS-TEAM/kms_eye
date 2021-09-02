@@ -18,7 +18,7 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 #set(JSON_BuildTests OFF CACHE INTERNAL "")
-list(APPEND QML_IMPORT_PATH "/home/lacie-life/Qt/5.15.2/gcc_64/qml")
+list(APPEND QML_IMPORT_PATH "/home/lacie/Qt/5.15.2/gcc_64/qml")
 
 set(QML_IMPORT_PATH ${QML_IMPORT_PATH}
     CACHE STRING "Qt Creator 4.1 extra qml import paths"
@@ -74,6 +74,8 @@ file(GLOB HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/hdr/Model/*.h
                       ${CMAKE_CURRENT_SOURCE_DIR}/hdr/View/*.h
                       ${CMAKE_CURRENT_SOURCE_DIR}/hdr/Handler/*.h
                       ${CMAKE_CURRENT_SOURCE_DIR}/hdr/Plugin/Q3DPointCloudRender/*.h
+                      #${CMAKE_CURRENT_SOURCE_DIR}/hdr/Plugin/QPixmapContainer/*.h
+                      ${CMAKE_CURRENT_SOURCE_DIR}/hdr/Plugin/QImageItem/*.h
                       ${CMAKE_CURRENT_SOURCE_DIR}/hdr/Common/*.h
                       ${CMAKE_CURRENT_SOURCE_DIR}/hdr/*.h)
 
@@ -81,6 +83,8 @@ file(GLOB SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/Model/*.cpp
                       ${CMAKE_CURRENT_SOURCE_DIR}/src/Handler/*.cpp
                       ${CMAKE_CURRENT_SOURCE_DIR}/src/Plugin/*.cpp
                       ${CMAKE_CURRENT_SOURCE_DIR}/src/Plugin/Q3DPointCloudRender/*.cpp
+                      #${CMAKE_CURRENT_SOURCE_DIR}/src/Plugin/QPixmapContainer/*.cpp
+                      ${CMAKE_CURRENT_SOURCE_DIR}/src/Plugin/QImageItem/*.cpp
                       ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
 
 source_group("Header Files" FILES ${HEADERS})
@@ -94,7 +98,8 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/hdr/Model
                     ${CMAKE_CURRENT_SOURCE_DIR}/hdr/Handler
                     ${CMAKE_CURRENT_SOURCE_DIR}/hdr/Common
                     ${CMAKE_CURRENT_SOURCE_DIR}/hdr
-                     /usr/include/pcl-1.8/)
+                     /usr/include/pcl-1.8/
+                     /usr/include/eigen3/)
 
 add_executable(kms_eye
                 ${HEADERS}

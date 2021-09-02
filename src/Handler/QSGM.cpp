@@ -11,7 +11,7 @@ QSGM::QSGM(QObject *parent) : QObject(parent)
 
 }
 
-QString QSGM::sgm(QStringList imagePath, QConfig *config, int imageNumber) const
+cv::Mat QSGM::sgm(QStringList imagePath, QConfig *config, int imageNumber) const
 {
     CONSOLE << imagePath[0];
     CONSOLE << imagePath[1];
@@ -95,7 +95,7 @@ QString QSGM::sgm(QStringList imagePath, QConfig *config, int imageNumber) const
     sgbm->setP1(8*cn*sgbmWinSize*sgbmWinSize);
     sgbm->setP2(32*cn*sgbmWinSize*sgbmWinSize);
     sgbm->setMinDisparity(0);
-    sgbm->setNumDisparities(numberOfDisparities);
+    sgbm->setNumDisparities(16);
     sgbm->setUniquenessRatio(10);
     sgbm->setSpeckleWindowSize(100);
     sgbm->setSpeckleRange(32);
@@ -118,7 +118,7 @@ QString QSGM::sgm(QStringList imagePath, QConfig *config, int imageNumber) const
     if (color_display)
         cv::applyColorMap(disp8, disp8_3c, cv::COLORMAP_TURBO);
 
-    imwrite(disparity_dir, color_display ? disp8_3c : disp8);
+    // imwrite(disparity_dir, color_display ? disp8_3c : disp8);
 
 //    if(pointCloud)
 //    {
@@ -132,8 +132,10 @@ QString QSGM::sgm(QStringList imagePath, QConfig *config, int imageNumber) const
 //        printf("\n");
 //    }
 
-    QString disparityPath = QString::fromStdString(disparity_dir);
-    return disparityPath;
+    // QString disparityPath = QString::fromStdString(disparity_dir);
+    // return disparityPath;
+
+    return disp8;
 }
 
 void QSGM::saveXYZ(const char *filename, const cv::Mat &mat)

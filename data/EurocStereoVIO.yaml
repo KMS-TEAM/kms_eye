@@ -13,7 +13,7 @@ Disparity: /home/lacie/Github/data/kms_eye_output/disparity
 # SGM parameters
 p1: 50
 p2: 50
-Maxdisparity: 128
+Maxdisparity: 256
 Scale: 1.0
 Blocksize: 5
 ColorDisplay: false

@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QStringList>
+#include <QImage>
 #include "QConfig.h"
 #include "QSGM.h"
 #include "AppEnums.h"
@@ -20,6 +21,7 @@ public slots:
 
 signals:
     void finishDisparity(QString &result);
+    void finishCompute(QImage &result);
 private:
     QSGM* m_sgm;
     QConfig* m_config;

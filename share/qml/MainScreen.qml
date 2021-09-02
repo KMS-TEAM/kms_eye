@@ -2,6 +2,7 @@ import QtQuick 2.0
 import AppEnums 1.0
 import QtQuick.Controls 2.5
 import QtQuick.Dialogs 1.0
+import MyImage 1.0
 
 Item {
     id: mainScreenID

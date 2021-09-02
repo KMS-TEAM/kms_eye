@@ -7,11 +7,13 @@
 #include <QStringList>
 #include <QVector>
 #include <QTimer>
+#include <QImage>
 
 #include "Common.h"
 #include "QConfig.h"
 #include "AppEnums.h"
 #include "QImageProcessing.h"
+
 
 #define MODEL AppModel::instance()
 
@@ -23,6 +25,7 @@ class AppModel : public QObject
     Q_PROPERTY(int currentImageNumber READ currentImageNumber WRITE setCurrentImageNumber NOTIFY currentImageNumberChanged)
     Q_PROPERTY(QStringList currentImagePath READ currentImagePath WRITE setCurrentImagePath NOTIFY currentImagePathChanged)
     Q_PROPERTY(AppEnums::APP_STATE state READ state WRITE setState NOTIFY stateChanged)
+    Q_PROPERTY(QImage disparityImage READ disparityImage WRITE setDisparityImage NOTIFY disparityImageChanged)
 
 public:
 
@@ -34,6 +37,7 @@ public:
     QString settingPath() const;
     AppEnums::APP_STATE state() const;
     QString disparityMap() const;
+    QImage disparityImage() const;
 
     void setListImage();
     QVector<QStringList> getListImages() const;
@@ -47,6 +51,7 @@ public slots:
     void setState(AppEnums::APP_STATE state);
     void setdisparityMap(QString disparityMap);
     void increaseIndex();
+    void setDisparityImage(QImage disparityImage);
 
 signals:
     void currentImagePathChanged();
@@ -54,6 +59,7 @@ signals:
     void settingPathChanged();
     void stateChanged();
     void disparityMapChanged();
+    void disparityImageChanged();
     void runImageProcessing(QStringList &currentImagePath, int &currentImageNumber);
 
 private:
@@ -69,6 +75,7 @@ private:
     static QImageProcessing* m_imageprocessing;
     static AppEnums::APP_STATE m_state;
 
+    QImage m_disparityImage;
     QVector<QStringList> m_listImage;
     QStringList m_currentImagePath;
     QString m_disparityMap;

@@ -10,6 +10,7 @@
 #include "Q3DPointCloudRender/QPointCloudGeometry.h"
 #include "Q3DPointCloudRender/QPointField.h"
 #include "Q3DPointCloudRender/QPointCloudReader.h"
+#include "QImageItem/QImageItem.h"
 
 
 ScreenDef* ScreenDef::m_instance = nullptr;
@@ -38,6 +39,9 @@ void AppEngine::initEngine(){
     qmlRegisterType<QPointcloud>("pcl", 1, 0, "Pointcloud");
     qmlRegisterType<QPointcloudGeometry>("pcl", 1, 0, "PointcloudGeometry");
     qmlRegisterUncreatableType<QPointfield>("pcl", 1, 0, "Pointfield", "Can not yet be created in qml, use PointcloudReader.");
+
+    // QPixmap type
+    qmlRegisterType<QImageItem>("MyImage", 1, 0, "QImageItem");
 
     // connect signal slots
     connect(QML_HANDLER, &QMLHandler::notifyQMLEvent, this, &AppEngine::slotReceiveEvent);

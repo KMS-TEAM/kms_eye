@@ -24,7 +24,8 @@ AppModel::AppModel(QObject *parent) :
 
     connect(&m_timer, &QTimer::timeout, this, &AppModel::increaseIndex);
     connect(this, &AppModel::runImageProcessing, m_imageprocessing, &QImageProcessing::SGMAgl);
-    connect(m_imageprocessing, &QImageProcessing::finishDisparity, this, &AppModel::setdisparityMap);
+    // connect(m_imageprocessing, &QImageProcessing::finishDisparity, this, &AppModel::setdisparityMap);
+    connect(m_imageprocessing, &QImageProcessing::finishCompute, this, &AppModel::setDisparityImage);
 }
 
 AppModel *AppModel::instance(){
@@ -59,6 +60,11 @@ AppEnums::APP_STATE AppModel::state() const
 QString AppModel::disparityMap() const
 {
     return m_disparityMap;
+}
+
+QImage AppModel::disparityImage() const
+{
+    return m_disparityImage;
 }
 
 void AppModel::setListImage()
@@ -163,6 +169,14 @@ void AppModel::increaseIndex()
     setCurrentImageNumber(m_currentImageNumber);
 
     emit runImageProcessing(m_currentImagePath, m_currentImageNumber);
+}
+
+void AppModel::setDisparityImage(QImage disparityImage)
+{
+    CONSOLE << "Bug";
+    m_disparityImage = disparityImage;
+
+    emit disparityImageChanged();
 }
 
 

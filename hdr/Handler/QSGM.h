@@ -30,7 +30,7 @@ class QSGM : public QObject
 public:
     explicit QSGM(QObject *parent = nullptr);
 
-    QString sgm(QStringList imagePath, QConfig* config, int imageNumber) const;
+    cv::Mat sgm(QStringList imagePath, QConfig* config, int imageNumber) const;
 
     static void saveXYZ(const char* filename, const cv::Mat& mat);
 
