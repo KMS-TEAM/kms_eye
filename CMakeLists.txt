@@ -19,6 +19,7 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 #set(JSON_BuildTests OFF CACHE INTERNAL "")
 list(APPEND QML_IMPORT_PATH "/home/lacie/Qt/5.15.2/gcc_64/qml")
+list( APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake_modules)
 
 set(QML_IMPORT_PATH ${QML_IMPORT_PATH}
     CACHE STRING "Qt Creator 4.1 extra qml import paths"
@@ -65,6 +66,11 @@ find_package(VTK REQUIRED)
 find_package(PCL REQUIRED COMPONENTS common io)
 link_directories(${PCL_LIBRARY_DIRS})
 add_definitions(${PCL_DEFINITIONS})
+
+# g2o
+find_package(G2O REQUIRED)
+find_package(CSparse REQUIRED)
+include_directories(${G2O_INCLUDE_DIR} ${CSPARSE_INCLUDE_DIR})
 
 include_directories(${Qt5Widgets_INCLUDE_DIRS} ${QtQml_INCLUDE_DIRS})
 add_definitions(${Qt5Widgets_DEFINITIONS} ${QtQml_DEFINITIONS} ${${Qt5Quick_DEFINITIONS}})
@@ -125,6 +131,12 @@ target_link_libraries(kms_eye
 #          ${CUDA_LIBRARIES}
 #          ${CERES_LIBRARIES}
           ${PCL_LIBRARIES}
+          ${G2O_LIBS}
+          ${G2O_CORE_LIBRARY}
+          ${G2O_STUFF_LIBRARY}
+          g2o_types_slam3d
+          cholmod
+          ${CSPARSE_LIBRARY}
           stdc++)
 
 #qt5_use_modules(kms_eye Core Qml Widgets Quick 3DCore 3DQuick 3DRender 3DQuickRender 3DInput 3DLogic 3DQuickInput)

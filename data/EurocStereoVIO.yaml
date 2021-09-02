@@ -18,6 +18,9 @@ Scale: 1.0
 Blocksize: 5
 ColorDisplay: false
 
+# 3D Reconstruction Parameters
+GoodMatchThreshold: 10
+VoxelGrid: 0.01
 # if running in pure stereo vision mode
 PureVisionMode: false
 
