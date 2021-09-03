@@ -19,15 +19,65 @@
 #include <g2o/core/eigen_types.h>
 
 #include "QReconstructionBase.h"
+#include "AppConstant.h"
+
+// Put the definition of g2o to the front
+typedef g2o::BlockSolver_6_3 SlamBlockSolver;
+typedef g2o::LinearSolverEigen< SlamBlockSolver::PoseMatrixType> SlamLinearSolver;
 
 class QReconstruction : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(QString pclPath READ pclPath WRITE setPclPath NOTIFY pclPathChanged)
+
+    // detect two frames and define the result
+    enum CHECK_RESULT{
+        NOT_MATCHED = 0,
+        TOO_FAR_AWAY,
+        TOO_CLOSE,
+        KEYFRAME,
+    };
+
 public:
     explicit QReconstruction(QObject *parent = nullptr);
+    QString pclPath() const;
 
+    void init(QConfig* config);
+    void reconstruction();
+
+    // Givent index, and read a frame of data
+    FRAME readFrame(int index, QConfig *config);
+    // Estimate the size of a movement
+    double normofTransform(cv::Mat rvec, cv:: Mat tvec);
+
+    // Function declaration
+    CHECK_RESULT checkKeyframes(FRAME& f1, FRAME& f2, g2o::SparseOptimizer& opti, bool is_loops = false);
+    // Detect short-range loops
+    void checkNearbyLoops(std::vector<FRAME>& frames, FRAME& currFrame, g2o::SparseOptimizer& opti);
+    // Random detection loop
+    void checkRandomLoops(std::vector<FRAME>& frames, FRAME& currFrame, g2o::SparseOptimizer& opti);
+
+public slots:
+    void setPclPath(QString path);
 signals:
+    void pclPathChanged(QString path);
 
+private:
+    QConfig* m_config;
+    g2o::SparseOptimizer m_globalOptimizer;
+
+    std::vector<FRAME> m_keyframes;
+    FRAME m_currFrame;
+
+    int m_startIndex;
+    int m_endIndex;
+    int m_currIndex;
+
+    QString m_pclPath;
+    std::string detector;
+    std::string descriptor;
+
+    CAMERA_INTRINSIC_PARAMETERS m_camera;
 };
 
 #endif // QRECONSTRUCTION_H

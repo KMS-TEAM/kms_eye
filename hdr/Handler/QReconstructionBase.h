@@ -56,7 +56,7 @@ struct RESULT_OF_PNP
 };
 
 
-CAMERA_INTRINSIC_PARAMETERS getCameraParameters();
+CAMERA_INTRINSIC_PARAMETERS getCameraParameters(QConfig* config);
 
 // Function interface
 // image2PonitCloud converts rgb image to point cloud

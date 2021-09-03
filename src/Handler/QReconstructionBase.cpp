@@ -205,3 +205,15 @@ PointCloud::Ptr joinPointCloud( PointCloud::Ptr original, FRAME& newFrame, Eigen
     voxel.filter( *tmp );
     return tmp;
 }
+
+CAMERA_INTRINSIC_PARAMETERS getCameraParameters(QConfig *config)
+{
+    CAMERA_INTRINSIC_PARAMETERS camera;
+    camera.fx = config->getFloat("Camera.fx");
+    camera.fy = config->getFloat("Camera.fy");
+    camera.cx = config->getFloat("Camera.cx");
+    camera.cy = config->getFloat("Camera.cy");
+    camera.scale = config->getFloat("Scale");
+    return camera;
+
+}
