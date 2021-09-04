@@ -20,6 +20,7 @@
 
 #include "QReconstructionBase.h"
 #include "AppConstant.h"
+#include "QSGM.h"
 
 // Put the definition of g2o to the front
 typedef g2o::BlockSolver_6_3 SlamBlockSolver;
@@ -46,7 +47,7 @@ public:
     void reconstruction();
 
     // Givent index, and read a frame of data
-    FRAME readFrame(int index, QConfig *config);
+    FRAME readFrame(int index);
     // Estimate the size of a movement
     double normofTransform(cv::Mat rvec, cv:: Mat tvec);
 
@@ -64,10 +65,13 @@ signals:
 
 private:
     QConfig* m_config;
+    QSGM* m_sgm;
     g2o::SparseOptimizer m_globalOptimizer;
 
     std::vector<FRAME> m_keyframes;
     FRAME m_currFrame;
+    double keyframe_threshold;
+    bool check_loop_closure;
 
     int m_startIndex;
     int m_endIndex;
