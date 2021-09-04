@@ -62,8 +62,10 @@ include_directories(${OpenCV_INCLUDE_DIRS})
 #include_directories(${CERES_INCLUDE_DIRS})
 
 # PCL
+set(PCL_INCLUDE_DIRS /usr/local/include/pcl-1.8 /usr/include/eigen3/)
 find_package(VTK REQUIRED)
-find_package(PCL REQUIRED COMPONENTS common io)
+find_package(PCL 1.8 REQUIRED)
+include_directories(${PCL_INCLUDE_DIRS})
 link_directories(${PCL_LIBRARY_DIRS})
 add_definitions(${PCL_DEFINITIONS})
 
@@ -103,9 +105,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/hdr/Model
                     ${CMAKE_CURRENT_SOURCE_DIR}/hdr/View
                     ${CMAKE_CURRENT_SOURCE_DIR}/hdr/Handler
                     ${CMAKE_CURRENT_SOURCE_DIR}/hdr/Common
-                    ${CMAKE_CURRENT_SOURCE_DIR}/hdr
-                     /usr/include/pcl-1.8/
-                     /usr/include/eigen3/)
+                    ${CMAKE_CURRENT_SOURCE_DIR}/hdr)
 
 add_executable(kms_eye
                 ${HEADERS}
@@ -137,7 +137,8 @@ target_link_libraries(kms_eye
           g2o_types_slam3d
           cholmod
           ${CSPARSE_LIBRARY}
-          stdc++)
+          stdc++
+          -lpcl_filters)
 
 #qt5_use_modules(kms_eye Core Qml Widgets Quick 3DCore 3DQuick 3DRender 3DQuickRender 3DInput 3DLogic 3DQuickInput)
 
