@@ -14,6 +14,14 @@ void QImageProcessing::SGMAgl(QStringList imagePath, int imageNumber)
     // emit finishDisparity(disparityPath);
 }
 
+void QImageProcessing::Reconstrction()
+{
+    m_rec->init(m_config);
+    QString pclPath = m_rec->reconstruction();
+
+    emit finishReconstruction(pclPath);
+}
+
 void QImageProcessing::setConfig(QConfig *config)
 {
     m_config = config;

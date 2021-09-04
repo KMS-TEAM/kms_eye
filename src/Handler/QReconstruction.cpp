@@ -50,7 +50,7 @@ void QReconstruction::init(QConfig *config)
     check_loop_closure = config->getBool("CheckLoopClosure");
 }
 
-void QReconstruction::reconstruction()
+QString QReconstruction::reconstruction()
 {
     // Start Reconstruction
     CONSOLE << "Go Go !!!!";
@@ -78,12 +78,6 @@ void QReconstruction::reconstruction()
         case KEYFRAME:
             cout<<GREEN"This is a new keyframe"<<endl;
             // Not far, not near, just right
-            /**
-                         * This is important!!
-                         * This is important!!
-                         * This is important!!
-                         * (very important so I've said three times!)
-                         */
             // detect loopback
             if (check_loop_closure)
             {
@@ -116,7 +110,7 @@ void QReconstruction::reconstruction()
     pass.setFilterFieldName("z");
     pass.setFilterLimits( 0.0, 4.0 ); //Don't need more than 4m
 
-    double gridsize = m_config->getFloat("voxel_grid"); //The resolution map can be adjusted in parameters.txt
+    double gridsize = m_config->getFloat("VoxelGrid"); //The resolution map can be adjusted in parameters.txt
     voxel.setLeafSize( gridsize, gridsize, gridsize );
 
     for (size_t i = 0; i< m_keyframes.size(); i++)
@@ -145,43 +139,75 @@ void QReconstruction::reconstruction()
 
     CONSOLE << "Final map is saved.";
 
-    setPclPath(QString::fromStdString(pclDir));
+    return QString::fromStdString(pclDir);
+
+    // setPclPath(QString::fromStdString(pclDir));
 }
 
 FRAME QReconstruction::readFrame(int index)
 {
     // TODO: Need to change for stereo camera
     FRAME f;
-    string leftImage = m_config->getDir("LeftFolder");
-    string rightImage = m_config->getDir("RightFolder");
 
-    string rgbExt = m_config->getDir("ImageExtension");
+    if (m_config->getDir("Type") == "stereo"){
+        string leftImage = m_config->getDir("LeftFolder");
+        string rightImage = m_config->getDir("RightFolder");
 
-    QStringList imageList;
+        string rgbExt = m_config->getDir("ImageExtension");
 
-    // Left Image
-    stringstream ss;
-    ss << leftImage << index << rgbExt;
-    string filename;
-    ss >> filename;
-    cv::Mat left = cv::imread(filename);
-    f.rgb = left;
-    imageList.append(QString::fromStdString(filename));
+        QStringList imageList;
 
-    // Right Image
-    ss.clear();
-    filename.clear();
-    ss << rightImage << index << rgbExt;
-    ss>>filename;
-    cv::Mat right = cv::imread(filename);
-    imageList.append(QString::fromStdString(filename));
+        // Left Image
+        stringstream ss;
+        ss << leftImage << index << rgbExt;
+        string filename;
+        ss >> filename;
+        cv::Mat left = cv::imread(filename);
+        f.rgb = left;
+        imageList.append(QString::fromStdString(filename));
 
-    cv::Mat depth = m_sgm->sgm(imageList, m_config, index);
+        // Right Image
+        ss.clear();
+        filename.clear();
+        ss << rightImage << index << rgbExt;
+        ss>>filename;
+        cv::Mat right = cv::imread(filename);
+        imageList.append(QString::fromStdString(filename));
 
-    f.depth = depth;
-    //std::cout << filename << std::endl;
-    f.frameID = index;
-    return f;
+        cv::Mat depth = m_sgm->sgm(imageList, m_config, index);
+
+        f.depth = depth;
+        //std::cout << filename << std::endl;
+        f.frameID = index;
+        return f;
+    }
+    if (m_config->getDir("Type") == "RGB-D"){
+        FRAME f;
+        string rgbDir =  m_config->getDir("rgb_dir");
+        string depthDir =  m_config->getDir("depth_dir");
+
+        string rgbExt =  m_config->getDir("rgb_extension");
+        string depthExt =  m_config->getDir("depth_extension");
+
+        stringstream ss;
+        ss << rgbDir << index << rgbExt;
+        string filename;
+        ss >> filename;
+        //std::cout << filename << std::endl;
+        f.rgb = cv::imread(filename);
+        //std::cout << filename << std::endl;
+
+        ss.clear();
+        filename.clear();
+        ss << depthDir << index << depthExt;
+        ss >> filename;
+
+        //std::cout << filename << std::endl;
+        f.depth = cv::imread( filename, -1 );
+        //std::cout << filename << std::endl;
+        f.frameID = index;
+        return f;
+    }
 }
 
 double QReconstruction::normofTransform(cv::Mat rvec, cv::Mat tvec)
@@ -193,7 +219,7 @@ QReconstruction::CHECK_RESULT QReconstruction::checkKeyframes(FRAME &f1, FRAME &
 {
     static int min_inliers = m_config->getInt("min_inliers");
     static double max_norm = m_config->getFloat("max_norm");
-    static double keyframe_threshold = m_config->getFloat("keyframe_threshold");
+    static double keyframe_threshold = m_config->getFloat("KeyframeThreshold");
     static double max_norm_lp = m_config->getFloat("max_norm_lp");
 
     // compare f1 and f2

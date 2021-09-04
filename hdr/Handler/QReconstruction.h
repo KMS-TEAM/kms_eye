@@ -2,6 +2,7 @@
 #define QRECONSTRUCTION_H
 
 #include <QObject>
+#include <QString>
 
 #include <pcl/filters/voxel_grid.h>
 #include <pcl/filters/passthrough.h>
@@ -44,8 +45,9 @@ public:
     QString pclPath() const;
 
     void init(QConfig* config);
-    void reconstruction();
+    QString reconstruction();
 
+private:
     // Givent index, and read a frame of data
     FRAME readFrame(int index);
     // Estimate the size of a movement

@@ -26,6 +26,8 @@ AppModel::AppModel(QObject *parent) :
     connect(this, &AppModel::runImageProcessing, m_imageprocessing, &QImageProcessing::SGMAgl);
     // connect(m_imageprocessing, &QImageProcessing::finishDisparity, this, &AppModel::setdisparityMap);
     connect(m_imageprocessing, &QImageProcessing::finishCompute, this, &AppModel::setDisparityImage);
+    connect(this, &AppModel::runReconstruction, m_imageprocessing, &QImageProcessing::Reconstrction);
+    connect(m_imageprocessing, &QImageProcessing::finishReconstruction, this, &AppModel::setPclPath);
 }
 
 AppModel *AppModel::instance(){
@@ -65,6 +67,11 @@ QString AppModel::disparityMap() const
 QImage AppModel::disparityImage() const
 {
     return m_disparityImage;
+}
+
+QString AppModel::pclPath() const
+{
+    return m_pclPath;
 }
 
 void AppModel::setListImage()
@@ -177,6 +184,13 @@ void AppModel::setDisparityImage(QImage disparityImage)
     m_disparityImage = disparityImage;
 
     emit disparityImageChanged();
+}
+
+void AppModel::setPclPath(QString pclPath)
+{
+    CONSOLE << pclPath;
+    m_pclPath = pclPath;
+    emit pclPathChanged();
 }
 
 

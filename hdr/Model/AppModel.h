@@ -26,6 +26,7 @@ class AppModel : public QObject
     Q_PROPERTY(QStringList currentImagePath READ currentImagePath WRITE setCurrentImagePath NOTIFY currentImagePathChanged)
     Q_PROPERTY(AppEnums::APP_STATE state READ state WRITE setState NOTIFY stateChanged)
     Q_PROPERTY(QImage disparityImage READ disparityImage WRITE setDisparityImage NOTIFY disparityImageChanged)
+    Q_PROPERTY(QString pclPath READ pclPath WRITE setPclPath NOTIFY pclPathChanged)
 
 public:
 
@@ -38,6 +39,7 @@ public:
     AppEnums::APP_STATE state() const;
     QString disparityMap() const;
     QImage disparityImage() const;
+    QString pclPath() const;
 
     void setListImage();
     QVector<QStringList> getListImages() const;
@@ -52,6 +54,7 @@ public slots:
     void setdisparityMap(QString disparityMap);
     void increaseIndex();
     void setDisparityImage(QImage disparityImage);
+    void setPclPath(QString pclPath);
 
 signals:
     void currentImagePathChanged();
@@ -61,6 +64,8 @@ signals:
     void disparityMapChanged();
     void disparityImageChanged();
     void runImageProcessing(QStringList &currentImagePath, int &currentImageNumber);
+    void pclPathChanged();
+    void runReconstruction();
 
 private:
     AppModel(QObject* parent = nullptr);
@@ -80,6 +85,7 @@ private:
     QStringList m_currentImagePath;
     QString m_disparityMap;
     QString m_settingPath;
+    QString m_pclPath;
 
     QTimer m_timer;
 };

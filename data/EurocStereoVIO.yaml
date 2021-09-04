@@ -1,5 +1,5 @@
 %YAML:1.0
-
+Type: RGB-D
 Camera.type: PinHole
 # Dataset dirs
 LeftFolder: /home/lacie/Github/data/MH_01_easy/mav0/cam0/data
@@ -20,6 +20,13 @@ Blocksize: 5
 ColorDisplay: false
 
 # 3D Reconstruction Parameters
+StartIndex: 1
+EndIndex: 16
+# The directory where the data is located
+rgb_dir: /home/lacie/Github/data/RGB-D/color
+rgb_extension: .png
+depth_dir: /home/lacie/Github/data/RGB-D/depth
+depth_extension: .png
 GoodMatchThreshold: 10
 VoxelGrid: 0.01
 KeyframeThreshold: 0.01
@@ -42,11 +49,18 @@ PureVisionMode: false
 # do we need visualization?
 UseViewer: true
 
+# camera
+camera.cx: 325.5
+camera.cy: 253.5
+camera.fx: 518.0
+camera.fy: 519.0
+camera.scale: 1000.0
+
 # Camera calibration and distortion parameters (OpenCV)
-Camera.fx: 435.2046959714599
-Camera.fy: 435.2046959714599
-Camera.cx: 367.4517211914062
-Camera.cy: 252.2008514404297
+#Camera.fx: 435.2046959714599
+#Camera.fy: 435.2046959714599
+#Camera.cx: 367.4517211914062
+#Camera.cy: 252.2008514404297
 
 Camera.k1: 0.0
 Camera.k2: 0.0

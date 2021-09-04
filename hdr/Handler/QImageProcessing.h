@@ -6,6 +6,7 @@
 #include <QImage>
 #include "QConfig.h"
 #include "QSGM.h"
+#include "QReconstruction.h"
 #include "AppEnums.h"
 
 class QImageProcessing : public QObject
@@ -18,13 +19,16 @@ public:
 
 public slots:
     void SGMAgl(QStringList imagePath, int imageNumber);
+    void Reconstrction();
 
 signals:
     void finishDisparity(QString &result);
     void finishCompute(QImage &result);
+    void finishReconstruction(QString &result);
 private:
     QSGM* m_sgm;
     QConfig* m_config;
+    QReconstruction* m_rec;
 };
 
 #endif // QIMAGEPROCESSING_H
