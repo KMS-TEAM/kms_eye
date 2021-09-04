@@ -93,7 +93,7 @@ Item{
 
                 QImageItem{
                     id: imageItem
-                    width: imageRaw.width / 2
+                    width: imageRaw.width / 2 - 20
                     height: imageRaw.height /2
                     anchors.right: parent.right
                     anchors.bottom: parent.bottom

@@ -17,9 +17,11 @@ void QReconstruction::init(QConfig *config)
 {
     CONSOLE << "Reconstrcutor Initializing...";
     m_config = config;
+    CONSOLE << "LOL";
     m_startIndex = m_config->getInt("StartIndex");
     m_endIndex = m_config->getInt("EndIndex");
     m_currIndex = m_startIndex;
+
     m_currFrame = readFrame(m_currIndex);
 
     m_camera = getCameraParameters(m_config);
@@ -65,18 +67,18 @@ QString QReconstruction::reconstruction()
         {
         case NOT_MATCHED:
             //No match, skip directly
-            cout<<RED"Not enough inliers."<<endl;
+            CONSOLE << RED"Not enough inliers.";
             break;
         case TOO_FAR_AWAY:
             // It’s too close, just jump
-            cout<<RED"Too far away, may be an error."<<endl;
+            CONSOLE << RED"Too far away, may be an error.";
             break;
         case TOO_CLOSE:
             // too far, maybe something went wrong
-            cout<<RESET"Too close, not a keyframe"<<endl;
+            CONSOLE << RESET"Too close, not a keyframe";
             break;
         case KEYFRAME:
-            cout<<GREEN"This is a new keyframe"<<endl;
+            CONSOLE << GREEN"This is a new keyframe";
             // Not far, not near, just right
             // detect loopback
             if (check_loop_closure)
@@ -182,12 +184,13 @@ FRAME QReconstruction::readFrame(int index)
         return f;
     }
     if (m_config->getDir("Type") == "RGB-D"){
+        CONSOLE << QString::fromStdString(m_config->getDir("Type"));
         FRAME f;
         string rgbDir =  m_config->getDir("rgb_dir");
         string depthDir =  m_config->getDir("depth_dir");
 
-        string rgbExt =  m_config->getDir("rgb_extension");
-        string depthExt =  m_config->getDir("depth_extension");
+        string rgbExt =  "." + m_config->getDir("rgb_extension");
+        string depthExt =  "." + m_config->getDir("depth_extension");
 
         stringstream ss;
         ss << rgbDir << index << rgbExt;
@@ -223,9 +226,7 @@ QReconstruction::CHECK_RESULT QReconstruction::checkKeyframes(FRAME &f1, FRAME &
     static double max_norm_lp = m_config->getFloat("max_norm_lp");
 
     // compare f1 and f2
-    std::cout << "check : checkKeyframes" << std::endl;
     RESULT_OF_PNP result = estimateMotion( f1, f2, m_camera, m_config);
-    //std::cout << "check" << std::endl;
     if ( result.inliers < min_inliers ) //Inliers are not enough, give up the frame
         return NOT_MATCHED;
     // Calculate whether the range of motion is too large
@@ -332,6 +333,5 @@ void QReconstruction::checkRandomLoops(std::vector<FRAME> &frames, FRAME &currFr
 void QReconstruction::setPclPath(QString path)
 {
     m_pclPath = path;
-
     emit pclPathChanged(m_pclPath);
 }

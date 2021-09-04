@@ -209,11 +209,11 @@ PointCloud::Ptr joinPointCloud( PointCloud::Ptr original, FRAME& newFrame, Eigen
 CAMERA_INTRINSIC_PARAMETERS getCameraParameters(QConfig *config)
 {
     CAMERA_INTRINSIC_PARAMETERS camera;
-    camera.fx = config->getFloat("Camera.fx");
-    camera.fy = config->getFloat("Camera.fy");
-    camera.cx = config->getFloat("Camera.cx");
-    camera.cy = config->getFloat("Camera.cy");
-    camera.scale = config->getFloat("Scale");
+    camera.fx = config->getFloat("amera.fx");
+    camera.fy = config->getFloat("camera.fy");
+    camera.cx = config->getFloat("camera.cx");
+    camera.cy = config->getFloat("camera.cy");
+    camera.scale = config->getFloat("camera.scale");
     return camera;
 
 }

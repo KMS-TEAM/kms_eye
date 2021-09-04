@@ -69,9 +69,15 @@ void AppEngine::slotReceiveEvent(int event)
     case static_cast<int>(AppEnums::EVT_CLICK_SETTING_PATH):
         CONSOLE << MODEL->settingPath();
         break;
+    case static_cast<int>(AppEnums::EVT_CLICK_RECONSTRUCTION_SETTING_PATH):
+        CONSOLE << MODEL->settingPath();
+        break;
     case static_cast<int>(AppEnums::EVT_CLICK_RUN):
         MODEL->setState(AppEnums::APP_STATE::STATE_RUNNING);
         MODEL->imageProcessing(AppEnums::ALGORITHM::SGBM);
+        break;
+    case static_cast<int>(AppEnums::EVT_CLICK_RUN_RECONSTRUCTION):
+        MODEL->runReconstruction();
         break;
     case static_cast<int>(AppEnums::EVT_CLICK_STOP):
         MODEL->setState(AppEnums::APP_STATE::STATE_STOP);

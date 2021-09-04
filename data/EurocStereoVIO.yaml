@@ -17,16 +17,16 @@ p2: 50
 Maxdisparity: 256
 Scale: 1.0
 Blocksize: 5
-ColorDisplay: false
+ColorDisplay: true
 
 # 3D Reconstruction Parameters
 StartIndex: 1
 EndIndex: 16
 # The directory where the data is located
 rgb_dir: /home/lacie/Github/data/RGB-D/color
-rgb_extension: .png
+rgb_extension: png
 depth_dir: /home/lacie/Github/data/RGB-D/depth
-depth_extension: .png
+depth_extension: png
 GoodMatchThreshold: 10
 VoxelGrid: 0.01
 KeyframeThreshold: 0.01
@@ -57,10 +57,10 @@ camera.fy: 519.0
 camera.scale: 1000.0
 
 # Camera calibration and distortion parameters (OpenCV)
-#Camera.fx: 435.2046959714599
-#Camera.fy: 435.2046959714599
-#Camera.cx: 367.4517211914062
-#Camera.cy: 252.2008514404297
+Camera.fx: 435.2046959714599
+Camera.fy: 435.2046959714599
+Camera.cx: 367.4517211914062
+Camera.cy: 252.2008514404297
 
 Camera.k1: 0.0
 Camera.k2: 0.0
