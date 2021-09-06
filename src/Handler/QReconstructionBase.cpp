@@ -61,7 +61,7 @@ void computeKeyPointsAndDesp( FRAME& frame, string detector, string descriptor)
     cv::Ptr<cv::FeatureDetector> _detector;
     cv::Ptr<cv::DescriptorExtractor> _descriptor;
 
-    _detector = cv::ORB::create();
+    _detector = cv::ORB::create(1000);
     _descriptor = cv::ORB::create();
 
     if (!_detector || !_descriptor)
@@ -84,28 +84,32 @@ RESULT_OF_PNP estimateMotion( FRAME& frame1, FRAME& frame2, CAMERA_INTRINSIC_PAR
     vector< cv::DMatch> matches;
     cv::BFMatcher matcher;
     matcher.match( frame1.desp, frame2.desp, matches );
-
+    cv::imshow("Fream 1", frame1.rgb);
+    cv::imshow("Frame 2", frame2.rgb);
+    cv::waitKey(0);
+    cv::destroyAllWindows();
     RESULT_OF_PNP result;
     vector< cv::DMatch> goodMatches;
     double minDis = 9999;
 
     double good_match_threshold = config->getFloat("GoodMatchThresHold");
-    for (size_t i=0; i<matches.size(); i++)
+    CONSOLE << "Good Match Threshold: " << good_match_threshold;
+    for (size_t i=0; i< matches.size(); i++)
     {
-        if (matches[i].distance <minDis)
+        if (matches[i].distance < minDis)
             minDis = matches[i].distance;
     }
 
-    if (minDis <10)
+    if (minDis < 10)
         minDis = 10;
 
-    for (size_t i=0; i<matches.size(); i++)
+    for (size_t i=0; i< matches.size(); i++)
     {
-        if (matches[i].distance <good_match_threshold*minDis)
+        if (matches[i].distance < good_match_threshold*minDis)
             goodMatches.push_back( matches[i] );
     }
 
-
+    CONSOLE << "good matches: "<<goodMatches.size();
     if (goodMatches.size() <= 5)
     {
         result.inliers = -1;
@@ -134,7 +138,7 @@ RESULT_OF_PNP estimateMotion( FRAME& frame1, FRAME& frame2, CAMERA_INTRINSIC_PAR
         pts_obj.push_back( pd );
     }
 
-    if (pts_obj.size() ==0 || pts_img.size()==0)
+    if (pts_obj.size() == 0 || pts_img.size()== 0)
     {
         result.inliers = -1;
         return result;
@@ -150,7 +154,7 @@ RESULT_OF_PNP estimateMotion( FRAME& frame1, FRAME& frame2, CAMERA_INTRINSIC_PAR
     cv::Mat cameraMatrix( 3, 3, CV_64F, camera_matrix_data );
     cv::Mat rvec, tvec, inliers;
     // Solve for pnp
-    std::cout << "check : estimateMotion" << std::endl;
+    CONSOLE << "check : estimateMotion";
     findRtRANSAC( pts_obj, pts_img,
                   cameraMatrix, cv::Mat(),
                   rvec, tvec, false,
@@ -209,11 +213,13 @@ PointCloud::Ptr joinPointCloud( PointCloud::Ptr original, FRAME& newFrame, Eigen
 CAMERA_INTRINSIC_PARAMETERS getCameraParameters(QConfig *config)
 {
     CAMERA_INTRINSIC_PARAMETERS camera;
-    camera.fx = config->getFloat("amera.fx");
+    camera.fx = config->getFloat("camera.fx");
     camera.fy = config->getFloat("camera.fy");
     camera.cx = config->getFloat("camera.cx");
     camera.cy = config->getFloat("camera.cy");
     camera.scale = config->getFloat("camera.scale");
+
+    CONSOLE << camera.fx << " " << camera.fy << " " << camera.cx << " " << camera.cy;
     return camera;
 
 }

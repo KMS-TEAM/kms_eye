@@ -20,14 +20,14 @@ Blocksize: 5
 ColorDisplay: false
 
 # 3D Reconstruction Parameters
-StartIndex: 1
+StartIndex: 6
 EndIndex: 16
 # The directory where the data is located
-rgb_dir: /home/lacie/Github/data/RGB-D/color
+rgb_dir: /home/lacie/Github/data/RGB-D/color/
 rgb_extension: png
-depth_dir: /home/lacie/Github/data/RGB-D/depth
+depth_dir: /home/lacie/Github/data/RGB-D/depth/
 depth_extension: png
-GoodMatchThreshold: 10
+GoodMatchThresHold: 50.0
 VoxelGrid: 0.01
 KeyframeThreshold: 0.01
 CheckLoopClosure: true
@@ -38,10 +38,10 @@ min_good_match: 10
 # Minimum interior point
 min_inliers: 5
 # Maximum movement error
-max_norm: 0.2
+max_norm: 0.3
 nearby_loops: 5
 random_loops: 5
-max_norm_lp: 2.0
+max_norm_lp: 3.0
 
 # if running in pure stereo vision mode
 PureVisionMode: false

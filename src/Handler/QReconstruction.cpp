@@ -61,6 +61,10 @@ QString QReconstruction::reconstruction()
         CONSOLE <<"Reading files "<< m_currIndex ;
         FRAME currFrame = readFrame( m_currIndex); // read currFrame
         computeKeyPointsAndDesp( currFrame, detector, descriptor ); //Extract features
+        CONSOLE << currFrame.kp.size();
+//        cv::imshow(std::to_string(m_currIndex), currFrame.rgb);
+//        cv::waitKey(0);
+
         CHECK_RESULT result = checkKeyframes( m_keyframes.back(), currFrame, m_globalOptimizer); //match this frame with the last frame in keyframes
 
         switch (result)
@@ -70,11 +74,9 @@ QString QReconstruction::reconstruction()
             CONSOLE << RED"Not enough inliers.";
             break;
         case TOO_FAR_AWAY:
-            // It’s too close, just jump
             CONSOLE << RED"Too far away, may be an error.";
             break;
         case TOO_CLOSE:
-            // too far, maybe something went wrong
             CONSOLE << RESET"Too close, not a keyframe";
             break;
         case KEYFRAME:
@@ -196,7 +198,7 @@ FRAME QReconstruction::readFrame(int index)
         ss << rgbDir << index << rgbExt;
         string filename;
         ss >> filename;
-        //std::cout << filename << std::endl;
+        CONSOLE << QString::fromStdString(filename);
         f.rgb = cv::imread(filename);
         //std::cout << filename << std::endl;
 
@@ -205,7 +207,7 @@ FRAME QReconstruction::readFrame(int index)
         ss << depthDir << index << depthExt;
         ss >> filename;
 
-        //std::cout << filename << std::endl;
+        CONSOLE << QString::fromStdString(filename);
         f.depth = cv::imread( filename, -1 );
         //std::cout << filename << std::endl;
         f.frameID = index;
@@ -227,6 +229,7 @@ QReconstruction::CHECK_RESULT QReconstruction::checkKeyframes(FRAME &f1, FRAME &
 
     // compare f1 and f2
     RESULT_OF_PNP result = estimateMotion( f1, f2, m_camera, m_config);
+    CONSOLE << result.inliers;
     if ( result.inliers < min_inliers ) //Inliers are not enough, give up the frame
         return NOT_MATCHED;
     // Calculate whether the range of motion is too large

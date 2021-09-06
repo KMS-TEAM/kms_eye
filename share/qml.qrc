@@ -1,9 +1,15 @@
 <RCC>
-    <qresource prefix="/">
+    <qresource prefix="/qml">
         <file>qml/ImageViewer.qml</file>
         <file>qml/main.qml</file>
         <file>qml/MainScreen.qml</file>
         <file>qml/PCLViewer.qml</file>
+    </qresource>
+    <qresource prefix="/shader">
+        <file>shader/pointcloud.frag</file>
+        <file>shader/pointcloud.vert</file>
+        <file>shader/surfel.frag</file>
+        <file>shader/surfel.vert</file>
     </qresource>
     <qresource prefix="/images">
         <file>images/logo.png</file>

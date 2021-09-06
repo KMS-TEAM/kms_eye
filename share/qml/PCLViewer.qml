@@ -19,7 +19,7 @@ ApplicationWindow {
 
     PointcloudReader {
         id: readerBunny
-        filename: "/home/lacie/Github/kms_eye/data/bunny.pcd"
+        filename: "/home/lacie/Github/data/kms_eye_output/pcl/result.pcd"
     }
     PointcloudReader {
         id: readerBunnyNormal
@@ -155,8 +155,8 @@ ApplicationWindow {
                             techniques: Technique {
                                 renderPasses: RenderPass {
                                     shaderProgram: ShaderProgram {
-                                        vertexShaderCode: loadSource("qrc:/shader/pointcloud.vert")
-                                        fragmentShaderCode: loadSource("qrc:/shader/pointcloud.frag")
+                                        vertexShaderCode: loadSource("qrc:/shader/shader/pointcloud.vert")
+                                        fragmentShaderCode: loadSource("qrc:/shader/shader/pointcloud.frag")
                                     }
                                 }
                             }
@@ -188,8 +188,8 @@ ApplicationWindow {
                             techniques: Technique {
                                 renderPasses: RenderPass {
                                     shaderProgram: ShaderProgram {
-                                        vertexShaderCode: loadSource("qrc:/shader/surfel.vert")
-                                        fragmentShaderCode: loadSource("qrc:/shader/surfel.frag")
+                                        vertexShaderCode: loadSource("qrc:/shader/shader/surfel.vert")
+                                        fragmentShaderCode: loadSource("qrc:/shader/shader/surfel.frag")
                                     }
                                 }
                             }
