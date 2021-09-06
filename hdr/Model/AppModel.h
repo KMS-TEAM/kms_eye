@@ -14,7 +14,6 @@
 #include "AppEnums.h"
 #include "QImageProcessing.h"
 
-
 #define MODEL AppModel::instance()
 
 class AppModel : public QObject
@@ -62,7 +61,7 @@ signals:
     void settingPathChanged();
     void stateChanged();
     void disparityMapChanged();
-    void disparityImageChanged();
+    void disparityImageChanged(QImage &image);
     void runImageProcessing(QStringList &currentImagePath, int &currentImageNumber);
     void pclPathChanged();
     void runReconstruction();

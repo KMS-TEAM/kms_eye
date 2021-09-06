@@ -9,7 +9,7 @@ QImageProcessing::QImageProcessing(QObject *parent) : QObject(parent)
 void QImageProcessing::SGMAgl(QStringList imagePath, int imageNumber)
 {
     cv::Mat disparityPath = m_sgm->sgm(imagePath, m_config, imageNumber);
-    QImage result = QImage((const unsigned char*) (disparityPath.data), disparityPath.cols, disparityPath.rows, QImage::Format_RGB888);
+    QImage result = QImage((const unsigned char*) (disparityPath.data), disparityPath.cols, disparityPath.rows,disparityPath.step, QImage::Format_Indexed8);
 
     emit finishCompute(result);
     // emit finishDisparity(disparityPath);

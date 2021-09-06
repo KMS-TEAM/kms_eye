@@ -11,6 +11,7 @@
 #include "Q3DPointCloudRender/QPointField.h"
 #include "Q3DPointCloudRender/QPointCloudReader.h"
 #include "QImageItem/QImageItem.h"
+#include "QImageItem/QOpenCVImageProvider.h"
 
 
 ScreenDef* ScreenDef::m_instance = nullptr;
@@ -43,6 +44,8 @@ void AppEngine::initEngine(){
     // QPixmap type
     qmlRegisterType<QImageItem>("MyImage", 1, 0, "QImageItem");
 
+    QOpenCVImageProvider *liveImageProvider(new QOpenCVImageProvider);
+
     // connect signal slots
     connect(QML_HANDLER, &QMLHandler::notifyQMLEvent, this, &AppEngine::slotReceiveEvent);
 
@@ -51,6 +54,11 @@ void AppEngine::initEngine(){
     m_rootContext->setContextProperty("QmlHandler", QML_HANDLER);
     m_rootContext->setContextProperty("QmlScreen", SCR_DEF);
     m_rootContext->setContextProperty("QmlModel", MODEL);
+    m_rootContext->setContextProperty("liveImageProvider", liveImageProvider);
+
+    this->addImageProvider("live", liveImageProvider);
+
+    connect(MODEL, &AppModel::disparityImageChanged, liveImageProvider, &QOpenCVImageProvider::updateImage);
 }
 
 void AppEngine::startEngine(){

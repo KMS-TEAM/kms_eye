@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Window 2.12
 import QtQuick.Controls 2.5
+import QtQuick.Layouts 1.15
 import MyImage 1.0
 import AppEnums 1.0
 
@@ -33,81 +34,96 @@ Item{
             anchors.fill: parent
             height: 320
             width: 640
-//            anchors.rightMargin: 320
-//            anchors.leftMargin: 0
-//            anchors.bottomMargin: 320
 
-            Grid {
+            GridLayout {
                 id: grid
+                anchors.fill: parent
                 columns: 2
-                spacing: 0.5
-                anchors.fill: imageRaw
+                rows: 2
 
                 Image {
-                    id: imageleft
-                    width: imageRaw.width / 2
-                    height: imageRaw.height /2
-                    anchors.left: parent.left
-                    anchors.top: parent.top
+                    id: image
+                    width: (imageRaw.width-10)/2
+                    height: (imageRaw.height-10)/2
                     source: pathpreprocess(imageViewer.leftImage)
-                    anchors.topMargin: 0
-                    anchors.leftMargin: 0
                     fillMode: Image.PreserveAspectFit
+                    Layout.column: 0
+                    Layout.row: 0
+
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
                 }
 
                 Image {
-                    id: leftdepth
-                    width: imageRaw.width / 2
-                    height: imageRaw.height /2
-                    anchors.right: parent.right
-                    anchors.top: parent.top
+                    id: image1
+                    width: (imageRaw.width-10)/2
+                    height: (imageRaw.height-10)/2
                     source: pathpreprocess(imageViewer.leftDepth)
-                    anchors.topMargin: 0
-                    anchors.rightMargin: 0
                     fillMode: Image.PreserveAspectFit
+                    Layout.column: 1
+                    Layout.row: 0
+
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
                 }
 
                 Image {
-                    id: imageright
-                    width: imageRaw.width / 2
-                    height: imageRaw.height /2
-                    anchors.left: parent.left
-                    anchors.bottom: parent.bottom
+                    id: image2
+                    width: (imageRaw.width-10)/2
+                    height: (imageRaw.height-10)/2
                     source: pathpreprocess(imageViewer.rightImage)
-                    anchors.leftMargin: 0
-                    anchors.bottomMargin: 0
                     fillMode: Image.PreserveAspectFit
+                    Layout.column: 0
+                    Layout.row: 1
+
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
                 }
 
-//                Image {
-//                    id: rightdepth
-//                    width: imageRaw.width / 2
-//                    height: imageRaw.height /2
-//                    anchors.right: parent.right
-//                    anchors.bottom: parent.bottom
-//                    source: imageViewer.rightDepth
-//                    anchors.bottomMargin: 0
-//                    anchors.rightMargin: 0
-//                    fillMode: Image.PreserveAspectFit
+                Image {
+                    id: image3
+                    width: (imageRaw.width-10)/2
+                    height: (imageRaw.height-10)/2
+                    source: "image://live/image"
+                    fillMode: Image.PreserveAspectFit
+                    property bool counter: false
+                    asynchronous: false
+                    cache: false
+                    // visible: false
+                    // anchors.right: parent.right
+                    // anchors.bottom: parent.bottom
+
+                    Layout.column: 1
+                    Layout.row: 1
+
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+
+                    function reload()
+                    {
+                        console.log("Update counter")
+                        counter = !counter
+                        source = "image://live/image?id=" + counter
+                        console.log(source)
+                    }
+                }
+
+                Connections{
+                    target: liveImageProvider
+
+                    function onImageChanged()
+                    {
+                        image3.reload()
+                    }
+
+                }
+//                Connections{
+//                    target: QmlModel
+//                    onDisparityImageChanged: imageItem.setImage(QmlModel.disparityImage)
 //                }
-
-                QImageItem{
-                    id: imageItem
-                    width: imageRaw.width / 2 - 20
-                    height: imageRaw.height /2
-                    anchors.right: parent.right
-                    anchors.bottom: parent.bottom
-                    anchors.bottomMargin: 0
-                    anchors.rightMargin: 0
-                }
 
             }
         }
-    }
-
-    Connections{
-        target: QmlModel
-        onDisparityImageChanged: imageItem.setImage(QmlModel.disparityImage)
     }
 }
 

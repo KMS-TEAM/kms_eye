@@ -28,6 +28,7 @@ signals:
 private:
     QSGM* m_sgm;
     QConfig* m_config;
+
 };
 
 #endif // QIMAGEPROCESSING_H

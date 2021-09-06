@@ -183,7 +183,7 @@ void AppModel::setDisparityImage(QImage disparityImage)
     CONSOLE << "Bug";
     m_disparityImage = disparityImage;
 
-    emit disparityImageChanged();
+    emit disparityImageChanged(m_disparityImage);
 }
 
 void AppModel::setPclPath(QString pclPath)

@@ -17,7 +17,7 @@ p2: 50
 Maxdisparity: 256
 Scale: 1.0
 Blocksize: 5
-ColorDisplay: true
+ColorDisplay: false
 
 # 3D Reconstruction Parameters
 StartIndex: 1

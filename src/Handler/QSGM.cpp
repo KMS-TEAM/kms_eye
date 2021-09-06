@@ -120,7 +120,7 @@ cv::Mat QSGM::sgm(QStringList imagePath, QConfig *config, int imageNumber) const
 
     imwrite(disparity_dir, color_display ? disp8_3c : disp8);
 
-    resize(disp8, disp8, cv::Size(620, 290), cv::INTER_LINEAR);
+    // resize(disp8, disp8, cv::Size(620, 290), cv::INTER_LINEAR);
 
 //    if(pointCloud)
 //    {
@@ -137,7 +137,7 @@ cv::Mat QSGM::sgm(QStringList imagePath, QConfig *config, int imageNumber) const
     // QString disparityPath = QString::fromStdString(disparity_dir);
     // return disparityPath;
 
-    return disp8_3c;
+    return disp8;
 }
 
 void QSGM::saveXYZ(const char *filename, const cv::Mat &mat)
