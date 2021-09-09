@@ -10,20 +10,16 @@ import Qt3D.Extras 2.0
 
 import pcl 1.0
 
-ApplicationWindow {
+Item {
     id: window
-    title: qsTr("Map Visualization")
+    // title: qsTr("Map Visualization")
     width: 1200
     height: 800
     visible: true
 
     PointcloudReader {
         id: readerBunny
-        filename: "/home/lacie/Github/data/kms_eye_output/pcl/result.pcd"
-    }
-    PointcloudReader {
-        id: readerBunnyNormal
-        filename: "/home/lacie/Github/kms_eye/data/bunny_normal.pcd"
+        filename: "/home/lacie-life/Github/kms_eye/data/bunny.pcd"
     }
 
     GridLayout {
@@ -86,16 +82,16 @@ ApplicationWindow {
                                                 ]
                                             }
                                         }
-                                        LayerFilter {
-                                            layers: surfelLayer
-                                            RenderStateSet {
-                                                renderStates: [
-                                                    PointSize { sizeMode: PointSize.Programmable }, //supported since OpenGL 3.2
-                                                    DepthTest { depthFunction: DepthTest.Less }
-                                                    //DepthMask { mask: true }
-                                                ]
-                                            }
-                                        }
+//                                        LayerFilter {
+//                                            layers: surfelLayer
+//                                            RenderStateSet {
+//                                                renderStates: [
+//                                                    PointSize { sizeMode: PointSize.Programmable }, //supported since OpenGL 3.2
+//                                                    DepthTest { depthFunction: DepthTest.Less }
+//                                                    //DepthMask { mask: true }
+//                                                ]
+//                                            }
+//                                        }
                                     }
                                 }
                             }
@@ -167,45 +163,45 @@ ApplicationWindow {
                     components: [ pointcloudMesh, materialPoint, meshTransform, pointLayer ]
                 }
 
-                Q3D.Entity {
-                    id: pointcloudSurfel
-                    property Layer layerPoints: Layer {
-                            id: surfelLayer
-                        }
-                    property var meshTransform: Q3D.Transform {
-                            id: pointcloudSurfelTransform
-                            property real userAngle: rotator.rotationAnimation
-                            scale: 20
-                            translation: Qt.vector3d(0, 2, 0)
-                            rotation: fromAxisAndAngle(Qt.vector3d(0, 1, 0), userAngle)
-                        }
-                    property GeometryRenderer surfelMesh: GeometryRenderer {
-                            geometry: PointcloudGeometry { pointcloud: readerBunnyNormal.pointcloud }
-                            primitiveType: GeometryRenderer.Points
-                        }
-                    property Material materialSurfel: Material {
-                        effect: Effect {
-                            techniques: Technique {
-                                renderPasses: RenderPass {
-                                    shaderProgram: ShaderProgram {
-                                        vertexShaderCode: loadSource("qrc:/shader/shader/surfel.vert")
-                                        fragmentShaderCode: loadSource("qrc:/shader/shader/surfel.frag")
-                                    }
-                                }
-                            }
-                        }
-                        parameters: [
-                            Parameter { name: "pointSize"; value: 0.06 },
-                            Parameter { name: "fieldOfView"; value: mainCamera.fieldOfView },
-                            Parameter { name: "fieldOfViewVertical"; value: mainCamera.fieldOfView/mainCamera.aspectRatio },
-                            Parameter { name: "nearPlane"; value: mainCamera.nearPlane },
-                            Parameter { name: "farPlane"; value: mainCamera.farPlane },
-                            Parameter { name: "width"; value: scene3d.width },
-                            Parameter { name: "height"; value: scene3d.height }
-                        ]
-                    }
-                    components: [ surfelMesh, materialSurfel, meshTransform, surfelLayer ]
-                }
+//                Q3D.Entity {
+//                    id: pointcloudSurfel
+//                    property Layer layerPoints: Layer {
+//                            id: surfelLayer
+//                        }
+//                    property var meshTransform: Q3D.Transform {
+//                            id: pointcloudSurfelTransform
+//                            property real userAngle: rotator.rotationAnimation
+//                            scale: 20
+//                            translation: Qt.vector3d(0, 2, 0)
+//                            rotation: fromAxisAndAngle(Qt.vector3d(0, 1, 0), userAngle)
+//                        }
+//                    property GeometryRenderer surfelMesh: GeometryRenderer {
+//                            geometry: PointcloudGeometry { pointcloud: readerBunnyNormal.pointcloud }
+//                            primitiveType: GeometryRenderer.Points
+//                        }
+//                    property Material materialSurfel: Material {
+//                        effect: Effect {
+//                            techniques: Technique {
+//                                renderPasses: RenderPass {
+//                                    shaderProgram: ShaderProgram {
+//                                        vertexShaderCode: loadSource("qrc:/shader/shader/surfel.vert")
+//                                        fragmentShaderCode: loadSource("qrc:/shader/shader/surfel.frag")
+//                                    }
+//                                }
+//                            }
+//                        }
+//                        parameters: [
+//                            Parameter { name: "pointSize"; value: 0.06 },
+//                            Parameter { name: "fieldOfView"; value: mainCamera.fieldOfView },
+//                            Parameter { name: "fieldOfViewVertical"; value: mainCamera.fieldOfView/mainCamera.aspectRatio },
+//                            Parameter { name: "nearPlane"; value: mainCamera.nearPlane },
+//                            Parameter { name: "farPlane"; value: mainCamera.farPlane },
+//                            Parameter { name: "width"; value: scene3d.width },
+//                            Parameter { name: "height"; value: scene3d.height }
+//                        ]
+//                    }
+//                    components: [ surfelMesh, materialSurfel, meshTransform, surfelLayer ]
+//                }
             }
         }
     }

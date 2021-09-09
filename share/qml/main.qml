@@ -20,6 +20,6 @@ Window {
     Loader {
         id: loader
         anchors.fill: parent
-        source: QmlConst.QML_MAIN_SCREEN_URL
+        source: QmlConst.QML_PCL_VIEWER_URL
     }
 }
