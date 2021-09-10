@@ -12,14 +12,13 @@ import pcl 1.0
 
 Item {
     id: window
-    // title: qsTr("Map Visualization")
     width: 1200
     height: 800
     visible: true
 
     PointcloudReader {
         id: readerBunny
-        filename: "/home/lacie-life/Github/kms_eye/data/bunny.pcd"
+        filename: "/home/lacie/Github/data/kms_eye_output/pcl/result.pcd"
     }
 
     GridLayout {
@@ -47,8 +46,7 @@ Item {
                     viewCenter: Qt.vector3d( 0.0, 0.0, 0.0 )
                 }
 
-                FirstPersonCameraController {
-                //OrbitCameraController {
+                OrbitCameraController {
                     camera: mainCamera
                 }
 
@@ -82,16 +80,6 @@ Item {
                                                 ]
                                             }
                                         }
-//                                        LayerFilter {
-//                                            layers: surfelLayer
-//                                            RenderStateSet {
-//                                                renderStates: [
-//                                                    PointSize { sizeMode: PointSize.Programmable }, //supported since OpenGL 3.2
-//                                                    DepthTest { depthFunction: DepthTest.Less }
-//                                                    //DepthMask { mask: true }
-//                                                ]
-//                                            }
-//                                        }
                                     }
                                 }
                             }
@@ -128,19 +116,15 @@ Item {
                 Layer {
                     id: pointLayer
                 }
-                Q3D.Entity {
-                    id: torusEntity
-                    components: [ solidLayer, torusMesh, phongMaterial, torusTransform ]
-                }
 
                 Q3D.Entity {
                     id: pointcloud
                     property var meshTransform: Q3D.Transform {
                             id: pointcloudTransform
-                            property real userAngle: rotator.rotationAnimation
+                            // property real userAngle: rotator.rotationAnimation
                             scale: 20
                             translation: Qt.vector3d(0, -2, 0)
-                            rotation: fromAxisAndAngle(Qt.vector3d(0, 1, 0), userAngle)
+                            // rotation: fromAxisAndAngle(Qt.vector3d(0, 1, 0), userAngle)
                         }
                     property GeometryRenderer pointcloudMesh: GeometryRenderer {
                             geometry: PointcloudGeometry { pointcloud: readerBunny.pointcloud }
@@ -162,61 +146,21 @@ Item {
                     //property Material materialPoint: PerVertexColorMaterial {}
                     components: [ pointcloudMesh, materialPoint, meshTransform, pointLayer ]
                 }
-
-//                Q3D.Entity {
-//                    id: pointcloudSurfel
-//                    property Layer layerPoints: Layer {
-//                            id: surfelLayer
-//                        }
-//                    property var meshTransform: Q3D.Transform {
-//                            id: pointcloudSurfelTransform
-//                            property real userAngle: rotator.rotationAnimation
-//                            scale: 20
-//                            translation: Qt.vector3d(0, 2, 0)
-//                            rotation: fromAxisAndAngle(Qt.vector3d(0, 1, 0), userAngle)
-//                        }
-//                    property GeometryRenderer surfelMesh: GeometryRenderer {
-//                            geometry: PointcloudGeometry { pointcloud: readerBunnyNormal.pointcloud }
-//                            primitiveType: GeometryRenderer.Points
-//                        }
-//                    property Material materialSurfel: Material {
-//                        effect: Effect {
-//                            techniques: Technique {
-//                                renderPasses: RenderPass {
-//                                    shaderProgram: ShaderProgram {
-//                                        vertexShaderCode: loadSource("qrc:/shader/shader/surfel.vert")
-//                                        fragmentShaderCode: loadSource("qrc:/shader/shader/surfel.frag")
-//                                    }
-//                                }
-//                            }
-//                        }
-//                        parameters: [
-//                            Parameter { name: "pointSize"; value: 0.06 },
-//                            Parameter { name: "fieldOfView"; value: mainCamera.fieldOfView },
-//                            Parameter { name: "fieldOfViewVertical"; value: mainCamera.fieldOfView/mainCamera.aspectRatio },
-//                            Parameter { name: "nearPlane"; value: mainCamera.nearPlane },
-//                            Parameter { name: "farPlane"; value: mainCamera.farPlane },
-//                            Parameter { name: "width"; value: scene3d.width },
-//                            Parameter { name: "height"; value: scene3d.height }
-//                        ]
-//                    }
-//                    components: [ surfelMesh, materialSurfel, meshTransform, surfelLayer ]
-//                }
             }
         }
     }
-    NumberAnimation {
-        id: rotator
-        property real rotationAnimation
-        target: rotator
-        property: "rotationAnimation"
-        duration: 10000
-        from: -180
-        to: 180
+//    NumberAnimation {
+//        id: rotator
+//        property real rotationAnimation
+//        target: rotator
+//        property: "rotationAnimation"
+//        duration: 10000
+//        from: -180
+//        to: 180
 
-        loops: Animation.Infinite
-        running: true
-    }
+//        loops: Animation.Infinite
+//        running: true
+//    }
 
     SystemPalette {
         id: palette
