@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QString>
 #include <QUrl>
-//#include <QColor>
+#include <QColor>
 #include <QMutex>
 #include <QCoreApplication>
 
@@ -38,7 +38,8 @@ class AppConstant : public QObject
     /************************* DEFINE QML URL *****************************/
     DEF_CONST(QUrl     , QML_MAIN_URL               , QUrl(QStringLiteral("qrc:/qml/qml/main.qml")))
     DEF_CONST(QUrl     , QML_MAIN_SCREEN_URL        , QUrl(QStringLiteral("qrc:/qml/qml/MainScreen.qml")))
-    DEF_CONST(QUrl     , QML_PCL_VIEWER_URL         , QUrl(QStringLiteral("qrc:/qml/qml/PCLViewer.qml")))
+    DEF_CONST(QUrl     , QML_PCL_VIEWER_URL         , QUrl(QStringLiteral("qrc:/qml/qml/PCLScreen.qml")))
+    DEF_CONST(QUrl     , QML_IMAGE_VIEWER_URL         , QUrl(QStringLiteral("qrc:/qml/qml/ImageScreen.qml")))
 
     /************************* DEFINE SOMETHINGS *****************************/
     DEF_CONST(int      , DEFAULT_WIDTH               , 1280)
@@ -78,6 +79,46 @@ private:
 
     static AppConstant* m_instance;
     static QMutex m_lock;
+
+    /******************************************* RESOURCE ************************************************/
+
+    // QML
+
+    // IMAGES
+    DEF_CONST(QString, IMAGE_FOLDER , "file:" + BUILD_DIR + "/share/res/")
+    DEF_CONST(QString, SEARCH_IMG   , "search.svg"  )
+    DEF_CONST(QString, HOME_IMG     , "home.svg"    )
+    DEF_CONST(QString, CONTROL_IMG  , "control.svg" )
+    DEF_CONST(QString, MAP_IMG      , "map.svg"     )
+    DEF_CONST(QString, USER_IMG     , "user.svg"    )
+
+
+    /********************************************** GENERAL **********************************************/
+    DEF_CONST(int, MAX_WIDTH        , 1280  )
+    DEF_CONST(int, MAX_HEIGHT       , 680   )
+    DEF_CONST(int, MENU_BAR_WIDTH   , 80    )
+
+    DEF_CONST(QString   , EMPTY_STRING , ""    )
+
+    // search screen constant
+    DEF_CONST(int, INPUT_BOX_WIDTH      , 1100  )
+    DEF_CONST(int, INPUT_BOX_HEIGHT     , 60    )
+    DEF_CONST(int, INPUT_BOX_TOP_MARGIN , 15    )
+
+    // constant color
+    DEF_CONST(QColor, COLOR_SWITCH_OFF      , "#ADADAD")
+    DEF_CONST(QColor, COLOR_SWITCH_ON       , "#00CCD9")
+    DEF_CONST(QColor, COLOR_SWITCH_BTN_NOOD , "#F0F0F0")
+    DEF_CONST(QColor, COLOR_BORDER_DARK     , "#777777")
+
+    DEF_CONST(QColor, COLOR_MENU_BAR        , "#00AF2A")
+    DEF_CONST(QColor, COLOR_MENU_BAR_FOCUS  , "#DDDDDD")
+    DEF_CONST(QColor, COLOR_BACK_GROUND     , COLOR_MENU_BAR_FOCUS())
+
+    DEF_CONST(QString, COLOR_INVISIBLE      , "transparent")
+
+    // QChart define
+    DEF_CONST(int, CHART_DRAW_OFFSET, 10)
 };
 
 

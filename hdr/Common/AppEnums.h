@@ -7,11 +7,15 @@ class AppEnums : public QObject
 {
     Q_OBJECT
     Q_ENUMS(APP_STATE)
-    Q_ENUMS(ALGORITHM);
+    Q_ENUMS(ALGORITHM)
+    Q_ENUMS(EVENT_t)
+    Q_ENUMS(VIEW_SCREEN)
 public:
     enum EVENT_t{
         EVT_NONE = 0,   // do not add enum above this
 
+        EVT_CLICK_IMAGE_VIEW,
+        EVT_CLICK_PCL_VIEW,
         EVT_CLICK_SETTING_PATH,
         EVT_CLICK_RECONSTRUCTION_SETTING_PATH,
         EVT_CLICK_RUN,
@@ -23,7 +27,6 @@ public:
 
         EVT_MAX, // do not add enum under this
     };
-    Q_ENUMS(EVENT_t)
 
     enum APP_STATE{
         STATE_NONE = 0,
@@ -31,6 +34,11 @@ public:
         STATE_RUNNING ,
         STATE_STOP,
         STATE_RESET,
+    };
+
+    enum VIEW_SCREEN{
+        IMAGE_VIEWER_SCREEN = 0,
+        PCL_VIEWER_SCREEN,
     };
 
     enum ALGORITHM{

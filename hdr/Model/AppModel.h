@@ -19,6 +19,8 @@
 class AppModel : public QObject
 {
     Q_OBJECT
+
+    Q_PROPERTY(int currentScreenID READ currentScreenID WRITE setCurrentScreenID NOTIFY currentScreenIDChanged)
     Q_PROPERTY(QString settingPath READ settingPath WRITE setSettingPath NOTIFY settingPathChanged)
     Q_PROPERTY(QString disparityMap READ disparityMap WRITE setdisparityMap NOTIFY disparityMapChanged)
     Q_PROPERTY(int currentImageNumber READ currentImageNumber WRITE setCurrentImageNumber NOTIFY currentImageNumberChanged)
@@ -39,6 +41,7 @@ public:
     QString disparityMap() const;
     QImage disparityImage() const;
     QString pclPath() const;
+    int currentScreenID() const;
 
     void setListImage();
     QVector<QStringList> getListImages() const;
@@ -54,6 +57,7 @@ public slots:
     void increaseIndex();
     void setDisparityImage(QImage disparityImage);
     void setPclPath(QString pclPath);
+    void setCurrentScreenID(int currentScreenID);
 
 signals:
     void currentImagePathChanged();
@@ -65,6 +69,7 @@ signals:
     void runImageProcessing(QStringList &currentImagePath, int &currentImageNumber);
     void pclPathChanged();
     void runReconstruction();
+    void currentScreenIDChanged(int currentScreenID);
 
 private:
     AppModel(QObject* parent = nullptr);
@@ -87,6 +92,7 @@ private:
     QString m_pclPath;
 
     QTimer m_timer;
+    int m_currentScreenID;
 };
 
 #endif // APPMODEL_H

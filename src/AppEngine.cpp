@@ -74,6 +74,14 @@ void AppEngine::slotReceiveEvent(int event)
         // do sth here, maybe call a function to process images
         // then use MODEL->setCurrentPath to re-set path
         break;
+    case static_cast<int>(AppEnums::EVT_CLICK_IMAGE_VIEW):
+        CONSOLE << "Image Viewer";
+        MODEL->setCurrentScreenID(AppEnums::VIEW_SCREEN::IMAGE_VIEWER_SCREEN);
+        break;
+    case static_cast<int>(AppEnums::EVT_CLICK_PCL_VIEW):
+        CONSOLE << "PCL Viewer";
+        MODEL->setCurrentScreenID(AppEnums::VIEW_SCREEN::PCL_VIEWER_SCREEN);
+        break;
     case static_cast<int>(AppEnums::EVT_CLICK_SETTING_PATH):
         CONSOLE << MODEL->settingPath();
         break;

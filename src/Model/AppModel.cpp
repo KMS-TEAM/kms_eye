@@ -74,6 +74,11 @@ QString AppModel::pclPath() const
     return m_pclPath;
 }
 
+int AppModel::currentScreenID() const
+{
+    return m_currentScreenID;
+}
+
 void AppModel::setListImage()
 {
     QVector<QString> imagePath = m_config->ImagePath();
@@ -191,6 +196,16 @@ void AppModel::setPclPath(QString pclPath)
     CONSOLE << pclPath;
     m_pclPath = pclPath;
     emit pclPathChanged();
+}
+
+void AppModel::setCurrentScreenID(int currentScreenID)
+{
+    if(m_currentScreenID == currentScreenID){
+        return;
+    }
+
+    m_currentScreenID = currentScreenID;
+    emit currentScreenIDChanged(m_currentScreenID);
 }
 
 
