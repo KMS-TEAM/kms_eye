@@ -18,24 +18,8 @@ Item {
 //        anchors.rightMargin: 0
 //    }
 
-    property alias timer: timer
-
     Timer {
         id: timer
-
-        // Start the timer and execute the provided callback on every X milliseconds
-        function startTimer(callback, milliseconds) {
-            timer.interval = milliseconds;
-            timer.repeat = true;
-            timer.triggered.connect(callback);
-            timer.start();
-        }
-
-        // Stop the timer and unregister the callback
-        function stopTimer(callback) {
-            timer.stop();
-            timer.triggered.disconnect(callback);
-        }
     }
 
     QRec {
@@ -109,6 +93,8 @@ Item {
             QmlHandler.qmlMessage("3D View")
             QmlHandler.qmlSendEvent(Enums.EVT_CLICK_PCL_VIEW)
             pclLoader.source = QmlConst.QML_PCL_LOADER
+            delay(1000);
+            pclLoader.source = QmlConst.QML_PCL_LOADER
         }
     }
 
@@ -117,9 +103,10 @@ Item {
         onClicked: openDialog2.open()
     }
 
-    function loading(){
-        console.log("Loading ...")
+    function delay(delayTime) {
+        timer.interval = delayTime;
+        timer.repeat = false;
+        timer.start();
     }
-
 }
 
