@@ -24,7 +24,7 @@ QRec
     // main
     width: 100
     height: 100
-    color: CONST.COLOR_INVISIBLE
+    color: QmlConst.COLOR_INVISIBLE
 
     QImage
     {
@@ -33,7 +33,7 @@ QRec
         height: width
         anchors.centerIn: root
         imgName: root.sourceImage
-        visible: (root.sourceImage !== CONST.EMPTY_STRING && allowImage)
+        visible: (root.sourceImage !== QmlConst.EMPTY_STRING && allowImage)
     }
 
     QText

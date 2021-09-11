@@ -8,9 +8,10 @@
         <file>qml/Component/Common/QImage.qml</file>
         <file>qml/Component/QMenuBar.qml</file>
         <file>qml/Component/QButton.qml</file>
-        <file>qml/Screen/PCLScreen/PCLScreen.qml</file>
+        <file>qml/Screen/PCLScreen/PCLViewer.qml</file>
         <file>qml/Screen/ImageScreen/ImageViewer.qml</file>
         <file>qml/Screen/ImageScreen/ImageScreen.qml</file>
+        <file>qml/Screen/PCLScreen/PCLScreen.qml</file>
     </qresource>
     <qresource prefix="/shader">
         <file>shader/pointcloud.frag</file>

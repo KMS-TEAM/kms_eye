@@ -14,8 +14,8 @@ public:
     enum EVENT_t{
         EVT_NONE = 0,   // do not add enum above this
 
-        EVT_CLICK_IMAGE_VIEW,
-        EVT_CLICK_PCL_VIEW,
+        EVT_CLICK_IMAGE_SCREEN,
+        EVT_CLICK_PCL_SCREEN,
         EVT_CLICK_SETTING_PATH,
         EVT_CLICK_RECONSTRUCTION_SETTING_PATH,
         EVT_CLICK_RUN,
@@ -23,6 +23,7 @@ public:
         EVT_CLICK_STOP,
         EVT_CLICK_NEXT_IMAGE,
         EVT_CLICK_PREVIOUS_IMAGE,
+        EVT_CLICK_PCL_VIEW,
         EVT_CLICK_RESET,
 
         EVT_MAX, // do not add enum under this

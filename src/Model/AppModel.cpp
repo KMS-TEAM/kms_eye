@@ -11,7 +11,8 @@ QImageProcessing* AppModel::m_imageprocessing = new QImageProcessing(nullptr);
 AppEnums::APP_STATE AppModel::m_state = AppEnums::APP_STATE::STATE_NONE;
 
 AppModel::AppModel(QObject *parent) :
-    QObject(parent)
+    QObject(parent),
+    m_currentScreenID{static_cast<int>(AppEnums::IMAGE_VIEWER_SCREEN)}
 {
     CONSOLE << "Init instance";
     QStringList image_def;
@@ -19,6 +20,8 @@ AppModel::AppModel(QObject *parent) :
     image_def.append(IMAGE_DEF);
     setCurrentImagePath(image_def);
     setdisparityMap(IMAGE_DEF);
+
+    m_pclPath = "/home/lacie/Github/kms_eye/data/bunny.pcd";
 
     m_timer.setInterval(500);
 
@@ -195,6 +198,7 @@ void AppModel::setPclPath(QString pclPath)
 {
     CONSOLE << pclPath;
     m_pclPath = pclPath;
+    CONSOLE << m_pclPath;
     emit pclPathChanged();
 }
 

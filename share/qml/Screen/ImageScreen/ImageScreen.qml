@@ -5,7 +5,7 @@ import QtQuick.Dialogs 1.0
 import MyImage 1.0
 
 Item {
-    id: mainScreenID
+    id: imageScreenID
     Rectangle {
         id: bg
         anchors.fill: parent
@@ -46,21 +46,6 @@ Item {
             console.log(openDialog.fileUrl)
             QmlModel.setSettingPath(openDialog.fileUrl)
             QmlHandler.qmlSendEvent(Enums.EVT_CLICK_SETTING_PATH)
-        }
-     }
-
-    FileDialog {
-        id: openDialog2
-        title: "Please choose setting file"
-        folder: shortcuts.home
-        selectMultiple: false
-        selectExisting: true
-
-        onAccepted: {
-            QmlHandler.qmlMessage("Loading Setting File")
-            console.log(openDialog2.fileUrl)
-            QmlModel.setSettingPath(openDialog2.fileUrl)
-            QmlHandler.qmlSendEvent(Enums.EVT_CLICK_RECONSTRUCTION_SETTING_PATH)
         }
      }
 
@@ -105,30 +90,6 @@ Item {
      }
 
      Button {
-         id: setRePath
-         y: 360
-         text: qsTr("Reconstruction")
-         anchors.left: parent.left
-         anchors.bottom: parent.bottom
-         anchors.bottomMargin: 80
-         anchors.leftMargin: 142
-     }
-
-     Button {
-         id: runRecon
-         y: 410
-         text: qsTr("Run Rec")
-         anchors.left: parent.left
-         anchors.bottom: parent.bottom
-         anchors.leftMargin: 532
-         anchors.bottomMargin: 30
-         onClicked: {
-             QmlHandler.qmlMessage("Reconstruction Started")
-             QmlHandler.qmlSendEvent(Enums.EVT_CLICK_RUN_RECONSTRUCTION)
-         }
-     }
-
-     Button {
          id: stopButton
          y: 410
          text: qsTr("Stop")
@@ -161,11 +122,6 @@ Item {
      Connections{
          target: setpath
          onClicked: openDialog.open()
-     }
-
-     Connections{
-         target: setRePath
-         onClicked: openDialog2.open()
      }
 }
 

@@ -84,9 +84,9 @@ RESULT_OF_PNP estimateMotion( FRAME& frame1, FRAME& frame2, CAMERA_INTRINSIC_PAR
     vector< cv::DMatch> matches;
     cv::BFMatcher matcher;
     matcher.match( frame1.desp, frame2.desp, matches );
-    cv::imshow("Fream 1", frame1.rgb);
-    cv::imshow("Frame 2", frame2.rgb);
-    cv::waitKey(0);
+//    cv::imshow("Fream 1", frame1.rgb);
+//    cv::imshow("Frame 2", frame2.rgb);
+//    cv::waitKey(0);
     cv::destroyAllWindows();
     RESULT_OF_PNP result;
     vector< cv::DMatch> goodMatches;

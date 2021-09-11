@@ -38,8 +38,9 @@ class AppConstant : public QObject
     /************************* DEFINE QML URL *****************************/
     DEF_CONST(QUrl     , QML_MAIN_URL               , QUrl(QStringLiteral("qrc:/qml/qml/main.qml")))
     DEF_CONST(QUrl     , QML_MAIN_SCREEN_URL        , QUrl(QStringLiteral("qrc:/qml/qml/MainScreen.qml")))
-    DEF_CONST(QUrl     , QML_PCL_VIEWER_URL         , QUrl(QStringLiteral("qrc:/qml/qml/PCLScreen.qml")))
-    DEF_CONST(QUrl     , QML_IMAGE_VIEWER_URL         , QUrl(QStringLiteral("qrc:/qml/qml/ImageScreen.qml")))
+    DEF_CONST(QUrl     , QML_PCL_VIEWER_URL         , QUrl(QStringLiteral("qrc:/qml/qml/Screen/PCLScreen/PCLScreen.qml")))
+    DEF_CONST(QUrl     , QML_IMAGE_VIEWER_URL       , QUrl(QStringLiteral("qrc:/qml/qml/Screen/ImageScreen/ImageScreen.qml")))
+     DEF_CONST(QUrl    , QML_PCL_LOADER             , QUrl(QStringLiteral("qrc:/qml/qml/Screen/PCLScreen/PCLViewer.qml")))
 
     /************************* DEFINE SOMETHINGS *****************************/
     DEF_CONST(int      , DEFAULT_WIDTH               , 1280)
@@ -85,7 +86,7 @@ private:
     // QML
 
     // IMAGES
-    DEF_CONST(QString, IMAGE_FOLDER , "file:" + BUILD_DIR + "/share/res/")
+    DEF_CONST(QString, IMAGE_FOLDER , "qrc:/res/res/")
     DEF_CONST(QString, SEARCH_IMG   , "search.svg"  )
     DEF_CONST(QString, HOME_IMG     , "home.svg"    )
     DEF_CONST(QString, CONTROL_IMG  , "control.svg" )

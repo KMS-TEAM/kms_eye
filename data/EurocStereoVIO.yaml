@@ -8,8 +8,8 @@ IMUFolder:  /home/lacie/Github/data/MH_01_easy/mav0/imu0/data.csv
 TimeFolder: /home/lacie/Github/kms_slam/config/EuRoC_TimeStamps/MH01.txt
 
 # Output dirs
-Disparity: /home/lacie/Github/data/kms_eye_output/disparity
-PCL: /home/lacie/Github/data/kms_eye_output/pcl
+Disparity: /home/lacie/Github/kms_eye/data/output/disparity
+PCL: /home/lacie/Github/kms_eye/data/output/pcl
 
 # SGM parameters
 p1: 50
@@ -20,8 +20,8 @@ Blocksize: 5
 ColorDisplay: false
 
 # 3D Reconstruction Parameters
-StartIndex: 6
-EndIndex: 16
+StartIndex: 1
+EndIndex: 6
 # The directory where the data is located
 rgb_dir: /home/lacie/Github/data/RGB-D/color/
 rgb_extension: png
