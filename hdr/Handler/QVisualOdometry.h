@@ -14,6 +14,7 @@
 #include "visual_odom/frame.h"
 #include "visual_odom/camera.h"
 #include "visual_odom/rgbd_standalone.h"
+#include "visual_odom/visualOdometry.h"
 
 
 class QVisualOdometry : public QObject
@@ -30,7 +31,15 @@ public:
     QImage trajectory() const;
     QImage featureView() const;
 
-    bool run();
+    bool runVisualOdometry();
+
+    void QDisplayTracking(cv::Mat& imageLeft_t1,
+                          std::vector<cv::Point2f>&  pointsLeft_t0,
+                          std::vector<cv::Point2f>&  pointsLeft_t1);
+
+    void QDisplayTrajectory(int frame_id, cv::Mat& trajectory,
+                            cv::Mat& pose, std::vector<Matrix>& pose_matrix_gt,
+                            float fps, bool show_gt);
 
 public slots:
     void setTrajectory(QImage trajectory);
@@ -43,7 +52,11 @@ signals:
 private:
     bool display_ground_truth;
     bool use_intel_rgbd;
-    std::vector<Matrix> pose_atrix_gt;
+    std::vector<Matrix> pose_matrix_gt;
+    std::string datasetPath;
+
+    int startIndex;
+    int stopIndex;
 
     cv::Mat projMattrixLeft;
     cv::Mat projMattrixRight;
@@ -69,9 +82,11 @@ private:
     cv::Mat imageLeft_t0;
 
     CameraBase *pCamera;
+    clock_t t_a, t_b;
 
     QImage m_trajectory;
     QImage m_featureView;
+    QConfig *m_config;
 };
 
 #endif // QVISUALODOMETRY_H
