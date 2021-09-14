@@ -105,7 +105,8 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/hdr/Model
                     ${CMAKE_CURRENT_SOURCE_DIR}/hdr/View
                     ${CMAKE_CURRENT_SOURCE_DIR}/hdr/Handler
                     ${CMAKE_CURRENT_SOURCE_DIR}/hdr/Common
-                    ${CMAKE_CURRENT_SOURCE_DIR}/hdr)
+                    ${CMAKE_CURRENT_SOURCE_DIR}/hdr
+                    ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/visual_odom/include)
 
 add_executable(kms_eye
                 ${HEADERS}
@@ -138,7 +139,8 @@ target_link_libraries(kms_eye
           cholmod
           ${CSPARSE_LIBRARY}
           stdc++
-          -lpcl_filters)
+          -lpcl_filters
+          ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/visual_odom/lib/libvisual_odom.so)
 
 #qt5_use_modules(kms_eye Core Qml Widgets Quick 3DCore 3DQuick 3DRender 3DQuickRender 3DInput 3DLogic 3DQuickInput)
 

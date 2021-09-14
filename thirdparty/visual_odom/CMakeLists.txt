@@ -15,7 +15,7 @@ include_directories(${OpenCV_INCLUDE_DIRS})
 include_directories("/usr/include/eigen3")
 find_package (Eigen3 3.3 REQUIRED)
 
-include_directories(${PROJECT_SOURCE_DIR}/include)
+include_directories(${PROJECT_SOURCE_DIR}/include/visual_odom)
 
 if(USE_CUDA)
     find_package(CUDA)

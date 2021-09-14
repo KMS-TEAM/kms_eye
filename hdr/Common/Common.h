@@ -15,6 +15,9 @@
 #include <unordered_map>
 #include <map>
 #include <deque>
+#include <ctime>
+#include <iterator>
+#include <ctype.h>
 
 #include <algorithm>
 #include <cmath>
