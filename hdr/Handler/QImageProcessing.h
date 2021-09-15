@@ -22,6 +22,8 @@ public slots:
     void SGMAgl(QStringList imagePath, int imageNumber);
     void Reconstrction();
     void VisualOdometry();
+    void setVOTrajectory(QImage &trajectory);
+    void setVOFeatureView(QImage &featureView);
 
 signals:
     void finishDisparity(QString &result);
@@ -33,6 +35,9 @@ private:
     QSGM* m_sgm;
     QVisualOdometry* m_vo;
     QConfig* m_config;
+
+    QImage m_trajectory;
+    QImage m_featureView;
 };
 
 #endif // QIMAGEPROCESSING_H
