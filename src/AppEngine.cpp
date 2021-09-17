@@ -6,10 +6,10 @@
 #include "AppModel.h"
 #include "QMLHandler.h"
 #include <QVariant>
-#include "Q3DPointCloudRender/QPointCloud.h"
-#include "Q3DPointCloudRender/QPointCloudGeometry.h"
-#include "Q3DPointCloudRender/QPointField.h"
-#include "Q3DPointCloudRender/QPointCloudReader.h"
+// #include "Q3DPointCloudRender/QPointCloud.h"
+// #include "Q3DPointCloudRender/QPointCloudGeometry.h"
+// #include "Q3DPointCloudRender/QPointField.h"
+// #include "Q3DPointCloudRender/QPointCloudReader.h"
 #include "QImageItem/QImageItem.h"
 #include "QImageItem/QOpenCVImageProvider.h"
 
@@ -35,11 +35,11 @@ void AppEngine::initEngine(){
     qmlRegisterUncreatableType<AppEnums>("QmlCustomItem", 1, 0, "ENUMS", "Uncreatable");
     qmlRegisterUncreatableType<AppEnums>("AppEnums", 1, 0, "Enums", "Cannot create object from enums!");
 
-    // QPCL class
-    qmlRegisterType<QPointCloudReader>("pcl", 1, 0, "PointcloudReader");
-    qmlRegisterType<QPointcloud>("pcl", 1, 0, "Pointcloud");
-    qmlRegisterType<QPointcloudGeometry>("pcl", 1, 0, "PointcloudGeometry");
-    qmlRegisterUncreatableType<QPointfield>("pcl", 1, 0, "Pointfield", "Can not yet be created in qml, use PointcloudReader.");
+    // // QPCL class
+    // qmlRegisterType<QPointCloudReader>("pcl", 1, 0, "PointcloudReader");
+    // qmlRegisterType<QPointcloud>("pcl", 1, 0, "Pointcloud");
+    // qmlRegisterType<QPointcloudGeometry>("pcl", 1, 0, "PointcloudGeometry");
+    // qmlRegisterUncreatableType<QPointfield>("pcl", 1, 0, "Pointfield", "Can not yet be created in qml, use PointcloudReader.");
 
     // QPixmap type
     qmlRegisterType<QImageItem>("MyImage", 1, 0, "QImageItem");
@@ -80,7 +80,7 @@ void AppEngine::slotReceiveEvent(int event)
         break;
     case static_cast<int>(AppEnums::EVT_CLICK_PCL_SCREEN):
         CONSOLE << "PCL Viewer";
-        MODEL->setCurrentScreenID(AppEnums::VIEW_SCREEN::PCL_VIEWER_SCREEN);
+        // MODEL->setCurrentScreenID(AppEnums::VIEW_SCREEN::PCL_VIEWER_SCREEN);
         break;
     case static_cast<int>(AppEnums::EVT_CLICK_SETTING_PATH):
         CONSOLE << MODEL->settingPath();
