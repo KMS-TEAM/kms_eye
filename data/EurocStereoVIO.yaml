@@ -2,13 +2,13 @@
 Type: RGB-D
 Camera.type: PinHole
 # Dataset dirs
-LeftFolder: /home/lacie/Github/data/MH_01_easy/mav0/cam0/data
-RightFolder: /home/lacie/Github/data/MH_01_easy/mav0/cam1/data
-IMUFolder:  /home/lacie/Github/data/MH_01_easy/mav0/imu0/data.csv
+LeftFolder: /home/pingvn/data/the_EuRoC_dataset/MH_01_easy/mav0/cam0/data
+RightFolder: /home/pingvn/data/the_EuRoC_dataset/MH_01_easy/mav0/cam1/data
+IMUFolder:  /home/pingvn/data/the_EuRoC_dataset/MH_01_easy/mav0/imu0/data.csv
 TimeFolder: /home/lacie/Github/kms_slam/config/EuRoC_TimeStamps/MH01.txt
 
 # Output dirs
-Disparity: /home/lacie/Github/kms_eye/data/output/disparity
+Disparity: /home/pingvn/kms_eye/data/output/disparity
 PCL: /home/lacie/Github/kms_eye/data/output/pcl
 
 # SGM parameters

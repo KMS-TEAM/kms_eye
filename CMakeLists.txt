@@ -15,11 +15,11 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 #set(JSON_BuildTests OFF CACHE INTERNAL "")
-list(APPEND QML_IMPORT_PATH "/home/lacie/Qt/5.15.2/gcc_64/qml")
-SET(CMAKE_PREFIX_PATH "/home/lacie/Qt/5.15.2/gcc_64")
+list(APPEND QML_IMPORT_PATH "/opt/Qt/5.12.11/gcc_64/qml")
+SET(CMAKE_PREFIX_PATH "/opt/Qt/5.12.11/gcc_64")
 
 list( APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake_modules)
 
@@ -64,7 +64,7 @@ include_directories(${OpenCV_INCLUDE_DIRS})
 #include_directories(${CERES_INCLUDE_DIRS})
 
 # PCL
-# set(PCL_INCLUDE_DIRS /usr/local/include/pcl-1.8 /usr/include/eigen3/)
+# set(PCL_INCLUDE_DIRS /usr/local/include/pcl-1.10 /usr/include/eigen3/)
 # find_package(VTK REQUIRED)
 # find_package(PCL 1.8 REQUIRED)
 # include_directories(${PCL_INCLUDE_DIRS})
@@ -141,7 +141,7 @@ target_link_libraries(kms_eye
           cholmod
           ${CSPARSE_LIBRARY}
           stdc++
-          -lpcl_filters
+#          -lpcl_filters
           ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/visual_odom/lib/libvisual_odom.so)
 
 #qt5_use_modules(kms_eye Core Qml Widgets Quick 3DCore 3DQuick 3DRender 3DQuickRender 3DInput 3DLogic 3DQuickInput)

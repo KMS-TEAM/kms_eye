@@ -1,5 +1,5 @@
 #include "QImageProcessing.h"
-#include "QReconstruction.h"
+//#include "QReconstruction.h"
 
 QImageProcessing::QImageProcessing(QObject *parent) : QObject(parent)
 {
@@ -22,11 +22,11 @@ void QImageProcessing::SGMAgl(QStringList imagePath, int imageNumber)
 
 void QImageProcessing::Reconstrction()
 {
-    QReconstruction* m_rec = new QReconstruction();
-    m_rec->init(m_config);
-    QString pclPath = m_rec->reconstruction();
+//    QReconstruction* m_rec = new QReconstruction();
+//    m_rec->init(m_config);
+//    QString pclPath = m_rec->reconstruction();
 
-    emit finishReconstruction(pclPath);
+//    emit finishReconstruction(pclPath);
 }
 
 void QImageProcessing::VisualOdometry()
@@ -44,14 +44,14 @@ void QImageProcessing::setConfig(QConfig *config)
     m_config = config;
 }
 
-void setVOTrajectory(QImage &trajectory)
+void QImageProcessing::setVOTrajectory(QImage &trajectory)
 {
     m_trajectory = trajectory;
 
     emit updateTrajectory(m_trajectory);
 }
 
-void setVOFeatureView(QImage &featureView)
+void QImageProcessing::setVOFeatureView(QImage &featureView)
 {
     m_featureView = featureView;
 

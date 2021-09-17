@@ -6,7 +6,7 @@
 #include <QImage>
 #include "QConfig.h"
 #include "QSGM.h"
-#include "QReconstruction.h"
+//#include "QReconstruction.h"
 #include "QVisualOdometry.h"
 #include "AppEnums.h"
 

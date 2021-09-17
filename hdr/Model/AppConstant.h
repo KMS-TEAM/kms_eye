@@ -43,8 +43,8 @@ class AppConstant : public QObject
      DEF_CONST(QUrl    , QML_PCL_LOADER             , QUrl(QStringLiteral("qrc:/qml/qml/Screen/PCLScreen/PCLViewer.qml")))
 
     /************************* DEFINE SOMETHINGS *****************************/
-    DEF_CONST(int      , DEFAULT_WIDTH               , 1280)
-    DEF_CONST(int      , DEFAULT_HEIGHT              , 720)
+    DEF_CONST(int      , DEFAULT_WIDTH               , 960)
+    DEF_CONST(int      , DEFAULT_HEIGHT              , 600)
     DEF_CONST(int      , DEFAULT_BTN_W               , 426)
     DEF_CONST(int      , DEFAULT_BTN_H               , 150)
 

@@ -1,7 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Window 2.12
 import QtQuick.Controls 2.5
-import QtQuick.Layouts 1.15
+import QtQuick.Layouts 1.12
 import MyImage 1.0
 import AppEnums 1.0
 
