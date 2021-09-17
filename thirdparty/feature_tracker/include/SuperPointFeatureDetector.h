@@ -1,5 +1,5 @@
-#ifndef SUPER_POINT_FEATURE_DETECTOR_H_
-#define SUPER_POINT_FEATURE_DETECTOR_H_
+#ifndef SUPER_POINT_FEATURE_DETECTOR_H
+#define SUPER_POINT_FEATURE_DETECTOR_H
 
 #include "FeatureDetectorBase.h"
 #include <torch/script.h>

@@ -1,5 +1,5 @@
-#ifndef FEATURE_TRACKER_BASE_H_
-#define FEATURE_TRACKER_BASE_H_
+#ifndef FEATURE_TRACKER_BASE_H
+#define FEATURE_TRACKER_BASE_H
 
 #include <Eigen/Core>
 #include <memory>
