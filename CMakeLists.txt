@@ -37,13 +37,13 @@ find_package(Qt5Qml REQUIRED)
 find_package(Qt5Widgets REQUIRED)
 find_package(Qt5Gui REQUIRED)
 
-find_package(Qt53DCore REQUIRED)
-find_package(Qt53DQuick REQUIRED)
-find_package(Qt53DRender REQUIRED)
-find_package(Qt53DQuickRender REQUIRED)
-find_package(Qt53DInput REQUIRED)
-find_package(Qt53DLogic REQUIRED)
-find_package(Qt53DQuickInput REQUIRED)
+# find_package(Qt53DCore REQUIRED)
+# find_package(Qt53DQuick REQUIRED)
+# find_package(Qt53DRender REQUIRED)
+# find_package(Qt53DQuickRender REQUIRED)
+# find_package(Qt53DInput REQUIRED)
+# find_package(Qt53DLogic REQUIRED)
+# find_package(Qt53DQuickInput REQUIRED)
 
 
 #find_package(CUDA REQUIRED)
@@ -64,12 +64,12 @@ include_directories(${OpenCV_INCLUDE_DIRS})
 #include_directories(${CERES_INCLUDE_DIRS})
 
 # PCL
-set(PCL_INCLUDE_DIRS /usr/local/include/pcl-1.8 /usr/include/eigen3/)
-find_package(VTK REQUIRED)
-find_package(PCL 1.8 REQUIRED)
-include_directories(${PCL_INCLUDE_DIRS})
-link_directories(${PCL_LIBRARY_DIRS})
-add_definitions(${PCL_DEFINITIONS})
+# set(PCL_INCLUDE_DIRS /usr/local/include/pcl-1.8 /usr/include/eigen3/)
+# find_package(VTK REQUIRED)
+# find_package(PCL 1.8 REQUIRED)
+# include_directories(${PCL_INCLUDE_DIRS})
+# link_directories(${PCL_LIBRARY_DIRS})
+# add_definitions(${PCL_DEFINITIONS})
 
 # g2o
 find_package(G2O REQUIRED)
@@ -83,7 +83,7 @@ file(GLOB HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/hdr/Model/*.h
                       ${CMAKE_CURRENT_SOURCE_DIR}/hdr/Plugin/*.h
                       ${CMAKE_CURRENT_SOURCE_DIR}/hdr/View/*.h
                       ${CMAKE_CURRENT_SOURCE_DIR}/hdr/Handler/*.h
-                      ${CMAKE_CURRENT_SOURCE_DIR}/hdr/Plugin/Q3DPointCloudRender/*.h
+                      #${CMAKE_CURRENT_SOURCE_DIR}/hdr/Plugin/Q3DPointCloudRender/*.h
                       #${CMAKE_CURRENT_SOURCE_DIR}/hdr/Plugin/QPixmapContainer/*.h
                       ${CMAKE_CURRENT_SOURCE_DIR}/hdr/Plugin/QImageItem/*.h
                       ${CMAKE_CURRENT_SOURCE_DIR}/hdr/Common/*.h
@@ -92,7 +92,7 @@ file(GLOB HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/hdr/Model/*.h
 file(GLOB SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/Model/*.cpp
                       ${CMAKE_CURRENT_SOURCE_DIR}/src/Handler/*.cpp
                       ${CMAKE_CURRENT_SOURCE_DIR}/src/Plugin/*.cpp
-                      ${CMAKE_CURRENT_SOURCE_DIR}/src/Plugin/Q3DPointCloudRender/*.cpp
+                      #${CMAKE_CURRENT_SOURCE_DIR}/src/Plugin/Q3DPointCloudRender/*.cpp
                       #${CMAKE_CURRENT_SOURCE_DIR}/src/Plugin/QPixmapContainer/*.cpp
                       ${CMAKE_CURRENT_SOURCE_DIR}/src/Plugin/QImageItem/*.cpp
                       ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
@@ -123,17 +123,17 @@ target_link_libraries(kms_eye
           Qt5::Quick
           Qt5::Qml
           Qt5::Widgets
-          Qt5::3DCore
-          Qt5::3DQuick
-          Qt5::3DRender
-          Qt5::3DInput
-          Qt5::3DQuickRender
-          Qt5::3DLogic
-          Qt5::3DQuickInput
+          # Qt5::3DCore
+          # Qt5::3DQuick
+          # Qt5::3DRender
+          # Qt5::3DInput
+          # Qt5::3DQuickRender
+          # Qt5::3DLogic
+          # Qt5::3DQuickInput
           ${OpenCV_LIBS}
 #          ${CUDA_LIBRARIES}
 #          ${CERES_LIBRARIES}
-          ${PCL_LIBRARIES}
+          # ${PCL_LIBRARIES}
           ${G2O_LIBS}
           ${G2O_CORE_LIBRARY}
           ${G2O_STUFF_LIBRARY}
