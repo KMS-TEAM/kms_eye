@@ -16,6 +16,7 @@ public:
 
         EVT_CLICK_IMAGE_SCREEN,
         EVT_CLICK_PCL_SCREEN,
+        EVT_CLICK_VISUAL_ODOMETRY_SCREEN,
         EVT_CLICK_SETTING_PATH,
         EVT_CLICK_RECONSTRUCTION_SETTING_PATH,
         EVT_CLICK_RUN,
@@ -25,6 +26,7 @@ public:
         EVT_CLICK_PREVIOUS_IMAGE,
         EVT_CLICK_PCL_VIEW,
         EVT_CLICK_RESET,
+        EVT_CLICK_IMAGE_VO,
 
         EVT_MAX, // do not add enum under this
     };
@@ -40,6 +42,8 @@ public:
     enum VIEW_SCREEN{
         IMAGE_VIEWER_SCREEN = 0,
         PCL_VIEWER_SCREEN,
+        VISUAL_ODOMETRY_VIEWER_SCREEN,
+
     };
 
     enum ALGORITHM{

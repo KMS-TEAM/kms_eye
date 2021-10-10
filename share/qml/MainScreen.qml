@@ -41,11 +41,14 @@ Item
     }
 
     function getScreenUrl(id){
+        console.log(id)
         switch(id){
         case 0:
             return QmlConst.QML_IMAGE_VIEWER_URL
         case 1:
             return QmlConst.QML_PCL_VIEWER_URL
+        case 2:
+            return QmlConst.QML_ODOMETRY_URL
         }
     }
 

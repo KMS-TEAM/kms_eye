@@ -1,6 +1,0 @@
-/home/pingvn/a-Github/kms_eye/thirdparty/build-visual_odom-Desktop_Qt_5_12_11_GCC_64bit-Debug/CMakeFiles/edit_cache.dir
-/home/pingvn/a-Github/kms_eye/thirdparty/build-visual_odom-Desktop_Qt_5_12_11_GCC_64bit-Debug/CMakeFiles/rebuild_cache.dir
-/home/pingvn/a-Github/kms_eye/thirdparty/build-visual_odom-Desktop_Qt_5_12_11_GCC_64bit-Debug/CMakeFiles/visual_odom.dir
-/home/pingvn/a-Github/kms_eye/thirdparty/build-visual_odom-Desktop_Qt_5_12_11_GCC_64bit-Debug/test/CMakeFiles/rebuild_cache.dir
-/home/pingvn/a-Github/kms_eye/thirdparty/build-visual_odom-Desktop_Qt_5_12_11_GCC_64bit-Debug/test/CMakeFiles/edit_cache.dir
-/home/pingvn/a-Github/kms_eye/thirdparty/build-visual_odom-Desktop_Qt_5_12_11_GCC_64bit-Debug/test/CMakeFiles/visual_odom_test.dir

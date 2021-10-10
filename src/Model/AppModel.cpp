@@ -12,8 +12,11 @@ AppEnums::APP_STATE AppModel::m_state = AppEnums::APP_STATE::STATE_NONE;
 
 AppModel::AppModel(QObject *parent) :
     QObject(parent),
-    m_currentScreenID{static_cast<int>(AppEnums::IMAGE_VIEWER_SCREEN)}
+    m_currentScreenID{static_cast<int>(AppEnums::EVT_CLICK_IMAGE_SCREEN)}
+
+
 {
+    //CONSOLE << m_currentScreenID;
     CONSOLE << "Init instance";
     QStringList image_def;
     image_def.append(IMAGE_DEF);
@@ -21,7 +24,7 @@ AppModel::AppModel(QObject *parent) :
     setCurrentImagePath(image_def);
     setdisparityMap(IMAGE_DEF);
 
-    m_pclPath = "/home/lacie/Github/kms_eye/data/bunny.pcd";
+    m_pclPath = "/home/pingvn/kms_eye/data/bunny.pcd";
 
     m_timer.setInterval(500);
 
@@ -81,7 +84,10 @@ int AppModel::currentScreenID() const
 {
     return m_currentScreenID;
 }
-
+//QImage AppModel::displayVisualOdometry() const
+//{
+//    return m_DisplayVisualOdometry;
+//}
 void AppModel::setListImage()
 {
     QVector<QString> imagePath = m_config->ImagePath();
@@ -167,7 +173,6 @@ void AppModel::setSettingPath(QString settingPath)
 void AppModel::setState(AppEnums::APP_STATE state)
 {
     m_state = state;
-
     emit stateChanged();
 }
 
@@ -204,6 +209,8 @@ void AppModel::setPclPath(QString pclPath)
 
 void AppModel::setCurrentScreenID(int currentScreenID)
 {
+    CONSOLE << "Check";
+    CONSOLE << m_currentScreenID;
     if(m_currentScreenID == currentScreenID){
         return;
     }
@@ -211,5 +218,9 @@ void AppModel::setCurrentScreenID(int currentScreenID)
     m_currentScreenID = currentScreenID;
     emit currentScreenIDChanged(m_currentScreenID);
 }
+//void AppModel::DisplayVisualOdometryChanged(int DisplayVisualOdometry)
+//{
 
-
+//    m_DisplayVisualOdometry = DisplayVisualOdometry;
+//    emit DisplayVisualOdometryChanged(m_DisplayVisualOdometry);
+//}

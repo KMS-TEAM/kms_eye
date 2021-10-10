@@ -21,6 +21,7 @@ QMutex AppConstant::m_lock;
 
 AppEngine::AppEngine()
 {
+    //CONSOLE << "check ";
     m_rootContext = this->rootContext();
 }
 
@@ -48,7 +49,6 @@ void AppEngine::initEngine(){
 
     // connect signal slots
     connect(QML_HANDLER, &QMLHandler::notifyQMLEvent, this, &AppEngine::slotReceiveEvent);
-
     // set context properties
     m_rootContext->setContextProperty("QmlConst", DEFS);
     m_rootContext->setContextProperty("QmlHandler", QML_HANDLER);
@@ -62,6 +62,7 @@ void AppEngine::initEngine(){
 }
 
 void AppEngine::startEngine(){
+    //CONSOLE << "check ";
     this->load(SCR_DEF->QML_APP());
 }
 
@@ -81,6 +82,10 @@ void AppEngine::slotReceiveEvent(int event)
     case static_cast<int>(AppEnums::EVT_CLICK_PCL_SCREEN):
         CONSOLE << "PCL Viewer";
         // MODEL->setCurrentScreenID(AppEnums::VIEW_SCREEN::PCL_VIEWER_SCREEN);
+        break;
+    case static_cast<int>(AppEnums::EVT_CLICK_VISUAL_ODOMETRY_SCREEN):
+        CONSOLE << "Visual Odometry Viewer";
+        MODEL->setCurrentScreenID(AppEnums::VIEW_SCREEN::VISUAL_ODOMETRY_VIEWER_SCREEN);
         break;
     case static_cast<int>(AppEnums::EVT_CLICK_SETTING_PATH):
         CONSOLE << MODEL->settingPath();
@@ -109,6 +114,10 @@ void AppEngine::slotReceiveEvent(int event)
         MODEL->setCurrentImageNumber(MODEL->m_currentImageNumber);
         break;
     case static_cast<int>(AppEnums::EVT_CLICK_RESET):
+        MODEL->m_currentImageNumber = 0;
+        MODEL->setCurrentImageNumber(MODEL->m_currentImageNumber);
+        break;
+    case static_cast<int>(AppEnums::EVT_CLICK_IMAGE_VO):
         MODEL->m_currentImageNumber = 0;
         MODEL->setCurrentImageNumber(MODEL->m_currentImageNumber);
         break;

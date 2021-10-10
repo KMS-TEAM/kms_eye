@@ -39,5 +39,27 @@ QRec {
             QmlHandler.qmlSendEvent(Enums.EVT_CLICK_PCL_SCREEN)
         }
     }
+    Button {
+        id: visualScreen
+        y: 170
+        width: 80
+        height: 40
+        text: qsTr("VO")
+        anchors.left: parent.left
+        anchors.leftMargin: 0
+
+        onClicked:{
+            QmlHandler.qmlMessage("Selected Visual Odometry Screen")
+            QmlHandler.qmlSendEvent(Enums.EVT_CLICK_VISUAL_ODOMETRY_SCREEN)
+        }
+//        property string toolTipText: qsTr("Visual Odometry Screen")
+//        ToolTip.visible: toolTipText ? mouseArea1.containsMouse : false
+//        ToolTip.text: toolTipText
+//        MouseArea{
+//            id: mouseArea1
+//            anchors.fill: parent
+//            hoverEnabled: true
+//        }
+    }
 
 }
