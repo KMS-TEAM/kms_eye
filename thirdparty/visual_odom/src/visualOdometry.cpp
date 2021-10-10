@@ -80,11 +80,11 @@ void removeInvalidPoints(std::vector<cv::Point2f>& points, const std::vector<boo
 
 
 void matchingFeatures(cv::Mat& imageLeft_t0, cv::Mat& imageRight_t0,
-                      cv::Mat& imageLeft_t1, cv::Mat& imageRight_t1, 
+                      cv::Mat& imageLeft_t1, cv::Mat& imageRight_t1,
                       FeatureSet& currentVOFeatures,
-                      std::vector<cv::Point2f>&  pointsLeft_t0, 
-                      std::vector<cv::Point2f>&  pointsRight_t0, 
-                      std::vector<cv::Point2f>&  pointsLeft_t1, 
+                      std::vector<cv::Point2f>&  pointsLeft_t0,
+                      std::vector<cv::Point2f>&  pointsRight_t0,
+                      std::vector<cv::Point2f>&  pointsLeft_t1,
                       std::vector<cv::Point2f>&  pointsRight_t1)
 {
     // ----------------------------
@@ -92,12 +92,11 @@ void matchingFeatures(cv::Mat& imageLeft_t0, cv::Mat& imageRight_t0,
     // ----------------------------
     std::vector<cv::Point2f>  pointsLeftReturn_t0;   // feature points to check cicular mathcing validation
 
-
     if (currentVOFeatures.size() < 2000)
     {
 
         // append new features with old features
-        appendNewFeatures(imageLeft_t0, currentVOFeatures);   
+        appendNewFeatures(imageLeft_t0, currentVOFeatures);
         // std::cout << "Current feature set size: " << currentVOFeatures.points.size() << std::endl;
     }
 
@@ -106,15 +105,17 @@ void matchingFeatures(cv::Mat& imageLeft_t0, cv::Mat& imageRight_t0,
     // --------------------------------------------------------
     int bucket_size = imageLeft_t0.rows/10;
     int features_per_bucket = 1;
+
+//    std::cout<<"Check1"<< bucket_size<<std::endl;
     bucketingFeatures(imageLeft_t0, currentVOFeatures, bucket_size, features_per_bucket);
 
     pointsLeft_t0 = currentVOFeatures.points;
-    
+
     #if USE_CUDA
-    	circularMatching_gpu(imageLeft_t0, imageRight_t0, imageLeft_t1, imageRight_t1,
+        circularMatching_gpu(imageLeft_t0, imageRight_t0, imageLeft_t1, imageRight_t1,
                      pointsLeft_t0, pointsRight_t0, pointsLeft_t1, pointsRight_t1, pointsLeftReturn_t0, currentVOFeatures);
     #else
-	    circularMatching(imageLeft_t0, imageRight_t0, imageLeft_t1, imageRight_t1,
+        circularMatching(imageLeft_t0, imageRight_t0, imageLeft_t1, imageRight_t1,
                      pointsLeft_t0, pointsRight_t0, pointsLeft_t1, pointsRight_t1, pointsLeftReturn_t0, currentVOFeatures);
     #endif
     std::vector<bool> status;
@@ -132,7 +133,7 @@ void matchingFeatures(cv::Mat& imageLeft_t0, cv::Mat& imageRight_t0,
 
 void trackingFrame2Frame(cv::Mat& projMatrl, cv::Mat& projMatrr,
                          std::vector<cv::Point2f>&  pointsLeft_t0,
-                         std::vector<cv::Point2f>&  pointsLeft_t1, 
+                         std::vector<cv::Point2f>&  pointsLeft_t1,
                          cv::Mat& points3D_t0,
                          cv::Mat& rotation,
                          cv::Mat& translation,
@@ -152,14 +153,14 @@ void trackingFrame2Frame(cv::Mat& projMatrl, cv::Mat& projMatrr,
       cv::Mat translation_mono = cv::Mat::zeros(3, 1, CV_64F);
       if(mono_rotation)
       {
-      	E = cv::findEssentialMat(pointsLeft_t0, pointsLeft_t1, focal, principle_point, cv::RANSAC, 0.999, 1.0, mask);
-      	cv::recoverPose(E, pointsLeft_t0, pointsLeft_t1, rotation, translation_mono, focal, principle_point, mask);
-      	// std::cout << "recoverPose rotation: " << rotation << std::endl;
+        E = cv::findEssentialMat(pointsLeft_t0, pointsLeft_t1, focal, principle_point, cv::RANSAC, 0.999, 1.0, mask);
+        cv::recoverPose(E, pointsLeft_t0, pointsLeft_t1, rotation, translation_mono, focal, principle_point, mask);
+        // std::cout << "recoverPose rotation: " << rotation << std::endl;
       }
       // ------------------------------------------------
       // Translation (t) estimation by use solvePnPRansac
       // ------------------------------------------------
-      cv::Mat distCoeffs = cv::Mat::zeros(4, 1, CV_64FC1);   
+      cv::Mat distCoeffs = cv::Mat::zeros(4, 1, CV_64FC1);
       cv::Mat rvec = cv::Mat::zeros(3, 1, CV_64FC1);
       cv::Mat intrinsic_matrix = (cv::Mat_<float>(3, 3) << projMatrl.at<float>(0, 0), projMatrl.at<float>(0, 1), projMatrl.at<float>(0, 2),
                                                    projMatrl.at<float>(1, 0), projMatrl.at<float>(1, 1), projMatrl.at<float>(1, 2),
@@ -173,7 +174,7 @@ void trackingFrame2Frame(cv::Mat& projMatrl, cv::Mat& projMatrr,
       int flags =cv::SOLVEPNP_ITERATIVE;
 
       #if 1
-      cv::Mat inliers; 
+      cv::Mat inliers;
       cv::solvePnPRansac( points3D_t0, pointsLeft_t1, intrinsic_matrix, distCoeffs, rvec, translation,
                           useExtrinsicGuess, iterationsCount, reprojectionError, confidence,
                           inliers, flags );
@@ -193,7 +194,7 @@ void trackingFrame2Frame(cv::Mat& projMatrl, cv::Mat& projMatrr,
 
 }
 
-void displayTracking(cv::Mat& imageLeft_t1, 
+void displayTracking(cv::Mat& imageLeft_t1,
                      std::vector<cv::Point2f>&  pointsLeft_t0,
                      std::vector<cv::Point2f>&  pointsLeft_t1)
 {
@@ -221,5 +222,5 @@ void displayTracking(cv::Mat& imageLeft_t1,
           cv::line(vis, pointsLeft_t0[i], pointsLeft_t1[i], CV_RGB(0,255,0));
       }
 
-      cv::imshow("vis ", vis );  
+      cv::imshow("vis ", vis );
 }

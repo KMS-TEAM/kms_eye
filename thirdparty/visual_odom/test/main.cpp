@@ -27,7 +27,7 @@
 
 
 int main(int argc, char **argv){
-    
+
     std::cout << "Hello world" << std::endl;
 
     #if USE_CUDA
@@ -43,19 +43,20 @@ int main(int argc, char **argv){
     if (argc == 4){
         display_ground_truth = true;
         std::cerr << "Display ground truth trajectory" << std::endl;
+//        std::cout<<"Check argc == 4"<<std::endl;
 
         // load ground truth pose
-        std::string filename_pose = std::string(argv[3]);
+        std::string filename_pose = std::string("/home/pingvn/data/Dynamic Objects/rgbd_dataset_freiburg2_desk_with_person/groundtruth.txt");
         pose_matrix_gt = loadPoses(filename_pose);
     }
 
-    if (argc < 3){
-        std::cerr << "Usage: ./run path_to_sequence(rgbd for using intel rgbd) path_to_calibration [optional]path_to_ground_truth_pose" << std::endl;
-        return 1;
-    }
+//    if (argc < 3){
+//        std::cerr << "Usage: ./run path_to_sequence(rgbd for using intel rgbd) path_to_calibration [optional]path_to_ground_truth_pose" << std::endl;
+//        return 1;
+//    }
 
     // Dataset
-    std::string filePath = std::string(argv[1]);
+    std::string filePath = std::string("/home/pingvn/data/00/00");
     std::cout << "Filepath: " << filePath << std::endl;
 
     if(filePath == "rgbd") {
@@ -63,9 +64,9 @@ int main(int argc, char **argv){
     }
 
     // Camera calibration
-    std::string strSettingPath = std::string(argv[2]);
+    std::string strSettingPath = std::string("/home/pingvn/kms_eye/data/kitti00.yaml");
     std::cout << "Calibration Filepath: " << strSettingPath << std::endl;
-
+//    std::cout << "Check: " <<argv[2]<< std::endl;
     cv::FileStorage fSettings(strSettingPath, cv::FileStorage::READ);
 
     float fx = fSettings["Camera.fx"];
@@ -85,7 +86,7 @@ int main(int argc, char **argv){
 
     cv::Mat pose = cv::Mat::zeros(3, 1, CV_64F);
     cv::Mat Rpose = cv::Mat::eye(3, 3, CV_64F);
-    
+
     cv::Mat frame_pose = cv::Mat::eye(4, 4, CV_64F);
     cv::Mat frame_pose32 = cv::Mat::eye(4, 4, CV_32F);
 
@@ -98,8 +99,9 @@ int main(int argc, char **argv){
     // Load first image
     cv::Mat imageRight_t0,  imageLeft_t0;
     CameraBase *pCamera = NULL;
+
     if(use_intel_rgbd)
-    {   
+    {
         pCamera = new Intel_V4L2;
         for (int throw_frames = 10 ; throw_frames >=0 ; throw_frames--)
             pCamera->getLRFrames(imageLeft_t0,imageRight_t0);
@@ -108,20 +110,23 @@ int main(int argc, char **argv){
     {
         cv::Mat imageLeft_t0_color;
         loadImageLeft(imageLeft_t0_color,  imageLeft_t0, init_frame_id, filePath);
-        
-        cv::Mat imageRight_t0_color;  
+
+        cv::Mat imageRight_t0_color;
         loadImageRight(imageRight_t0_color, imageRight_t0, init_frame_id, filePath);
     }
     clock_t t_a, t_b;
-
     // Run visual odometry
     std::vector<FeaturePoint> oldFeaturePointsLeft;
     std::vector<FeaturePoint> currentFeaturePointsLeft;
+
+//    std::cout<<"Check"<<std::endl;
 
     for (int frame_id = init_frame_id+1; frame_id < 9000; frame_id++)
     {
 
         std::cout << std::endl << "frame id " << frame_id << std::endl;
+//        std::cout<<"Check"<<std::endl;
+
         // ------------
         // Load images
         // ------------
@@ -133,29 +138,29 @@ int main(int argc, char **argv){
         else
         {
             cv::Mat imageLeft_t1_color;
-            loadImageLeft(imageLeft_t1_color,  imageLeft_t1, frame_id, filePath);        
-            cv::Mat imageRight_t1_color;  
-            loadImageRight(imageRight_t1_color, imageRight_t1, frame_id, filePath);            
+            loadImageLeft(imageLeft_t1_color,  imageLeft_t1, frame_id, filePath);
+            cv::Mat imageRight_t1_color;
+            loadImageRight(imageRight_t1_color, imageRight_t1, frame_id, filePath);
         }
-
+        std::cout << "Checck" << std::endl;
         t_a = clock();
         std::vector<cv::Point2f> oldPointsLeft_t0 = currentVOFeatures.points;
-
-        std::vector<cv::Point2f> pointsLeft_t0, pointsRight_t0, pointsLeft_t1, pointsRight_t1;  
+//        std::cout<<"Check"<<std::endl;
+        std::vector<cv::Point2f> pointsLeft_t0, pointsRight_t0, pointsLeft_t1, pointsRight_t1;
         matchingFeatures( imageLeft_t0, imageRight_t0,
-                          imageLeft_t1, imageRight_t1, 
+                          imageLeft_t1, imageRight_t1,
                           currentVOFeatures,
-                          pointsLeft_t0, 
-                          pointsRight_t0, 
-                          pointsLeft_t1, 
-                          pointsRight_t1);  
+                          pointsLeft_t0,
+                          pointsRight_t0,
+                          pointsLeft_t1,
+                          pointsRight_t1);
 
         imageLeft_t0 = imageLeft_t1;
         imageRight_t0 = imageRight_t1;
-
+//        std::cout<<"Check"<<std::endl;
         std::vector<cv::Point2f>& currentPointsLeft_t0 = pointsLeft_t0;
         std::vector<cv::Point2f>& currentPointsLeft_t1 = pointsLeft_t1;
-        
+
         std::vector<cv::Point2f> newPoints;
         std::vector<bool> valid; // valid new points are ture
 
@@ -173,10 +178,10 @@ int main(int argc, char **argv){
         // ---------------------
         // Tracking transfomation
         // ---------------------
-	clock_t tic_gpu = clock();
+    clock_t tic_gpu = clock();
         trackingFrame2Frame(projMatrl, projMatrr, pointsLeft_t0, pointsLeft_t1, points3D_t0, rotation, translation, false);
-	clock_t toc_gpu = clock();
-	std::cerr << "tracking frame 2 frame: " << float(toc_gpu - tic_gpu)/CLOCKS_PER_SEC*1000 << "ms" << std::endl;
+    clock_t toc_gpu = clock();
+    std::cerr << "tracking frame 2 frame: " << float(toc_gpu - tic_gpu)/CLOCKS_PER_SEC*1000 << "ms" << std::endl;
         displayTracking(imageLeft_t1, pointsLeft_t0, pointsLeft_t1);
 
 

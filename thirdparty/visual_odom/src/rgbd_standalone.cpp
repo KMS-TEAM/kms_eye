@@ -28,7 +28,7 @@
 
 #include "rgbd_standalone.h"
 
-Intel_V4L2::Intel_V4L2 () 
+Intel_V4L2::Intel_V4L2 ()
     : CameraBase ()
 {
     m_bigBufferLength = 0;
@@ -44,7 +44,7 @@ Intel_V4L2::~Intel_V4L2 () {
         free (m_pV4l2Buffer);
     if (NULL != m_pBigBuffer)
         free (m_pBigBuffer);
-    
+
     if (0 > m_fd) return;
 
     if (0 > ioctl (m_fd, VIDIOC_STREAMOFF, &m_bufType)) {
@@ -234,4 +234,3 @@ int main(int argc, char *argv[]) {
         intelObject.capture_frame ();
 }
 #endif
-

@@ -7,7 +7,7 @@
 void drawFeaturePoints(cv::Mat image, std::vector<cv::Point2f>& points)
 {
     int radius = 2;
-    
+
     for (int i = 0; i < points.size(); i++)
     {
         circle(image, cv::Point(points[i].x, points[i].y), radius, CV_RGB(255,255,255));
@@ -16,16 +16,16 @@ void drawFeaturePoints(cv::Mat image, std::vector<cv::Point2f>& points)
 
 void display(int frame_id, cv::Mat& trajectory, cv::Mat& pose, std::vector<Matrix>& pose_matrix_gt, float fps, bool show_gt)
 {
-    // draw estimated trajectory 
+    // draw estimated trajectory
     int x = int(pose.at<double>(0)) + 300;
     int y = int(pose.at<double>(2)) + 100;
     circle(trajectory, cv::Point(x, y) ,1, CV_RGB(255,0,0), 2);
 
     if (show_gt)
     {
-      // draw ground truth trajectory 
+      // draw ground truth trajectory
       cv::Mat pose_gt = cv::Mat::zeros(1, 3, CV_64F);
-      
+
       pose_gt.at<double>(0) = pose_matrix_gt[frame_id].val[0][3];
       pose_gt.at<double>(1) = pose_matrix_gt[frame_id].val[0][7];
       pose_gt.at<double>(2) = pose_matrix_gt[frame_id].val[0][11];
@@ -61,7 +61,7 @@ void integrateOdometryStereo(int frame_i, cv::Mat& rigid_body_transformation, cv
 
     // std::cout << "rigid_body_transformation" << rigid_body_transformation << std::endl;
 
-    double scale = sqrt((translation_stereo.at<double>(0))*(translation_stereo.at<double>(0)) 
+    double scale = sqrt((translation_stereo.at<double>(0))*(translation_stereo.at<double>(0))
                         + (translation_stereo.at<double>(1))*(translation_stereo.at<double>(1))
                         + (translation_stereo.at<double>(2))*(translation_stereo.at<double>(2))) ;
 
@@ -69,15 +69,15 @@ void integrateOdometryStereo(int frame_i, cv::Mat& rigid_body_transformation, cv
     std::cout << "scale: " << scale << std::endl;
 
     rigid_body_transformation = rigid_body_transformation.inv();
-    // if ((scale>0.1)&&(translation_stereo.at<double>(2) > translation_stereo.at<double>(0)) && (translation_stereo.at<double>(2) > translation_stereo.at<double>(1))) 
-    if (scale > 0.05 && scale < 10) 
+    // if ((scale>0.1)&&(translation_stereo.at<double>(2) > translation_stereo.at<double>(0)) && (translation_stereo.at<double>(2) > translation_stereo.at<double>(1)))
+    if (scale > 0.05 && scale < 10)
     {
       // std::cout << "Rpose" << Rpose << std::endl;
 
       frame_pose = frame_pose * rigid_body_transformation;
 
     }
-    else 
+    else
     {
      std::cout << "[WARNING] scale below 0.1, or incorrect translation" << std::endl;
     }
@@ -89,22 +89,22 @@ bool isRotationMatrix(cv::Mat &R)
     transpose(R, Rt);
     cv::Mat shouldBeIdentity = Rt * R;
     cv::Mat I = cv::Mat::eye(3,3, shouldBeIdentity.type());
-     
-    return  norm(I, shouldBeIdentity) < 1e-6;  
+
+    return  norm(I, shouldBeIdentity) < 1e-6;
 }
- 
+
 // Calculates rotation matrix to euler angles
 // The result is the same as MATLAB except the order
 // of the euler angles ( x and z are swapped ).
 cv::Vec3f rotationMatrixToEulerAngles(cv::Mat &R)
 {
- 
+
     assert(isRotationMatrix(R));
-     
+
     float sy = sqrt(R.at<double>(0,0) * R.at<double>(0,0) +  R.at<double>(1,0) * R.at<double>(1,0) );
- 
+
     bool singular = sy < 1e-6; // If
- 
+
     float x, y, z;
     if (!singular)
     {
@@ -119,7 +119,7 @@ cv::Vec3f rotationMatrixToEulerAngles(cv::Mat &R)
         z = 0;
     }
     return cv::Vec3f(x, y, z);
-     
+
 }
 
 // --------------------------------
@@ -135,7 +135,7 @@ void loadGyro(std::string filename, std::vector<std::vector<double>>& time_gyros
     double timestamp, gx, gy, gz;
 
     while (file.good())
-    {    
+    {
 
          std::vector<double> time_gyro;
 
@@ -155,7 +155,7 @@ void loadGyro(std::string filename, std::vector<std::vector<double>>& time_gyros
          gz = stod(value);
          time_gyro.push_back(gz);
 
-         // printf("t: %f, gx: %f, gy: %f, gz: %f\n" , timestamp, gx, gy, gz);    
+         // printf("t: %f, gx: %f, gy: %f, gz: %f\n" , timestamp, gx, gy, gz);
 
          time_gyros.push_back(time_gyro);
     }
@@ -163,21 +163,26 @@ void loadGyro(std::string filename, std::vector<std::vector<double>>& time_gyros
 
 void loadImageLeft(cv::Mat& image_color, cv::Mat& image_gary, int frame_id, std::string filepath){
     char file[200];
-    sprintf(file, "image_0/%06d.png", frame_id);
-
+    sprintf(file, "/image_0/%06d.png", frame_id);
     // sprintf(file, "image_0/%010d.png", frame_id);
     std::string filename = filepath + std::string(file);
-    image_color = cv::imread(filename, cv::IMREAD_COLOR);
-    cvtColor(image_color, image_gary, cv::COLOR_BGR2GRAY);
+
+    image_color = cv::imread(filename, cv::IMREAD_GRAYSCALE);
+
+    image_gary = image_color.clone();
+    //cvtColor(image_color, image_gary, cv::IMREAD_GRAYSCALE);
+
 }
 
 void loadImageRight(cv::Mat& image_color, cv::Mat& image_gary, int frame_id, std::string filepath){
     char file[200];
-    sprintf(file, "image_1/%06d.png", frame_id);
+    sprintf(file, "/image_1/%06d.png", frame_id);
+
 
     // sprintf(file, "image_0/%010d.png", frame_id);
     std::string filename = filepath + std::string(file);
-    image_color = cv::imread(filename, cv::IMREAD_COLOR);
-    cvtColor(image_color, image_gary, cv::COLOR_BGR2GRAY);
-}
+    image_color = cv::imread(filename, cv::IMREAD_GRAYSCALE);
 
+    image_gary = image_color.clone();
+
+}
