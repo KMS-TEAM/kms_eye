@@ -44,14 +44,14 @@ void QImageProcessing::setConfig(QConfig *config)
     m_config = config;
 }
 
-void setVOTrajectory(QImage &trajectory)
+void QImageProcessing::setVOTrajectory(QImage &trajectory)
 {
     m_trajectory = trajectory;
 
     emit updateTrajectory(m_trajectory);
 }
 
-void setVOFeatureView(QImage &featureView)
+void QImageProcessing::setVOFeatureView(QImage &featureView)
 {
     m_featureView = featureView;
 
