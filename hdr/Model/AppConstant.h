@@ -40,7 +40,8 @@ class AppConstant : public QObject
     DEF_CONST(QUrl     , QML_MAIN_SCREEN_URL        , QUrl(QStringLiteral("qrc:/qml/qml/MainScreen.qml")))
     DEF_CONST(QUrl     , QML_PCL_VIEWER_URL         , QUrl(QStringLiteral("qrc:/qml/qml/Screen/PCLScreen/PCLScreen.qml")))
     DEF_CONST(QUrl     , QML_IMAGE_VIEWER_URL       , QUrl(QStringLiteral("qrc:/qml/qml/Screen/ImageScreen/ImageScreen.qml")))
-     DEF_CONST(QUrl    , QML_PCL_LOADER             , QUrl(QStringLiteral("qrc:/qml/qml/Screen/PCLScreen/PCLViewer.qml")))
+    DEF_CONST(QUrl     , QML_CAMERA_VIEWER_URL      , QUrl(QStringLiteral("qrc:/qml/qml/Screen/CameraScreen/CameraScreen.qml")))
+    DEF_CONST(QUrl     , QML_PCL_LOADER              , QUrl(QStringLiteral("qrc:/qml/qml/Screen/PCLScreen/PCLViewer.qml")))
 
     /************************* DEFINE SOMETHINGS *****************************/
     DEF_CONST(int      , DEFAULT_WIDTH               , 1280)
@@ -93,6 +94,10 @@ private:
     DEF_CONST(QString, MAP_IMG      , "map.svg"     )
     DEF_CONST(QString, USER_IMG     , "user.svg"    )
 
+    /********************************************** Camera **********************************************/
+
+    DEF_CONST(QString, LEFT_CAMERA , "nvarguscamerasrc sensor-id=0 ! video/x-raw(memory:NVMM), width=640, height=480, format=(string)NV12, framerate=(fraction)20/1 ! nvvidconv flip-method=0 ! video/x-raw, width=640, height=480, format=(string)BGRx ! videoconvert ! video/x-raw, format=(string)BGR ! appsink")
+    DEF_CONST(QString, RIGHT_CAMERA, "nvarguscamerasrc sensor-id=1 ! video/x-raw(memory:NVMM), width=640, height=480, format=(string)NV12, framerate=(fraction)20/1 ! nvvidconv flip-method=0 ! video/x-raw, width=640, height=480, format=(string)BGRx ! videoconvert ! video/x-raw, format=(string)BGR ! appsink")
 
     /********************************************** GENERAL **********************************************/
     DEF_CONST(int, MAX_WIDTH        , 1280  )

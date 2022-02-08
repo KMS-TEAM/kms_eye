@@ -46,6 +46,8 @@ Item
             return QmlConst.QML_IMAGE_VIEWER_URL
         case 1:
             return QmlConst.QML_PCL_VIEWER_URL
+        case 2:
+            return QmlConst.QML_CAMERA_VIEWER_URL
         }
     }
 
