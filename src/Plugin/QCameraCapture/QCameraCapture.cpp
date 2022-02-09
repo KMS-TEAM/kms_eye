@@ -58,7 +58,8 @@ void QCameraCapture::run()
 
     if (cameraID == -1){
         CONSOLE << "Streamming mode";
-        cap = cv::VideoCapture(videoPath.toStdString(), cv::CAP_GSTREAMER);
+        // cap = cv::VideoCapture(videoPath.toStdString(), cv::CAP_GSTREAMER);
+        cap = cv::VideoCapture(videoPath.toStdString());
     }
     else{
         CONSOLE << "USB/Webcam mode";

@@ -59,6 +59,8 @@ void AppEngine::initEngine(){
     this->addImageProvider("live", liveImageProvider);
 
     connect(MODEL, &AppModel::disparityImageChanged, liveImageProvider, &QOpenCVImageProvider::updateImage);
+    connect(MODEL, &AppModel::currentFrameChanged, liveImageProvider, &QOpenCVImageProvider::updateImage);
+
 }
 
 void AppEngine::startEngine(){
@@ -111,6 +113,9 @@ void AppEngine::slotReceiveEvent(int event)
     case static_cast<int>(AppEnums::EVT_CLICK_RESET):
         MODEL->m_currentImageNumber = 0;
         MODEL->setCurrentImageNumber(MODEL->m_currentImageNumber);
+        break;
+    case static_cast<int>(AppEnums::EVT_CLICK_CAMERA_RUN):
+        MODEL->cameraRun(DEFS->VIDEO_EXAMPLE());
         break;
     default:
         break;

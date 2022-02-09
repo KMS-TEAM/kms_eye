@@ -13,6 +13,7 @@
 #include "QConfig.h"
 #include "AppEnums.h"
 #include "QImageProcessing.h"
+#include "QCameraCapture/QCameraCapture.h"
 
 #define MODEL AppModel::instance()
 
@@ -48,6 +49,8 @@ public:
 
     void imageProcessing(AppEnums::ALGORITHM algo);
 
+    void cameraRun(QString path);
+
 public slots:
     void setCurrentImagePath(QStringList currentImagePath);
     void setCurrentImageNumber(int currentImageNumber);
@@ -58,6 +61,7 @@ public slots:
     void setDisparityImage(QImage disparityImage);
     void setPclPath(QString pclPath);
     void setCurrentScreenID(int currentScreenID);
+    void setCurrentFrame(cv::Mat frame);
 
 signals:
     void currentImagePathChanged();
@@ -70,6 +74,7 @@ signals:
     void pclPathChanged();
     void runReconstruction();
     void currentScreenIDChanged(int currentScreenID);
+    void currentFrameChanged(QImage &image);
 
 private:
     AppModel(QObject* parent = nullptr);
@@ -83,6 +88,9 @@ private:
     static QConfig* m_config;
     static QImageProcessing* m_imageprocessing;
     static AppEnums::APP_STATE m_state;
+
+    QCameraCapture* m_camcapture;
+    QImage m_currentFrame;
 
     QImage m_disparityImage;
     QVector<QStringList> m_listImage;

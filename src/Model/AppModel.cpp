@@ -31,6 +31,7 @@ AppModel::AppModel(QObject *parent) :
     connect(m_imageprocessing, &QImageProcessing::finishCompute, this, &AppModel::setDisparityImage);
     connect(this, &AppModel::runReconstruction, m_imageprocessing, &QImageProcessing::Reconstrction);
     connect(m_imageprocessing, &QImageProcessing::finishReconstruction, this, &AppModel::setPclPath);
+    connect(m_camcapture, &QCameraCapture::frameCaptured, this, &AppModel::setCurrentFrame);
 }
 
 AppModel *AppModel::instance(){
@@ -136,6 +137,12 @@ void AppModel::imageProcessing(AppEnums::ALGORITHM algo)
     }
 }
 
+void AppModel::cameraRun(QString path)
+{
+    m_camcapture = new QCameraCapture(path, &m_lock);
+    m_camcapture->start();
+}
+
 void AppModel::setCurrentImagePath(QStringList currentImagePath)
 {
     m_currentImagePath = currentImagePath;
@@ -210,6 +217,15 @@ void AppModel::setCurrentScreenID(int currentScreenID)
 
     m_currentScreenID = currentScreenID;
     emit currentScreenIDChanged(m_currentScreenID);
+}
+
+void AppModel::setCurrentFrame(cv::Mat frame)
+{
+    QImage img = QImage(frame.data,frame.cols,frame.rows,QImage::Format_RGB888).rgbSwapped();
+
+    m_currentFrame = img;
+
+    emit currentFrameChanged(m_currentFrame);
 }
 
 
