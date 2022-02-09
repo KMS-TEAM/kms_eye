@@ -58,7 +58,7 @@ void AppEngine::initEngine(){
 
     this->addImageProvider("live", liveImageProvider);
 
-    connect(MODEL, &AppModel::disparityImageChanged, liveImageProvider, &QOpenCVImageProvider::updateImage);
+    // connect(MODEL, &AppModel::disparityImageChanged, liveImageProvider, &QOpenCVImageProvider::updateImage);
     connect(MODEL, &AppModel::currentFrameChanged, liveImageProvider, &QOpenCVImageProvider::updateImage);
 
 }
@@ -83,6 +83,10 @@ void AppEngine::slotReceiveEvent(int event)
     case static_cast<int>(AppEnums::EVT_CLICK_PCL_SCREEN):
         CONSOLE << "PCL Viewer";
         MODEL->setCurrentScreenID(AppEnums::VIEW_SCREEN::PCL_VIEWER_SCREEN);
+        break;
+    case static_cast<int>(AppEnums::EVT_CLICK_CAMERA_SCREEN):
+        CONSOLE << "Camera Viewer";
+        MODEL->setCurrentScreenID(AppEnums::VIEW_SCREEN::CAMERA_VIEWER_SCREEN);
         break;
     case static_cast<int>(AppEnums::EVT_CLICK_SETTING_PATH):
         CONSOLE << MODEL->settingPath();

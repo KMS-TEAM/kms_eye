@@ -61,7 +61,7 @@ public slots:
     void setDisparityImage(QImage disparityImage);
     void setPclPath(QString pclPath);
     void setCurrentScreenID(int currentScreenID);
-    void setCurrentFrame(cv::Mat frame);
+    void setCurrentFrame(cv::Mat *frame);
 
 signals:
     void currentImagePathChanged();
@@ -89,7 +89,7 @@ private:
     static QImageProcessing* m_imageprocessing;
     static AppEnums::APP_STATE m_state;
 
-    QCameraCapture* m_camcapture;
+    static QCameraCapture* m_camcapture;
     QImage m_currentFrame;
 
     QImage m_disparityImage;

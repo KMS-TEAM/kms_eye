@@ -16,9 +16,11 @@ class QCameraCapture : public QThread
 {
     Q_OBJECT
 public:
+    QCameraCapture(QObject *parent = nullptr);
     QCameraCapture(int camera, QMutex *lock);
     QCameraCapture(QString videoPath, QMutex *lock);
     ~QCameraCapture();
+    void initCamera(QString videoPath, QMutex *lock);
     void setRunning(bool run);
     void startCalcFPS();
 

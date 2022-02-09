@@ -8,6 +8,7 @@ AppModel* AppModel::m_instance = nullptr;
 QMutex AppModel::m_lock;
 QConfig* AppModel::m_config = new QConfig(nullptr);
 QImageProcessing* AppModel::m_imageprocessing = new QImageProcessing(nullptr);
+QCameraCapture* AppModel::m_camcapture = new QCameraCapture(nullptr);
 AppEnums::APP_STATE AppModel::m_state = AppEnums::APP_STATE::STATE_NONE;
 
 AppModel::AppModel(QObject *parent) :
@@ -139,7 +140,7 @@ void AppModel::imageProcessing(AppEnums::ALGORITHM algo)
 
 void AppModel::cameraRun(QString path)
 {
-    m_camcapture = new QCameraCapture(path, &m_lock);
+    m_camcapture->initCamera(path, &m_lock);
     m_camcapture->start();
 }
 
@@ -219,9 +220,11 @@ void AppModel::setCurrentScreenID(int currentScreenID)
     emit currentScreenIDChanged(m_currentScreenID);
 }
 
-void AppModel::setCurrentFrame(cv::Mat frame)
+void AppModel::setCurrentFrame(cv::Mat *frame)
 {
-    QImage img = QImage(frame.data,frame.cols,frame.rows,QImage::Format_RGB888).rgbSwapped();
+    CONSOLE << frame->cols << " " << frame->rows;
+
+    QImage img = QImage(frame->data,frame->cols,frame->rows,QImage::Format_RGB888).rgbSwapped();
 
     m_currentFrame = img;
 

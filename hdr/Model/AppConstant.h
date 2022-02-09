@@ -98,7 +98,7 @@ private:
 
     DEF_CONST(QString, LEFT_CAMERA , "nvarguscamerasrc sensor-id=0 ! video/x-raw(memory:NVMM), width=640, height=480, format=(string)NV12, framerate=(fraction)20/1 ! nvvidconv flip-method=0 ! video/x-raw, width=640, height=480, format=(string)BGRx ! videoconvert ! video/x-raw, format=(string)BGR ! appsink")
     DEF_CONST(QString, RIGHT_CAMERA, "nvarguscamerasrc sensor-id=1 ! video/x-raw(memory:NVMM), width=640, height=480, format=(string)NV12, framerate=(fraction)20/1 ! nvvidconv flip-method=0 ! video/x-raw, width=640, height=480, format=(string)BGRx ! videoconvert ! video/x-raw, format=(string)BGR ! appsink")
-    DEF_CONST(QString, VIDEO_EXAMPLE, "/home/lacie/Github/kms_eye/data/example.mp4")
+    DEF_CONST(QString, VIDEO_EXAMPLE, "/home/lacie/Videos/example.mp4")
 
     /********************************************** GENERAL **********************************************/
     DEF_CONST(int, MAX_WIDTH        , 1280  )

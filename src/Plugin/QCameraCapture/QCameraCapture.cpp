@@ -4,6 +4,15 @@
 #include <QtConcurrent/QtConcurrent>
 #include <AppConstant.h>
 
+QCameraCapture::QCameraCapture(QObject *parent)
+{
+    running = false;
+    fps_calculating = false;
+    fps = 0.0;
+
+    frame_width = frame_height = 0;
+}
+
 QCameraCapture::QCameraCapture(int camera, QMutex *lock)
     : running(false), cameraID(camera), data_lock(lock)
 {
@@ -25,6 +34,14 @@ QCameraCapture::QCameraCapture(QString videoPath, QMutex *lock)
 QCameraCapture::~QCameraCapture()
 {
 
+}
+
+void QCameraCapture::initCamera(QString _videoPath, QMutex *lock)
+{
+    CONSOLE << _videoPath;
+    cameraID = -1;
+    videoPath = _videoPath;
+    data_lock = lock;
 }
 
 void QCameraCapture::setRunning(bool run) {
@@ -59,7 +76,8 @@ void QCameraCapture::run()
     if (cameraID == -1){
         CONSOLE << "Streamming mode";
         // cap = cv::VideoCapture(videoPath.toStdString(), cv::CAP_GSTREAMER);
-        cap = cv::VideoCapture(videoPath.toStdString());
+        CONSOLE << videoPath;
+        cap = cv::VideoCapture(this->videoPath.toStdString());
     }
     else{
         CONSOLE << "USB/Webcam mode";
@@ -84,6 +102,7 @@ void QCameraCapture::run()
         data_lock->lock();
         frame = tmp_frame;
         data_lock->unlock();
+        // cv::imshow("Video", frame);
         emit frameCaptured(&frame);
         if(fps_calculating) {
             calculateFPS(cap);

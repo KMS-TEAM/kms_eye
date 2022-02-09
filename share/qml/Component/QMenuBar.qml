@@ -42,7 +42,7 @@ QRec {
 
     Button {
         id: cameraScreen
-        y: 110
+        y: 170
         width: 80
         height: 40
         text: qsTr("Camera")
@@ -51,7 +51,7 @@ QRec {
 
         onClicked:{
             QmlHandler.qmlMessage("Selected Camera Screen")
-            QmlHandler.qmlSendEvent(Enums.CAMERA_VIEWER_SCREEN)
+            QmlHandler.qmlSendEvent(Enums.EVT_CLICK_CAMERA_SCREEN)
         }
     }
 
