@@ -45,6 +45,8 @@ void AppEngine::initEngine(){
     qmlRegisterType<QImageItem>("MyImage", 1, 0, "QImageItem");
 
     QOpenCVImageProvider *liveImageProvider(new QOpenCVImageProvider);
+    QOpenCVImageProvider *liveLeftImageProvider(new QOpenCVImageProvider);
+    QOpenCVImageProvider *liveRightImageProvider(new QOpenCVImageProvider);
 
     // connect signal slots
     connect(QML_HANDLER, &QMLHandler::notifyQMLEvent, this, &AppEngine::slotReceiveEvent);
@@ -54,12 +56,18 @@ void AppEngine::initEngine(){
     m_rootContext->setContextProperty("QmlHandler", QML_HANDLER);
     m_rootContext->setContextProperty("QmlScreen", SCR_DEF);
     m_rootContext->setContextProperty("QmlModel", MODEL);
+
     m_rootContext->setContextProperty("liveImageProvider", liveImageProvider);
+    m_rootContext->setContextProperty("liveLeftImageProvider", liveLeftImageProvider);
+    m_rootContext->setContextProperty("liveRightImageProvider", liveRightImageProvider);
 
     this->addImageProvider("live", liveImageProvider);
+    this->addImageProvider("liveLeft", liveLeftImageProvider);
+    this->addImageProvider("liveRight", liveRightImageProvider);
 
     connect(MODEL, &AppModel::disparityImageChanged, liveImageProvider, &QOpenCVImageProvider::updateImage);
-    connect(MODEL, &AppModel::currentFrameChanged, liveImageProvider, &QOpenCVImageProvider::updateImage);
+    connect(MODEL, &AppModel::currentLeftFrameChanged, liveLeftImageProvider, &QOpenCVImageProvider::updateImage);
+    connect(MODEL, &AppModel::currentRightFrameChanged, liveRightImageProvider, &QOpenCVImageProvider::updateImage);
 
 }
 
@@ -119,7 +127,7 @@ void AppEngine::slotReceiveEvent(int event)
         MODEL->setCurrentImageNumber(MODEL->m_currentImageNumber);
         break;
     case static_cast<int>(AppEnums::EVT_CLICK_CAMERA_RUN):
-        MODEL->cameraRun(DEFS->VIDEO_EXAMPLE());
+        MODEL->cameraRun(DEFS->VIDEO_EXAMPLE_1(), DEFS->VIDEO_EXAMPLE_2());
         break;
     default:
         break;

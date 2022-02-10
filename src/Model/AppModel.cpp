@@ -8,7 +8,8 @@ AppModel* AppModel::m_instance = nullptr;
 QMutex AppModel::m_lock;
 QConfig* AppModel::m_config = new QConfig(nullptr);
 QImageProcessing* AppModel::m_imageprocessing = new QImageProcessing(nullptr);
-QCameraCapture* AppModel::m_camcapture = new QCameraCapture(nullptr);
+QCameraCapture* AppModel::m_leftCamcapture = new QCameraCapture(nullptr);
+QCameraCapture* AppModel::m_rightCamcapture = new QCameraCapture(nullptr);
 AppEnums::APP_STATE AppModel::m_state = AppEnums::APP_STATE::STATE_NONE;
 
 AppModel::AppModel(QObject *parent) :
@@ -32,7 +33,8 @@ AppModel::AppModel(QObject *parent) :
     connect(m_imageprocessing, &QImageProcessing::finishCompute, this, &AppModel::setDisparityImage);
     connect(this, &AppModel::runReconstruction, m_imageprocessing, &QImageProcessing::Reconstrction);
     connect(m_imageprocessing, &QImageProcessing::finishReconstruction, this, &AppModel::setPclPath);
-    connect(m_camcapture, &QCameraCapture::frameCaptured, this, &AppModel::setCurrentFrame);
+    connect(m_leftCamcapture, &QCameraCapture::frameCaptured, this, &AppModel::setCurrentLeftFrame);
+    connect(m_rightCamcapture, &QCameraCapture::frameCaptured, this, &AppModel::setCurrentRightFrame);
 }
 
 AppModel *AppModel::instance(){
@@ -138,10 +140,12 @@ void AppModel::imageProcessing(AppEnums::ALGORITHM algo)
     }
 }
 
-void AppModel::cameraRun(QString path)
+void AppModel::cameraRun(QString path1, QString path2)
 {
-    m_camcapture->initCamera(path, &m_lock);
-    m_camcapture->start();
+    m_leftCamcapture->initCamera(path1, &m_lock);
+    m_rightCamcapture->initCamera(path2, &m_lock);
+    m_leftCamcapture->start();
+    m_rightCamcapture->start();
 }
 
 void AppModel::setCurrentImagePath(QStringList currentImagePath)
@@ -220,17 +224,30 @@ void AppModel::setCurrentScreenID(int currentScreenID)
     emit currentScreenIDChanged(m_currentScreenID);
 }
 
-void AppModel::setCurrentFrame(cv::Mat *frame)
+void AppModel::setCurrentLeftFrame(cv::Mat *frame)
 {
     // CONSOLE << frame->cols << " " << frame->rows;
 
     QImage img = QImage(frame->data,frame->cols,frame->rows,QImage::Format_RGB888).rgbSwapped();
 
-    m_currentFrame = img;
+    m_currentLeftFrame = img;
 
-    CONSOLE << m_currentFrame.width() << " " << m_currentFrame.height();
+    // CONSOLE << m_currentLeftFrame.width() << " " << m_currentLeftFrame.height();
 
-    emit currentFrameChanged(m_currentFrame);
+    emit currentLeftFrameChanged(m_currentLeftFrame);
+}
+
+void AppModel::setCurrentRightFrame(cv::Mat *frame)
+{
+    // CONSOLE << frame->cols << " " << frame->rows;
+
+    QImage img = QImage(frame->data,frame->cols,frame->rows,QImage::Format_RGB888).rgbSwapped();
+
+    m_currentRightFrame = img;
+
+    // CONSOLE << m_currentRightFrame.width() << " " << m_currentRightFrame.height();
+
+    emit currentRightFrameChanged(m_currentRightFrame);
 }
 
 

@@ -24,10 +24,10 @@ QImage QOpenCVImageProvider::requestImage(const QString &id, QSize *size, const 
 
 void QOpenCVImageProvider::updateImage(const QImage &image)
 {
-    CONSOLE << "isNULL: " << image.isNull();
+    // CONSOLE << "isNULL: " << image.isNull();
     // CONSOLE << "CHECK Similiar: " << (this->image != image);
     if(!image.isNull()) {
-        CONSOLE << "Bug";
+        // CONSOLE << "Bug";
         this->image = image;
         emit imageChanged();
     }

@@ -49,7 +49,7 @@ public:
 
     void imageProcessing(AppEnums::ALGORITHM algo);
 
-    void cameraRun(QString path);
+    void cameraRun(QString path1, QString path2);
 
 public slots:
     void setCurrentImagePath(QStringList currentImagePath);
@@ -61,7 +61,8 @@ public slots:
     void setDisparityImage(QImage disparityImage);
     void setPclPath(QString pclPath);
     void setCurrentScreenID(int currentScreenID);
-    void setCurrentFrame(cv::Mat *frame);
+    void setCurrentLeftFrame(cv::Mat *frame);
+    void setCurrentRightFrame(cv::Mat *frame);
 
 signals:
     void currentImagePathChanged();
@@ -74,7 +75,8 @@ signals:
     void pclPathChanged();
     void runReconstruction();
     void currentScreenIDChanged(int currentScreenID);
-    void currentFrameChanged(QImage &image);
+    void currentLeftFrameChanged(QImage &image);
+    void currentRightFrameChanged(QImage &image);
 
 private:
     AppModel(QObject* parent = nullptr);
@@ -89,8 +91,10 @@ private:
     static QImageProcessing* m_imageprocessing;
     static AppEnums::APP_STATE m_state;
 
-    static QCameraCapture* m_camcapture;
-    QImage m_currentFrame;
+    static QCameraCapture* m_leftCamcapture;
+    static QCameraCapture* m_rightCamcapture;
+    QImage m_currentRightFrame;
+    QImage m_currentLeftFrame;
 
     QImage m_disparityImage;
     QVector<QStringList> m_listImage;
