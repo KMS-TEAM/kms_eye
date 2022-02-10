@@ -222,11 +222,13 @@ void AppModel::setCurrentScreenID(int currentScreenID)
 
 void AppModel::setCurrentFrame(cv::Mat *frame)
 {
-    CONSOLE << frame->cols << " " << frame->rows;
+    // CONSOLE << frame->cols << " " << frame->rows;
 
     QImage img = QImage(frame->data,frame->cols,frame->rows,QImage::Format_RGB888).rgbSwapped();
 
     m_currentFrame = img;
+
+    CONSOLE << m_currentFrame.width() << " " << m_currentFrame.height();
 
     emit currentFrameChanged(m_currentFrame);
 }

@@ -58,7 +58,7 @@ void AppEngine::initEngine(){
 
     this->addImageProvider("live", liveImageProvider);
 
-    // connect(MODEL, &AppModel::disparityImageChanged, liveImageProvider, &QOpenCVImageProvider::updateImage);
+    connect(MODEL, &AppModel::disparityImageChanged, liveImageProvider, &QOpenCVImageProvider::updateImage);
     connect(MODEL, &AppModel::currentFrameChanged, liveImageProvider, &QOpenCVImageProvider::updateImage);
 
 }

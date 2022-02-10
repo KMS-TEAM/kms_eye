@@ -47,6 +47,9 @@ Item {
         text: "Open"
 
         onClicked: {
+
+            opencvImage.visible = true
+
             QmlHandler.qmlMessage("Camera run")
             QmlHandler.qmlSendEvent(Enums.EVT_CLICK_CAMERA_RUN)
         }
