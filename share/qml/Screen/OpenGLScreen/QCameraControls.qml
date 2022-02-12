@@ -26,7 +26,7 @@ Rectangle {
         GridLayout{
             anchors.fill: parent
             anchors.margins: 5
-            column: 3
+            columns: 3
 
             Label{
                 text: "Azimuth"

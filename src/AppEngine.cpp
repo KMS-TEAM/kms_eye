@@ -43,6 +43,7 @@ void AppEngine::initEngine(){
 
     // QPixmap type
     qmlRegisterType<QImageItem>("MyImage", 1, 0, "QImageItem");
+//    qmlRegisterType<QCameraControl>("CameraControls", 1, 0, "QCameraControl");
 
     QOpenCVImageProvider *liveImageProvider(new QOpenCVImageProvider);
     QOpenCVImageProvider *liveLeftImageProvider(new QOpenCVImageProvider);
@@ -128,6 +129,9 @@ void AppEngine::slotReceiveEvent(int event)
         break;
     case static_cast<int>(AppEnums::EVT_CLICK_CAMERA_RUN):
         MODEL->cameraRun(DEFS->VIDEO_EXAMPLE_1(), DEFS->VIDEO_EXAMPLE_2());
+        break;
+    case static_cast<int>(AppEnums::EVT_CLICK_OPENGL_RENDER):
+        MODEL->renderScreenRun();
         break;
     default:
         break;

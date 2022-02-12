@@ -99,6 +99,7 @@ file(GLOB SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/Model/*.cpp
                       ${CMAKE_CURRENT_SOURCE_DIR}/src/Plugin/QImageItem/*.cpp
                       ${CMAKE_CURRENT_SOURCE_DIR}/src/Plugin/QCameraCapture/*.cpp
                       ${CMAKE_CURRENT_SOURCE_DIR}/src/Plugin/QOpenGLRender/*.cpp
+                      ${CMAKE_CURRENT_SOURCE_DIR}/src/View/*.cpp
                       ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
 
 source_group("Header Files" FILES ${HEADERS})
@@ -162,4 +163,7 @@ target_link_libraries(kms_eye
 #else()
 #   target_compile_options(kms_eye PRIVATE $<$<COMPILE_LANGUAGE:CXX>:${cxx_options}> $<$<NOT:$<COMPILE_LANGUAGE:CXX>>:${nvcc_options}>)
 #endif()
+
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/share
+     DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 

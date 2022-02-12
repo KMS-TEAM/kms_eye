@@ -14,7 +14,8 @@
         <file>qml/Screen/PCLScreen/PCLScreen.qml</file>
         <file>qml/Screen/CameraScreen/CameraScreen.qml</file>
         <file>qml/Screen/CameraScreen/FrameViewer.qml</file>
-        <file>qml/Component/QCameraControls.qml</file>
+        <file>qml/Screen/OpenGLScreen/OpenGLViewer.qml</file>
+        <file>qml/Screen/OpenGLScreen/QCameraControls.qml</file>
     </qresource>
     <qresource prefix="/shader">
         <file>shader/pointcloud.frag</file>

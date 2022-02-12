@@ -148,6 +148,13 @@ void AppModel::cameraRun(QString path1, QString path2)
     m_rightCamcapture->start();
 }
 
+void AppModel::renderScreenRun()
+{
+    QRenderScreen m_renderScreen;
+    m_renderScreen.resize(600, 600);
+    m_renderScreen.show();
+}
+
 void AppModel::setCurrentImagePath(QStringList currentImagePath)
 {
     m_currentImagePath = currentImagePath;

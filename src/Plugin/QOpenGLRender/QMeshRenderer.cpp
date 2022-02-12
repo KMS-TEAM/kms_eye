@@ -1,5 +1,6 @@
 #include "QOpenGLRender/QMeshRenderer.h"
 #include "QOpenGLRender/QObjLoader.h"
+#include "AppConstant.h"
 
 #include <QOpenGLContext>
 #include <QOpenGLFunctions>
@@ -44,17 +45,17 @@ void QMeshRenderer::initialize(CoordinateMirroring cm)
 
     QObjLoader loader;
 
-    if (!loader.load(":/assets/trefoil.obj"))
-        qFatal("Could not load mesh");
+    if (!loader.load("/home/lacie/Github/kms_eye/share/shader/trefoil.obj"))
+        CONSOLE << "Could not load mesh";
 
     if (!m_vao->create())
-        qFatal("Unable to create VAO");
+        CONSOLE << "Unable to create VAO";
 
     m_vao->bind();
 
     const QVector<QVector3D> vertices = loader.vertices();
     if (!m_positionsBuffer->create())
-        qFatal("Unable to create position buffer");
+        CONSOLE << "Unable to create position buffer";
     m_positionsBuffer->bind();
     m_positionsBuffer->setUsagePattern(QOpenGLBuffer::StaticDraw);
     m_positionsBuffer->allocate(vertices.constData(), vertices.size() * sizeof(QVector3D));
@@ -68,7 +69,7 @@ void QMeshRenderer::initialize(CoordinateMirroring cm)
     const QVector<unsigned int> indices = loader.indices();
     m_indicesCount = indices.size();
     if (!m_indicesBuffer->create())
-        qFatal("Unable to create index buffer");
+        CONSOLE << "Unable to create index buffer";
 
     m_indicesBuffer->bind();
     m_indicesBuffer->setUsagePattern(QOpenGLBuffer::StaticDraw);
@@ -76,13 +77,13 @@ void QMeshRenderer::initialize(CoordinateMirroring cm)
 
     m_shaderProgram.reset(new QOpenGLShaderProgram);
     if (!m_shaderProgram->create())
-        qFatal("Unable to create shader program");
-    if (!m_shaderProgram->addShaderFromSourceFile(QOpenGLShader::Vertex, ":/assets/phong.vert"))
-        qFatal("Vertex shader compilation failed");
-    if (!m_shaderProgram->addShaderFromSourceFile(QOpenGLShader::Fragment, ":/assets/phong.frag"))
-        qFatal("Fragment shader compilation failed");
+        CONSOLE << "Unable to create shader program";
+    if (!m_shaderProgram->addShaderFromSourceFile(QOpenGLShader::Vertex, "/home/lacie/Github/kms_eye/share/shader/phong.vert"))
+        CONSOLE << "Vertex shader compilation failed";
+    if (!m_shaderProgram->addShaderFromSourceFile(QOpenGLShader::Fragment, "/home/lacie/Github/kms_eye/share/shader/phong.frag"))
+        CONSOLE << "Fragment shader compilation failed";
     if (!m_shaderProgram->link())
-        qFatal("Shader program not linked");
+        CONSOLE << "Shader program not linked";
 
     m_shaderProgram->bind();
 

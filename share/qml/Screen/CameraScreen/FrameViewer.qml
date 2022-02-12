@@ -105,6 +105,20 @@ Item{
         }
     }
 
+    Button{
+        id: renderButton
+        x: startButton.x
+        y: startButton.y + startButton.height + 10
+
+        text: "Render"
+
+        onClicked:
+        {
+            QmlHandler.qmlMessage("Render Viewer Run")
+            QmlHandler.qmlSendEvent(Enums.EVT_CLICK_OPENGL_RENDER)
+        }
+    }
+
     Connections{
         target: liveLeftImageProvider
         function onImageChanged()

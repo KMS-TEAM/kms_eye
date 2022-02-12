@@ -26,6 +26,7 @@ public:
         EVT_CLICK_PREVIOUS_IMAGE,
         EVT_CLICK_PCL_VIEW,
         EVT_CLICK_CAMERA_RUN,
+        EVT_CLICK_OPENGL_RENDER,
         EVT_CLICK_RESET,
 
         EVT_MAX, // do not add enum under this

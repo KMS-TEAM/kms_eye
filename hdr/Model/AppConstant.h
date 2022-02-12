@@ -41,7 +41,8 @@ class AppConstant : public QObject
     DEF_CONST(QUrl     , QML_PCL_VIEWER_URL         , QUrl(QStringLiteral("qrc:/qml/qml/Screen/PCLScreen/PCLScreen.qml")))
     DEF_CONST(QUrl     , QML_IMAGE_VIEWER_URL       , QUrl(QStringLiteral("qrc:/qml/qml/Screen/ImageScreen/ImageScreen.qml")))
     DEF_CONST(QUrl     , QML_CAMERA_VIEWER_URL      , QUrl(QStringLiteral("qrc:/qml/qml/Screen/CameraScreen/CameraScreen.qml")))
-    DEF_CONST(QUrl     , QML_PCL_LOADER              , QUrl(QStringLiteral("qrc:/qml/qml/Screen/PCLScreen/PCLViewer.qml")))
+    DEF_CONST(QUrl     , QML_PCL_LOADER             , QUrl(QStringLiteral("qrc:/qml/qml/Screen/PCLScreen/PCLViewer.qml")))
+    DEF_CONST(QUrl     , QML_OPENGL_RENDER_URL      , QUrl(QStringLiteral("qrc:/qml/qml/Screen/OpenGLScreen/OpenGLViewer.qml")))
 
     /************************* DEFINE SOMETHINGS *****************************/
     DEF_CONST(int      , DEFAULT_WIDTH               , 1280)
@@ -93,6 +94,12 @@ private:
     DEF_CONST(QString, CONTROL_IMG  , "control.svg" )
     DEF_CONST(QString, MAP_IMG      , "map.svg"     )
     DEF_CONST(QString, USER_IMG     , "user.svg"    )
+
+    /********************************************** Point Cloud Resource ********************************/
+
+    DEF_CONST(QString, PHONG_VERTEX     , "qrc:/shader/shader/phong.vert" )
+    DEF_CONST(QString, PHONG_FRAGMENT   , "qrc:/shader/shader/phong.frag" )
+    DEF_CONST(QString, OPENGL_EXAMPLE   , "qrc:/shader/shader/trefoil.obj")
 
     /********************************************** Camera **********************************************/
 
