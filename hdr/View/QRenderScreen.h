@@ -2,8 +2,11 @@
 #define QRENDERSCREEN_H
 
 #include <QWindow>
+#include <QQmlApplicationEngine>
+
 #include "QOpenGLRender/QMeshRenderer.h"
 #include "QOpenGLRender/QCameraControl.h"
+#include "AppEngine.h"
 
 class QMeshRenderer;
 class QCameraControl;
@@ -16,7 +19,7 @@ class QQuickItem;
 class QRenderScreen : public QWindow
 {
 public:
-    QRenderScreen(QWindow *parent = nullptr);
+    QRenderScreen(AppEngine *engine = nullptr, QWindow *parent = nullptr);
     ~QRenderScreen();
 
 protected:

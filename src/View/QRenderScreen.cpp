@@ -1,5 +1,6 @@
 #include "QRenderScreen.h"
 #include "AppConstant.h"
+#include "AppEngine.h"
 
 #include <QSurfaceFormat>
 #include <QOpenGLContext>
@@ -15,7 +16,7 @@
 
 #include <QTimer>
 
-QRenderScreen::QRenderScreen(QWindow *parent)
+QRenderScreen::QRenderScreen(AppEngine *engine, QWindow *parent)
     : QWindow(parent)
     , m_context(nullptr)
     , m_renderer(nullptr)
@@ -77,20 +78,18 @@ QRenderScreen::QRenderScreen(QWindow *parent)
     m_renderControl->initialize(m_context);
 
     // load a QML scene "manually"
-    QQmlEngine *engine = new QQmlEngine(this);
+    // QQmlEngine *engine = new QQmlEngine(this);
 
     if (!engine->incubationController())
         engine->setIncubationController(m_quickWindow->incubationController());
 
-    engine->rootContext()->setContextProperty("_camera", m_camera);
+    engine->m_rootContext->setContextProperty("_camera", m_camera);
     m_qmlComponent = new QQmlComponent(engine, this);
 
     connect(m_qmlComponent, &QQmlComponent::statusChanged,
             this, &QRenderScreen::onQmlComponentLoadingComplete);
 
     m_qmlComponent->loadUrl(DEFS->QML_OPENGL_RENDER_URL());
-
-
 
     // also, just for the sake of it, trigger a redraw every 500 ms no matter what
     QTimer *redrawTimer = new QTimer(this);

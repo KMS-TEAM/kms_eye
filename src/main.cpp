@@ -20,13 +20,13 @@ int main(int argc, char *argv[])
     app.setOrganizationName("kms_team");
     app.setOrganizationDomain("kms_team");
 
-//    AppEngine appEngine;
-//    appEngine.initEngine();
-//    appEngine.startEngine();
+    AppEngine appEngine;
+    appEngine.initEngine();
+    appEngine.startEngine();
 
-    QRenderScreen m_renderScreen;
-    m_renderScreen.resize(600, 600);
-    m_renderScreen.show();
+//    QRenderScreen m_renderScreen;
+//    m_renderScreen.resize(600, 600);
+//    m_renderScreen.show();
 
     return app.exec();
 }

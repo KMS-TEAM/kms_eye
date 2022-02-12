@@ -8,13 +8,14 @@
 #include <QVector>
 #include <QTimer>
 #include <QImage>
+#include <QQmlApplicationEngine>
+
 
 #include "Common.h"
 #include "QConfig.h"
 #include "AppEnums.h"
 #include "QImageProcessing.h"
 #include "QCameraCapture/QCameraCapture.h"
-#include "QRenderScreen.h"
 
 #define MODEL AppModel::instance()
 
@@ -51,7 +52,6 @@ public:
     void imageProcessing(AppEnums::ALGORITHM algo);
 
     void cameraRun(QString path1, QString path2);
-    void renderScreenRun();
 
 public slots:
     void setCurrentImagePath(QStringList currentImagePath);

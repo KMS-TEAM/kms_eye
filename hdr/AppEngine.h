@@ -10,6 +10,8 @@
 class AppEngine : public QQmlApplicationEngine
 {
     Q_OBJECT
+
+public:
     QQmlContext* m_rootContext;
 
 public:
@@ -18,6 +20,8 @@ public:
 
     void initEngine();
     void startEngine();
+
+    void renderScreenRun(AppEngine *engine);
 public slots:
     void slotReceiveEvent(int event);
 signals:
