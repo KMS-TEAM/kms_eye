@@ -14,12 +14,16 @@
         <file>qml/Screen/PCLScreen/PCLScreen.qml</file>
         <file>qml/Screen/CameraScreen/CameraScreen.qml</file>
         <file>qml/Screen/CameraScreen/FrameViewer.qml</file>
+        <file>qml/Component/QCameraControls.qml</file>
     </qresource>
     <qresource prefix="/shader">
         <file>shader/pointcloud.frag</file>
         <file>shader/pointcloud.vert</file>
         <file>shader/surfel.frag</file>
         <file>shader/surfel.vert</file>
+        <file>shader/phong.frag</file>
+        <file>shader/phong.vert</file>
+        <file>shader/trefoil.obj</file>
     </qresource>
     <qresource prefix="/images">
         <file>images/logo.png</file>
