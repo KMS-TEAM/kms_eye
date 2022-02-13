@@ -16,11 +16,11 @@ class QQuickRenderControl;
 class QQmlComponent;
 class QQuickItem;
 
-class QRenderScreen : public QWindow
+class QMeshRenderScreen : public QWindow
 {
 public:
-    QRenderScreen(AppEngine *engine = nullptr, QWindow *parent = nullptr);
-    ~QRenderScreen();
+    QMeshRenderScreen(AppEngine *engine = nullptr, QWindow *parent = nullptr);
+    ~QMeshRenderScreen();
 
 protected:
     void resizeEvent(QResizeEvent *e) Q_DECL_OVERRIDE;

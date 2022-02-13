@@ -11,7 +11,7 @@
 #include "Q3DPointCloudRender/QPointCloudReader.h"
 #include "QImageItem/QImageItem.h"
 #include "QImageItem/QOpenCVImageProvider.h"
-#include "QRenderScreen.h"
+#include "QMeshRenderScreen.h"
 
 #include <QVariant>
 
@@ -77,11 +77,11 @@ void AppEngine::startEngine(){
     this->load(SCR_DEF->QML_APP());
 }
 
-void AppEngine::renderScreenRun(AppEngine *engine)
+void AppEngine::meshRenderScreenRun(AppEngine *engine)
 {
-    QRenderScreen *m_renderScreen = new QRenderScreen(engine);
-    m_renderScreen->resize(600, 600);
-    m_renderScreen->show();
+    QMeshRenderScreen *m_meshRenderScreen = new QMeshRenderScreen(engine);
+    m_meshRenderScreen->resize(600, 600);
+    m_meshRenderScreen->show();
 }
 
 void AppEngine::slotReceiveEvent(int event)
@@ -139,7 +139,7 @@ void AppEngine::slotReceiveEvent(int event)
         MODEL->cameraRun(DEFS->VIDEO_EXAMPLE_1(), DEFS->VIDEO_EXAMPLE_2());
         break;
     case static_cast<int>(AppEnums::EVT_CLICK_OPENGL_RENDER):
-        this->renderScreenRun(this);
+        this->meshRenderScreenRun(this);
         break;
     default:
         break;

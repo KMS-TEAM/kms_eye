@@ -21,7 +21,7 @@ public:
     void initEngine();
     void startEngine();
 
-    void renderScreenRun(AppEngine *engine);
+    void meshRenderScreenRun(AppEngine *engine);
 public slots:
     void slotReceiveEvent(int event);
 signals:

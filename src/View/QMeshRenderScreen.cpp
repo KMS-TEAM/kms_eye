@@ -1,4 +1,4 @@
-#include "QRenderScreen.h"
+#include "QMeshRenderScreen.h"
 #include "AppConstant.h"
 #include "AppEngine.h"
 
@@ -16,7 +16,7 @@
 
 #include <QTimer>
 
-QRenderScreen::QRenderScreen(AppEngine *engine, QWindow *parent)
+QMeshRenderScreen::QMeshRenderScreen(AppEngine *engine, QWindow *parent)
     : QWindow(parent)
     , m_context(nullptr)
     , m_renderer(nullptr)
@@ -67,13 +67,13 @@ QRenderScreen::QRenderScreen(AppEngine *engine, QWindow *parent)
     sceneSyncTimer->setInterval(5);
     sceneSyncTimer->setSingleShot(true);
     connect(sceneSyncTimer, &QTimer::timeout,
-            this, &QRenderScreen::syncScene);
+            this, &QMeshRenderScreen::syncScene);
 
     connect(m_renderControl, &QQuickRenderControl::sceneChanged,
             sceneSyncTimer, static_cast<void (QTimer::*)()>(&QTimer::start));
 
     connect(m_renderControl, &QQuickRenderControl::renderRequested,
-            this, &QRenderScreen::draw);
+            this, &QMeshRenderScreen::draw);
 
     m_renderControl->initialize(m_context);
 
@@ -87,17 +87,17 @@ QRenderScreen::QRenderScreen(AppEngine *engine, QWindow *parent)
     m_qmlComponent = new QQmlComponent(engine, this);
 
     connect(m_qmlComponent, &QQmlComponent::statusChanged,
-            this, &QRenderScreen::onQmlComponentLoadingComplete);
+            this, &QMeshRenderScreen::onQmlComponentLoadingComplete);
 
     m_qmlComponent->loadUrl(DEFS->QML_OPENGL_RENDER_URL());
 
     // also, just for the sake of it, trigger a redraw every 500 ms no matter what
     QTimer *redrawTimer = new QTimer(this);
-    connect(redrawTimer, &QTimer::timeout, this, &QRenderScreen::draw);
+    connect(redrawTimer, &QTimer::timeout, this, &QMeshRenderScreen::draw);
     redrawTimer->start(500);
 }
 
-QRenderScreen::~QRenderScreen()
+QMeshRenderScreen::~QMeshRenderScreen()
 {
     m_context->makeCurrent(this);
 
@@ -113,14 +113,14 @@ QRenderScreen::~QRenderScreen()
     delete m_context;
 }
 
-void QRenderScreen::resizeEvent(QResizeEvent *e)
+void QMeshRenderScreen::resizeEvent(QResizeEvent *e)
 {
     // Simulate the "resize root item to follow window"
     updateRootItemSize();
     QWindow::resizeEvent(e);
 }
 
-void QRenderScreen::syncScene()
+void QMeshRenderScreen::syncScene()
 {
     m_renderControl->polishItems();
 
@@ -132,7 +132,7 @@ void QRenderScreen::syncScene()
     draw();
 }
 
-void QRenderScreen::draw()
+void QMeshRenderScreen::draw()
 {
     if (!isExposed())
         return;
@@ -147,7 +147,7 @@ void QRenderScreen::draw()
     m_context->swapBuffers(this);
 }
 
-void QRenderScreen::onQmlComponentLoadingComplete()
+void QMeshRenderScreen::onQmlComponentLoadingComplete()
 {
     if (m_qmlComponent->isLoading())
         return;
@@ -167,7 +167,7 @@ void QRenderScreen::onQmlComponentLoadingComplete()
     m_rootItem->setParentItem(m_quickWindow->contentItem());
 }
 
-void QRenderScreen::updateRootItemSize()
+void QMeshRenderScreen::updateRootItemSize()
 {
     if (m_rootItem) {
         m_rootItem->setWidth(width());
@@ -178,21 +178,21 @@ void QRenderScreen::updateRootItemSize()
     m_quickWindow->setWidth(width());
 }
 
-void QRenderScreen::mousePressEvent(QMouseEvent *e)
+void QMeshRenderScreen::mousePressEvent(QMouseEvent *e)
 {
     qApp->sendEvent(m_quickWindow, e);
     if (!e->isAccepted())
         QWindow::mousePressEvent(e);
 }
 
-void QRenderScreen::mouseMoveEvent(QMouseEvent *e)
+void QMeshRenderScreen::mouseMoveEvent(QMouseEvent *e)
 {
     qApp->sendEvent(m_quickWindow, e);
     if (!e->isAccepted())
         QWindow::mousePressEvent(e);
 }
 
-void QRenderScreen::mouseReleaseEvent(QMouseEvent *e)
+void QMeshRenderScreen::mouseReleaseEvent(QMouseEvent *e)
 {
     qApp->sendEvent(m_quickWindow, e);
     if (!e->isAccepted())
