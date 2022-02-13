@@ -97,9 +97,9 @@ private:
 
     /********************************************** Point Cloud Resource ********************************/
 
-    DEF_CONST(QString, PHONG_VERTEX     , "qrc:/shader/shader/phong.vert" )
-    DEF_CONST(QString, PHONG_FRAGMENT   , "qrc:/shader/shader/phong.frag" )
-    DEF_CONST(QString, OPENGL_EXAMPLE   , "qrc:/shader/shader/trefoil.obj")
+    DEF_CONST(QString, PHONG_VERTEX     , "/home/lacie/Github/kms_eye/share/shader/phong.vert" )
+    DEF_CONST(QString, PHONG_FRAGMENT   , "/home/lacie/Github/kms_eye/share/shader/phong.frag" )
+    DEF_CONST(QString, OPENGL_EXAMPLE   , "/home/lacie/Github/kms_eye/share/shader/trefoil.obj")
 
     /********************************************** Camera **********************************************/
 

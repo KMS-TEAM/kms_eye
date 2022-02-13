@@ -45,7 +45,7 @@ void QMeshRenderer::initialize(CoordinateMirroring cm)
 
     QObjLoader loader;
 
-    if (!loader.load("/home/lacie/Github/kms_eye/share/shader/trefoil.obj"))
+    if (!loader.load(DEFS->OPENGL_EXAMPLE()))
         CONSOLE << "Could not load mesh";
 
     if (!m_vao->create())
@@ -78,9 +78,9 @@ void QMeshRenderer::initialize(CoordinateMirroring cm)
     m_shaderProgram.reset(new QOpenGLShaderProgram);
     if (!m_shaderProgram->create())
         CONSOLE << "Unable to create shader program";
-    if (!m_shaderProgram->addShaderFromSourceFile(QOpenGLShader::Vertex, "/home/lacie/Github/kms_eye/share/shader/phong.vert"))
+    if (!m_shaderProgram->addShaderFromSourceFile(QOpenGLShader::Vertex, DEFS->PHONG_VERTEX()))
         CONSOLE << "Vertex shader compilation failed";
-    if (!m_shaderProgram->addShaderFromSourceFile(QOpenGLShader::Fragment, "/home/lacie/Github/kms_eye/share/shader/phong.frag"))
+    if (!m_shaderProgram->addShaderFromSourceFile(QOpenGLShader::Fragment, DEFS->PHONG_FRAGMENT()))
         CONSOLE << "Fragment shader compilation failed";
     if (!m_shaderProgram->link())
         CONSOLE << "Shader program not linked";
