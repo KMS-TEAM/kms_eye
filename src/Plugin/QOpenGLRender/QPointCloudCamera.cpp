@@ -1,4 +1,4 @@
-#include "QPointCloudRender/QPointCloudCamera.h"
+#include "QOpenGLRender/QPointCloudCamera.h"
 
 
 const float CAMERA_STEP = 0.01;

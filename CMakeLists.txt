@@ -88,7 +88,6 @@ file(GLOB HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/hdr/Model/*.h
                       ${CMAKE_CURRENT_SOURCE_DIR}/hdr/Plugin/QImageItem/*.h
                       ${CMAKE_CURRENT_SOURCE_DIR}/hdr/Plugin/QCameraCapture/*.h
                       ${CMAKE_CURRENT_SOURCE_DIR}/hdr/Plugin/QOpenGLRender/*.h
-                      ${CMAKE_CURRENT_SOURCE_DIR}/hdr/Plugin/QPointCloudRender/*.h
                       ${CMAKE_CURRENT_SOURCE_DIR}/hdr/Common/*.h
                       ${CMAKE_CURRENT_SOURCE_DIR}/hdr/*.h)
 
@@ -100,7 +99,6 @@ file(GLOB SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/Model/*.cpp
                       ${CMAKE_CURRENT_SOURCE_DIR}/src/Plugin/QImageItem/*.cpp
                       ${CMAKE_CURRENT_SOURCE_DIR}/src/Plugin/QCameraCapture/*.cpp
                       ${CMAKE_CURRENT_SOURCE_DIR}/src/Plugin/QOpenGLRender/*.cpp
-                      ${CMAKE_CURRENT_SOURCE_DIR}/src/Plugin/QPointCloudRender/*.cpp
                       ${CMAKE_CURRENT_SOURCE_DIR}/src/View/*.cpp
                       ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
 
