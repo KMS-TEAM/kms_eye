@@ -13,15 +13,19 @@ struct QCameraState {
           rearClippingDistance(farClippingDistance_)
     {}
 
-    const QVector3D position;
-    const QVector3D rotation;
-    const double frontClippingDistance;
-    const double rearClippingDistance;
+    QVector3D position;
+    QVector3D rotation;
+    double frontClippingDistance;
+    double rearClippingDistance;
 };
 
 class QPointCloudCamera : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(int xRotation READ xRotation WRITE setXRotation NOTIFY xRotationChanged)
+    Q_PROPERTY(int yRotation READ yRotation WRITE setYRotation NOTIFY yRotationChanged)
+    Q_PROPERTY(int zRotation READ zRotation WRITE setZRotation NOTIFY zRotationChanged)
+    Q_PROPERTY(QCameraState state READ state WRITE setState NOTIFY stateChanged)
 public:
     explicit QPointCloudCamera(QObject *parent = nullptr);
 
@@ -37,6 +41,10 @@ public:
 
     void rotate(int dx, int dy, int dz);
 
+    int xRotation() const;
+    int yRotation() const;
+    int zRotation() const;
+
     void setFrontCPDistance(double distance);
     void setRearCPDistance(double distance);
 
@@ -44,13 +52,14 @@ public:
 
 
 signals:
-    void changed(const QCameraState& newState);
+    void stateChanged(const QCameraState& newState);
     void xRotationChanged(int angle);
     void yRotationChanged(int angle);
     void zRotationChanged(int angle);
 
 
 public slots:
+    void setState(QCameraState state);
     void setXRotation(int angle);
     void setYRotation(int angle);
     void setZRotation(int angle);
@@ -64,7 +73,7 @@ private:
     int m_yRotation;
     int m_zRotation;
 
-    void _notify() {emit changed(state());}
+    void _notify() {emit stateChanged(state());}
 
 signals:
 

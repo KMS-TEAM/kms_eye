@@ -59,6 +59,11 @@ find_package(Qt53DQuickInput REQUIRED)
 find_package(OpenCV 4.2 REQUIRED)
 include_directories(${OpenCV_INCLUDE_DIRS})
 
+# OpenGL
+find_package(OpenGL REQUIRED)
+find_package(GLUT REQUIRED)
+include_directories( ${OPENGL_INCLUDE_DIRS}  ${GLUT_INCLUDE_DIRS} )
+
 ## Ceres Solver
 #find_package(Ceres REQUIRED)
 #include_directories(${CERES_INCLUDE_DIRS})
@@ -147,6 +152,8 @@ target_link_libraries(kms_eye
           ${CSPARSE_LIBRARY}
           stdc++
           -lpcl_filters
+          ${OPENGL_LIBRARIES}
+          ${GLUT_LIBRARY}
           ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/visual_odom/lib/libvisual_odom.so)
 
 #qt5_use_modules(kms_eye Core Qml Widgets Quick 3DCore 3DQuick 3DRender 3DQuickRender 3DInput 3DLogic 3DQuickInput)

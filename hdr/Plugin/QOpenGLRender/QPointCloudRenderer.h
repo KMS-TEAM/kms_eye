@@ -22,12 +22,14 @@ public:
 
     enum ColorAxisMode {COLOR_BY_ROW, COLOR_BY_Z};
 
-    QPointCloudRenderer(const QString& plyFilePath, QObject* parent = nullptr);
+    QPointCloudRenderer(QObject* parent = nullptr);
     ~QPointCloudRenderer();
 
-    void initialize();
+    void initialize(const QString& plyPath);
     void render();
     void invalidate();
+
+    void setCameraState(QCameraState state);
 
 public slots:
     void setPointSize(size_t size);
@@ -56,8 +58,7 @@ private:
     QVector3D m_pointsBoundMax;
     QVector3D m_ray;
 
-    QSharedPointer<QPointCloudCamera> m_currentCamera;
-
+    QCameraState *m_state;
 };
 
 #endif // QPOINTCLOUDSCENE_H

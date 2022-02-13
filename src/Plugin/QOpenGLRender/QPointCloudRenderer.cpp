@@ -1,4 +1,5 @@
 #include "QOpenGLRender/QPointCloudRenderer.h"
+#include "AppConstant.h"
 
 #include <QMouseEvent>
 #include <QOpenGLShaderProgram>
@@ -15,12 +16,11 @@
 
 const size_t POINT_STRIDE = 4; // x, y, z, index
 
-QPointCloudRenderer::QPointCloudRenderer(const QString& plyFilePath, QObject* parent)
+QPointCloudRenderer::QPointCloudRenderer(QObject* parent)
     : QObject(parent)
     , m_pointSize(1)
     , m_colorMode(COLOR_BY_Z)
 {
-    _loadPLY(plyFilePath);
     //    setMouseTracking(true);
 
     // make trivial axes cross
@@ -114,8 +114,9 @@ QPointCloudRenderer::~QPointCloudRenderer()
     invalidate();
 }
 
-void QPointCloudRenderer::initialize()
+void QPointCloudRenderer::initialize(const QString& plyFilePath)
 {
+    _loadPLY(plyFilePath);
     // connect(context(), &QOpenGLContext::aboutToBeDestroyed, this, &QPointCloudRenderer::invalidate);
     initializeOpenGLFunctions();
     glClearColor(0, 0, 0, 1.0);
@@ -125,8 +126,8 @@ void QPointCloudRenderer::initialize()
 
     // create shaders and map attributes
     m_shaders.reset(new QOpenGLShaderProgram());
-    auto vsLoaded = m_shaders->addShaderFromSourceFile(QOpenGLShader::Vertex, ":/vertex_shader.glsl");
-    auto fsLoaded = m_shaders->addShaderFromSourceFile(QOpenGLShader::Fragment, ":/fragment_shader.glsl");
+    auto vsLoaded = m_shaders->addShaderFromSourceFile(QOpenGLShader::Vertex, DEFS->POINT_CLOUD_VERTEX());
+    auto fsLoaded = m_shaders->addShaderFromSourceFile(QOpenGLShader::Fragment, DEFS->POINT_CLOUD_FRAGMENT());
     assert(vsLoaded && fsLoaded);
     // vector attributes
     m_shaders->bindAttributeLocation("vertex", 0);
@@ -163,7 +164,7 @@ void QPointCloudRenderer::render()
     //
     // set camera
     //
-    const QCameraState camera = m_currentCamera->state();
+    const QCameraState camera = (new QPointCloudCamera())->state();
     // position and angles
     m_cameraMatrix.setToIdentity();
     m_cameraMatrix.translate(camera.position.x(), camera.position.y(), camera.position.z());
@@ -202,6 +203,14 @@ void QPointCloudRenderer::invalidate()
     m_vertexBuffer.destroy();
     m_shaders.reset();
     m_vao.destroy();
+}
+
+void QPointCloudRenderer::setCameraState(QCameraState state)
+{
+    m_state->position = state.position;
+    m_state->rotation = state.rotation;
+    m_state->frontClippingDistance = state.frontClippingDistance;
+    m_state->rearClippingDistance = state.rearClippingDistance;
 }
 
 void QPointCloudRenderer::setPointSize(size_t size)

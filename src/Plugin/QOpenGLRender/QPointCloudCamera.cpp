@@ -115,6 +115,21 @@ void QPointCloudCamera::rotate(int dx, int dy, int dz) {
     setZRotation(m_zRotation + dz);
 }
 
+int QPointCloudCamera::xRotation() const
+{
+    return m_xRotation;
+}
+
+int QPointCloudCamera::yRotation() const
+{
+    return m_yRotation;
+}
+
+int QPointCloudCamera::zRotation() const
+{
+    return m_zRotation;
+}
+
 
 QCameraState QPointCloudCamera::state() const {
     return QCameraState(
@@ -123,5 +138,17 @@ QCameraState QPointCloudCamera::state() const {
                 m_frontClippingPlaneDistance,
                 m_rearClippingDistance
                 );
+}
+
+void QPointCloudCamera::setState(QCameraState state)
+{
+    m_position = state.position;
+    m_xRotation = state.rotation.x();
+    m_yRotation = state.rotation.y();
+    m_zRotation = state.rotation.z();
+    m_frontClippingPlaneDistance = state.frontClippingDistance;
+    m_rearClippingDistance = state.rearClippingDistance;
+
+    _notify();
 }
 

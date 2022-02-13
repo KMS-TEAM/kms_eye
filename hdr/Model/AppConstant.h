@@ -97,9 +97,12 @@ private:
 
     /********************************************** Point Cloud Resource ********************************/
 
-    DEF_CONST(QString, PHONG_VERTEX     , "/home/lacie/Github/kms_eye/share/shader/phong.vert" )
-    DEF_CONST(QString, PHONG_FRAGMENT   , "/home/lacie/Github/kms_eye/share/shader/phong.frag" )
-    DEF_CONST(QString, OPENGL_EXAMPLE   , "/home/lacie/Github/kms_eye/share/shader/trefoil.obj")
+    DEF_CONST(QString, PHONG_VERTEX          , "/home/lacie/Github/kms_eye/share/shader/phong.vert" )
+    DEF_CONST(QString, PHONG_FRAGMENT        , "/home/lacie/Github/kms_eye/share/shader/phong.frag" )
+    DEF_CONST(QString, OPENGL_EXAMPLE        , "/home/lacie/Github/kms_eye/share/shader/trefoil.obj")
+    DEF_CONST(QString, POINT_CLOUD_EXAMPLE   , "/home/lacie/Github/kms_eye/data/bunny.ply")
+    DEF_CONST(QString, POINT_CLOUD_VERTEX    , "/home/lacie/Github/kms_eye/share/shader/pointcloud.vert")
+    DEF_CONST(QString, POINT_CLOUD_FRAGMENT  , "/home/lacie/Github/kms_eye/share/shader/pointcloud.frag")
 
     /********************************************** Camera **********************************************/
 
