@@ -114,6 +114,7 @@ QPointCloudRenderer::~QPointCloudRenderer()
     invalidate();
 }
 
+// TODO: Change QPointCloudCamer to QCameraControl
 void QPointCloudRenderer::initialize(const QString& plyFilePath)
 {
     _loadPLY(plyFilePath);
@@ -154,6 +155,7 @@ void QPointCloudRenderer::initialize(const QString& plyFilePath)
 
 }
 
+// TODO: Change QPointCloudCamer to QCameraControl
 void QPointCloudRenderer::render()
 {
     // ensure GL flags
